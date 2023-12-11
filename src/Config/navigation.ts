@@ -2,10 +2,8 @@ import {
   NativeStackNavigationOptions,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-
-import {RootStackParamList} from '../@Types/navigation';
-
-export const MainStack = createNativeStackNavigator<RootStackParamList>();
+import {BottomStackParamList, HomeStackParamList} from '../@Types/navigation';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 export const screenWithTopbarOptions: NativeStackNavigationOptions = {};
 
@@ -19,3 +17,8 @@ export const groupModalContainedModalScreenOptions: NativeStackNavigationOptions
 export const groupModalFormSheetScreenOptions: NativeStackNavigationOptions = {
   presentation: 'formSheet',
 };
+
+export const HomeStackNavigatior =
+  createNativeStackNavigator<HomeStackParamList>();
+
+export const BottomTab = createBottomTabNavigator<BottomStackParamList>();

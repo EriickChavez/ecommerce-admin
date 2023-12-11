@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import {HomeScreenNavigationProps} from '../../../@Types/navigation';
 
-interface HomeScreenProps {}
-
-const HomeScreen: React.FC<HomeScreenProps> = ({}) => {
+const HomeScreen: React.FC<HomeScreenNavigationProps> = ({}) => {
   return (
     <View>
       <Text>Hola mundo</Text>

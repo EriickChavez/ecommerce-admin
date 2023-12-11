@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Navigation from './Navigation/MainStack';
 import {Appearance, useColorScheme} from 'react-native';
 import themes from './Themes/themes';
 import {Theme} from '@react-navigation/native';
+import BottomNavigation from './Navigation/BottomNavigation';
 
 const AppContainer: React.FC = () => {
   const systemColorScheme = useColorScheme();
@@ -18,7 +18,7 @@ const AppContainer: React.FC = () => {
 
     return () => subscription.remove();
   }, []);
-  return <Navigation theme={appTheme} />;
+  return <BottomNavigation theme={appTheme} />;
 };
 
 export default AppContainer;
