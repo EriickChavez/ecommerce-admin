@@ -6,9 +6,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {BottomTab} from '../Config/navigation';
 import {Category} from 'iconsax-react-native';
 
-const BottomNavigation: React.FC<navigationProps> = ({}) => {
+const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <BottomTab.Navigator screenOptions={{headerShown: false}}>
         <BottomTab.Screen
           name={SCREEN_NAME.INVENTORY_STACK}

@@ -1,4 +1,4 @@
-import {ThemeTitle} from '../Enum/theme';
+import {ThemeTitle} from '../Enum/Theme';
 
 // Definir el tipo para una entrada de tema individual
 export interface ThemeEntry {
@@ -8,11 +8,12 @@ export interface ThemeEntry {
     background: string;
     card: string;
     text: string;
+    text_negative: string;
+    text_secondary: string;
     border: string;
     notification: string;
     placeholder: string;
     icon: string;
-    text_secondary: string;
     danger: string;
     success: string;
   };
