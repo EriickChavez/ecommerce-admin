@@ -2,6 +2,7 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {UserView} from '../../../Domain/Entity/User/User';
 import {defaultUser} from '../../../Constants/defaultValues';
 import {fetchSignup} from '../Actions/UserAction';
+import {RootState} from '../Store';
 
 interface UserSliceState {
   user: UserView;
@@ -35,8 +36,9 @@ const userSlice = createSlice({
             data: UserView;
           }>,
         ) => {
+          const {data} = action.payload;
           state.loading = false;
-          state.user = action.payload.data;
+          state.user = data;
         },
       )
       .addCase(fetchSignup.rejected, (state, action) => {
@@ -46,9 +48,9 @@ const userSlice = createSlice({
   },
 });
 
-export const {resetState} = userSlice.actions;
-
 export default {
   reducer: userSlice.reducer,
   actions: userSlice.actions,
 };
+
+export const userSelector = (state: RootState) => state.user;
