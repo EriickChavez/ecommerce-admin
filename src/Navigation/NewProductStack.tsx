@@ -7,6 +7,8 @@ import {SCREEN_NAME} from '../Enum/Screens';
 import {NewProductStackNavigationProps} from '../@Types/navigation';
 import AddProductScreen from '../Presentation/Screen/NewProduct/AddProductScreen';
 import AddProductPt2Screen from '../Presentation/Screen/NewProduct/AddProductPt2Screen';
+import ConfirmDetails from '../Presentation/Screen/ConfirmDetails/ConfirmDetails';
+import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
 
 const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
   return (
@@ -21,6 +23,16 @@ const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
         options={screenWithTopbarOptions}
         name={SCREEN_NAME.ADD_PRODUCT_SCREEN_PT2}
         component={AddProductPt2Screen}
+      />
+      <AddProductStackNavigatior.Screen
+        options={screenWithTopbarOptions}
+        name={SCREEN_NAME.CONFIRM_DETAILS_SCREEN}
+        component={ConfirmDetails}
+      />
+      <AddProductStackNavigatior.Screen
+        options={screenWithTopbarOptions}
+        name={SCREEN_NAME.CONFIRMATION_SCREEN}
+        component={Confirmation}
       />
     </AddProductStackNavigatior.Navigator>
   );

@@ -7,7 +7,6 @@ const cardHeight = cardWidth * 0.8;
 
 export default StyleSheet.create({
   container: {
-    borderWidth: 1,
     width: cardWidth,
   },
   imageContainer: {

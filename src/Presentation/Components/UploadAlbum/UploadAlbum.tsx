@@ -27,9 +27,9 @@ const Album: React.FC<AlbumProps> = ({}) => {
           </View>
         </View>
         <View style={styles.album}>
-          {[1, 2, 3, 4, 5, 6].map(() => {
+          {[1, 2, 3, 4, 5, 6].map((_, index) => {
             return (
-              <View style={styles.imageContent}>
+              <View style={styles.imageContent} key={`album-photo-${index}`}>
                 <UploadImage
                   iconSize={25}
                   fontSize={8}

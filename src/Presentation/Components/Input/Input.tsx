@@ -1,16 +1,10 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, Pressable, Modal, TouchableOpacity} from 'react-native';
 import TextInput from '../TextInput/TextInput';
 import {ArrowDown2} from 'iconsax-react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
+import styles from './styles';
 
 interface InputProps {
   placeholder?: string;
@@ -31,15 +25,17 @@ const Input: React.FC<InputProps> = ({
     [type],
   );
   const isPicker = useMemo(() => type === INPUT_TYPE.PICKER, [type]);
+  const isDropDown = useMemo(() => type === INPUT_TYPE.DROPDOWN, [type]);
 
   const openModal = useCallback(() => {
     setModalVisible(true);
   }, []);
   const onPress = useCallback(() => {
-    if (isPicker) {
+    if (isPicker || isDropDown) {
       openModal();
     }
-  }, [isPicker, openModal]);
+  }, [isPicker, openModal, isDropDown]);
+
   const keyboardType = useMemo(() => {
     if (type === INPUT_TYPE.NUMBER) {
       return 'numeric';
@@ -78,10 +74,35 @@ const Input: React.FC<InputProps> = ({
     );
   }, [onPress, placeholder, value]);
 
+  const DropDownInput = useCallback(() => {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.dropdownPicker}>
+            <Text>MN</Text>
+            <ArrowDown2 size={RFValue(12)} variant="Bold" color="white" />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.dropPickerInput}>
+          <TextInput
+            borderRadius={styles.dropPickerInputContent}
+            TextInputProps={{
+              editable: false,
+              placeholder,
+              value,
+            }}
+          />
+        </View>
+      </View>
+    );
+  }, [onPress, placeholder, value]);
+
   return (
     <View>
       {title && <Text>{title}</Text>}
-      {isEditable ? <TxInput /> : <PickerInput />}
+      {isEditable && <TxInput />}
+      {isPicker && <PickerInput />}
+      {isDropDown && <DropDownInput />}
 
       {modalVisible && (
         <View style={styles.centeredView}>
@@ -107,36 +128,3 @@ const Input: React.FC<InputProps> = ({
 };
 
 export default Input;
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-});

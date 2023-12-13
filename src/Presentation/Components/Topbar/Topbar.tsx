@@ -1,19 +1,18 @@
 import {Notification} from 'iconsax-react-native';
 import React from 'react';
-import {View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import styles from './styles';
 import ImageView from '../ImageView/ImageView';
 import Text from '../Text/Text';
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../../../@Types/theme';
+import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs';
 
-interface TopbarProps {}
-
-const Topbar: React.FC<TopbarProps> = ({}) => {
+const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageView
           imageProps={{style: styles.imageContainer, resizeMode: 'contain'}}
@@ -37,7 +36,7 @@ const Topbar: React.FC<TopbarProps> = ({}) => {
         ]}>
         <Notification color={theme.colors.text_negative} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

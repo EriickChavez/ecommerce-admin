@@ -6,11 +6,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {BottomTab} from '../Config/navigation';
 import {AddCircle, Category} from 'iconsax-react-native';
 import NewProductStack from './NewProductStack';
+import Topbar from '../Presentation/Components/Topbar/Topbar';
 
 const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
   return (
     <NavigationContainer theme={theme}>
-      <BottomTab.Navigator screenOptions={{headerShown: false}}>
+      <BottomTab.Navigator>
         <BottomTab.Screen
           name={SCREEN_NAME.INVENTORY_STACK}
           component={InventoryStack}
@@ -18,6 +19,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
             tabBarIcon: ({color, size}) => {
               return <Category size={size} color={color} variant="Bold" />;
             },
+            header: Topbar,
           }}
         />
         <BottomTab.Screen

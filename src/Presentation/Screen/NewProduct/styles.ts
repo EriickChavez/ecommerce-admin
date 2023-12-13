@@ -6,4 +6,7 @@ export default StyleSheet.create({
     paddingHorizontal: '5%',
     paddingVertical: '3%',
   },
+  content: {
+    flex: 1,
+  },
 });

@@ -4,6 +4,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
+    marginHorizontal: 10,
   },
   imageContainer: {
     width: 50,

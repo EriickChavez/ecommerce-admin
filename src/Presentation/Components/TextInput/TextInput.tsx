@@ -15,6 +15,12 @@ interface TextInputProps {
   placeholder?: string;
   TextInputProps?: RNTextInputProps;
   theme?: ThemeEntry;
+  borderRadius?: {
+    borderTopLeftRadius: number;
+    borderBottomLeftRadius: number;
+    borderTopRightRadius: number;
+    borderBottomRightRadius: number;
+  };
 }
 
 export interface TextInputRef {
@@ -23,7 +29,21 @@ export interface TextInputRef {
 }
 
 const TextInput = forwardRef<TextInputRef, TextInputProps>(
-  ({leftIcon, rightIcon, TextInputProps, theme = themes.light}, ref) => {
+  (
+    {
+      leftIcon,
+      rightIcon,
+      TextInputProps,
+      theme = themes.light,
+      borderRadius = {
+        borderBottomLeftRadius: 5,
+        borderTopLeftRadius: 5,
+        borderBottomRightRadius: 5,
+        borderTopRightRadius: 5,
+      },
+    },
+    ref,
+  ) => {
     const textInputRef = React.createRef<RNTextInput>();
 
     useImperativeHandle(ref, () => ({
@@ -66,7 +86,7 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
       : {};
 
     return (
-      <View style={[styles.container]}>
+      <View style={[styles.container, borderRadius]}>
         {renderLeftIcon()}
         {isEditable ? (
           <RNTextInput

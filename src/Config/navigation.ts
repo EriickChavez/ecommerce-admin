@@ -3,6 +3,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import {
+  AuthStackParamList,
   BottomStackParamList,
   HomeStackParamList,
   NewProductStackParamList,
@@ -29,3 +30,6 @@ export const AddProductStackNavigatior =
   createNativeStackNavigator<NewProductStackParamList>();
 
 export const BottomTab = createBottomTabNavigator<BottomStackParamList>();
+
+export const AuthenticationStack =
+  createNativeStackNavigator<AuthStackParamList>();

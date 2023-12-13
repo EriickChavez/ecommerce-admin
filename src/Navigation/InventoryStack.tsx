@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   HomeStackNavigatior,
-  screenWithTopbarOptions,
+  screenWithoutTopbarOptions,
 } from '../Config/navigation';
 import {SCREEN_NAME} from '../Enum/Screens';
 import HomeScreen from '../Presentation/Screen/Home/HomeScreen';
@@ -11,7 +11,7 @@ const InventoryStack: React.FC<InventoryStackNavigationProps> = () => {
   return (
     <HomeStackNavigatior.Navigator initialRouteName={SCREEN_NAME.HOME_SCREEN}>
       <HomeStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.HOME_SCREEN}
         component={HomeScreen}
       />

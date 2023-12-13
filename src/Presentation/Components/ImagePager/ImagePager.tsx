@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -35,6 +35,7 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
     (index: number) => (index === currentPage ? 1 : 0.5),
     [currentPage],
   );
+  const hasMultipleImage = useMemo(() => images.length > 1, [images]);
 
   return (
     <View>
@@ -59,14 +60,16 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
           </View>
         ))}
       </ScrollView>
-      <View style={styles.pagination}>
-        {images.map((_, idx) => (
-          <View
-            key={idx}
-            style={[styles.paginationDot, {opacity: opacity(idx)}]}
-          />
-        ))}
-      </View>
+      {hasMultipleImage && (
+        <View style={styles.pagination}>
+          {images.map((_, idx) => (
+            <View
+              key={idx}
+              style={[styles.paginationDot, {opacity: opacity(idx)}]}
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 };
