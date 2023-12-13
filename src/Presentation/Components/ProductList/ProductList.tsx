@@ -5,7 +5,7 @@ import CardBasicItem from '../CardBasicItem/CardBasicItem';
 import styles from './styles';
 
 interface ProductListProps {
-  title: string;
+  title?: string;
   data?: [];
 }
 

@@ -17,7 +17,10 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = ({}) => {
       <View style={styles.content}>
         <Topbar />
         <View style={styles.viewContainer}>
-          <TextInput leftIcon={<SearchNormal color={theme.colors.text} />} />
+          <TextInput
+            TextInputProps={{placeholder: 'Search', editable: true}}
+            leftIcon={<SearchNormal color={theme.colors.text} />}
+          />
         </View>
         <ImagePager
           imageStyles={styles.banner}

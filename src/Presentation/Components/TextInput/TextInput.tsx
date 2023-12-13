@@ -1,23 +1,37 @@
-import React, {forwardRef, useImperativeHandle} from 'react';
-import {View, TextInput as RNTextInput} from 'react-native';
+import React, {forwardRef, useImperativeHandle, useMemo} from 'react';
+import {
+  View,
+  TextInput as RNTextInput,
+  TextInputProps as RNTextInputProps,
+} from 'react-native';
 import styles from './styles';
+import Text from '../Text/Text';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 
 interface TextInputProps {
   leftIcon?: JSX.Element | JSX.Element[];
   rightIcon?: JSX.Element | JSX.Element[];
+  placeholder?: string;
+  TextInputProps?: RNTextInputProps;
+  theme?: ThemeEntry;
 }
 
 export interface TextInputRef {
   focus: () => void;
+  blur: () => void;
 }
 
 const TextInput = forwardRef<TextInputRef, TextInputProps>(
-  ({leftIcon, rightIcon}, ref) => {
+  ({leftIcon, rightIcon, TextInputProps, theme = themes.light}, ref) => {
     const textInputRef = React.createRef<RNTextInput>();
 
     useImperativeHandle(ref, () => ({
       focus: () => {
         textInputRef?.current?.focus();
+      },
+      blur: () => {
+        textInputRef?.current?.blur();
       },
     }));
 
@@ -31,16 +45,45 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
         <View style={[styles.iconRight]}>{rightIcon}</View>
       ) : null;
     };
+    const isEditable = useMemo(
+      () => TextInputProps?.editable,
+      [TextInputProps],
+    );
+
+    const hasValue = useMemo(() => {
+      return !!TextInputProps?.value;
+    }, [TextInputProps]);
+
+    const hasPlaceholder = useMemo(
+      () => !!TextInputProps?.placeholder,
+      [TextInputProps],
+    );
+
+    const styleValuePlaceholder = hasValue
+      ? {color: theme.colors.text}
+      : hasPlaceholder
+      ? {color: theme.colors.text_secondary}
+      : {};
 
     return (
       <View style={[styles.container]}>
         {renderLeftIcon()}
-        <RNTextInput
-          ref={textInputRef}
-          style={[styles.input]}
-          placeholder="Search"
-          placeholderTextColor="#1C1C1C"
-        />
+        {isEditable ? (
+          <RNTextInput
+            ref={textInputRef}
+            style={[styles.input]}
+            placeholderTextColor={theme.colors.text_secondary}
+            {...TextInputProps}
+          />
+        ) : (
+          <Text style={[styles.input, styleValuePlaceholder]}>
+            {hasValue
+              ? TextInputProps?.value
+              : hasPlaceholder
+              ? TextInputProps?.placeholder
+              : ''}
+          </Text>
+        )}
         {renderRightIcon()}
       </View>
     );
