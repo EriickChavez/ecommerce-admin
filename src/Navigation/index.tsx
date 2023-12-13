@@ -9,7 +9,7 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({theme = themes.light}) => {
-  const isLogged = true;
+  const isLogged = false;
   if (isLogged) {
     return <BottomNavigation theme={theme} />;
   } else {

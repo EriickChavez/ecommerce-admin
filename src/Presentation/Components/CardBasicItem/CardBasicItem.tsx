@@ -1,22 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import ImageView from '../ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
 import Text from '../Text/Text';
 import styles from './styles';
+import {getBackgroundColor} from '../../../Utils/imageUtils';
 
-interface CardBasicItemProps {}
+interface CardBasicItemProps {
+  source: string;
+}
 
-const CardBasicItem: React.FC<CardBasicItemProps> = ({}) => {
+const CardBasicItem: React.FC<CardBasicItemProps> = ({source}) => {
+  const [backgroundColor, setBackgroundColor] = useState<string>();
+
+  useEffect(() => {
+    getBackgroundColor(source, color => {
+      setBackgroundColor(color);
+    });
+  }, [source]);
+
   return (
     <View style={styles.container}>
       <View>
-        <View style={styles.imageContainer}>
+        <View
+          style={[styles.imageContainer, {backgroundColor: backgroundColor}]}>
           <ImageView
             imageType={IMAGE_TYPE.PRODUCT}
             imageProps={{
               resizeMode: 'contain',
               style: styles.image,
+              source: {
+                uri: source,
+              },
             }}
           />
         </View>

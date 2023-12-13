@@ -2,6 +2,7 @@ import {useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {SCREEN_NAME} from '../Enum/Screens';
 import {SignupNavigationProps} from '../@Types/navigation';
+import {fetchSignup} from '../Infrastructure/Store/Actions/UserAction';
 
 interface signupHook {
   onChange: {
@@ -28,8 +29,7 @@ const useSignup = ({navigation}: SignupNavigationProps): signupHook => {
 
   const handleSignup = useCallback(() => {
     // @ts-ignore
-    // dispatch(fetchSignUp({user: {email, password, username}}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(fetchSignup({email, password, username}));
   }, [dispatch, email, password, username]);
 
   return {

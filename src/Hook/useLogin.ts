@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {LoginNavigationProps} from '../@Types/navigation';
 import {useDispatch} from 'react-redux';
 import {SCREEN_NAME} from '../Enum/Screens';
+import {fetchLogin} from '../Infrastructure/Store/Actions/UserAction';
 
 interface loginHook {
   onChange: {
@@ -23,7 +24,10 @@ const useLogin = ({navigation}: LoginNavigationProps): loginHook => {
   const handleSignUp = () => {
     navigation.navigate(SCREEN_NAME.SIGNUP_SCREEN);
   };
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    // @ts-ignore
+    dispatch(fetchLogin({email, password}));
+  };
   const handleForgotPassword = () => {
     console.log(`Iniciando sesión con el usuario: ${email}`);
   };

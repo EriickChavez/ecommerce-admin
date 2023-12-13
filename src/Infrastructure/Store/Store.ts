@@ -16,6 +16,7 @@ import {
 import thunk from 'redux-thunk';
 import {reduxStorage} from '../../Config/storageConfig';
 import ExampleSlice from './Slice/ExampleSlice';
+import userSlice from './Slice/userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -24,6 +25,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   example: ExampleSlice.reducer,
+  user: userSlice.reducer,
 });
 
 const middlewares = [thunk];
