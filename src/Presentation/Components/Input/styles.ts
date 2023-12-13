@@ -31,6 +31,9 @@ export default StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  dropdownContainer: {
+    flexDirection: 'row',
+  },
   dropdownPicker: {
     paddingHorizontal: 5,
     flex: 1,

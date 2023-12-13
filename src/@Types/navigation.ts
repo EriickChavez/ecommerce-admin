@@ -15,6 +15,9 @@ export type NewProductStackParamList = {
   [SCREEN_NAME.CONFIRM_DETAILS_SCREEN]: undefined;
   [SCREEN_NAME.CONFIRMATION_SCREEN]: undefined;
 };
+export type SettingsStackParamList = {
+  [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
+};
 
 export type AuthStackParamList = {
   [SCREEN_NAME.LOGIN_SCREEN]: undefined;
@@ -23,6 +26,7 @@ export type AuthStackParamList = {
 export type BottomStackParamList = {
   [SCREEN_NAME.INVENTORY_STACK]: undefined;
   [SCREEN_NAME.NEW_PRODUCT_STACK]: undefined;
+  [SCREEN_NAME.SETTINGS_STACK]: undefined;
 };
 // INVENTORY STACK
 export type HomeScreenNavigationProps = NativeStackScreenProps<
@@ -55,7 +59,11 @@ export type SignupNavigationProps = NativeStackScreenProps<
   AuthStackParamList,
   SCREEN_NAME.SIGNUP_SCREEN
 >;
-
+// SETTINGS STACK
+export type SettingsScreenNavigationProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  SCREEN_NAME.SETTINGS_SCREEN
+>;
 // STACK
 export type InventoryStackNavigationProps = NativeStackScreenProps<
   BottomStackParamList,
@@ -64,6 +72,10 @@ export type InventoryStackNavigationProps = NativeStackScreenProps<
 export type NewProductStackNavigationProps = NativeStackScreenProps<
   BottomStackParamList,
   SCREEN_NAME.NEW_PRODUCT_STACK
+>;
+export type SettingsStackNavigationProps = NativeStackScreenProps<
+  BottomStackParamList,
+  SCREEN_NAME.SETTINGS_STACK
 >;
 export type AuthStackNavigationProps = NativeStackScreenProps<
   AuthStackParamList,

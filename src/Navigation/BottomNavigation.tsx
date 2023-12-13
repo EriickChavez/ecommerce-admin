@@ -7,6 +7,7 @@ import {BottomTab} from '../Config/navigation';
 import {AddCircle, Category} from 'iconsax-react-native';
 import NewProductStack from './NewProductStack';
 import Topbar from '../Presentation/Components/Topbar/Topbar';
+import SettingsStack from './SettingsStack';
 
 const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
   return (
@@ -25,6 +26,15 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
         <BottomTab.Screen
           name={SCREEN_NAME.NEW_PRODUCT_STACK}
           component={NewProductStack}
+          options={{
+            tabBarIcon: ({color, size}) => {
+              return <AddCircle size={size} color={color} variant="Bold" />;
+            },
+          }}
+        />
+        <BottomTab.Screen
+          name={SCREEN_NAME.SETTINGS_STACK}
+          component={SettingsStack}
           options={{
             tabBarIcon: ({color, size}) => {
               return <AddCircle size={size} color={color} variant="Bold" />;

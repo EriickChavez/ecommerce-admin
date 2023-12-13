@@ -52,7 +52,6 @@ const Input: React.FC<InputProps> = ({
           onChangeText: () => {},
           keyboardType,
         }}
-        rightIcon={<ArrowDown2 size={RFValue(12)} variant="Bold" />}
       />
     );
   }, [isEditable, placeholder, value, keyboardType]);
@@ -76,7 +75,7 @@ const Input: React.FC<InputProps> = ({
 
   const DropDownInput = useCallback(() => {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.dropdownContainer}>
         <TouchableOpacity onPress={onPress}>
           <View style={styles.dropdownPicker}>
             <Text>MN</Text>
