@@ -5,7 +5,7 @@ import CardBasicItem from '../CardBasicItem/CardBasicItem';
 import styles from './styles';
 
 interface ProductListProps {
-  title: string;
+  title?: string;
   data?: [];
 }
 
@@ -19,7 +19,7 @@ const ProductList: React.FC<ProductListProps> = ({title = 'My Product'}) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.textTitle}>{title}</Text>
         <Text style={styles.textSeeAll}>See all</Text>

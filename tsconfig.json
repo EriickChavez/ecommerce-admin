@@ -14,19 +14,19 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
-    "baseUrl": "./",
-    "paths": {
-      "*": ["types/*"],
-      "@Assets/*": ["./src/Assets/*"],
-      "@Domain/*": ["./src/Domain/*"],
-      "@Infrastructure/*": ["./src/Infrastructure/*"],
-      "@Presentation/*": ["./src/Presentation/*"],
-      "@Constants/*": ["./src/Constants/*"],
-      "@Utils/*": ["./src/Utils/*"],
-      "@Helpers/*": ["./src/Helpers/*"],
-      "@Hooks/*": ["./src/Hooks/*"]
-    }
+    "experimentalDecorators": true
+    // "baseUrl": "./",
+    // "paths": {
+    //   "*": ["types/*"],
+    //   "@Assets/*": ["./src/Assets/*"],
+    //   "@Domain/*": ["./src/Domain/*"],
+    //   "@Infrastructure/*": ["./src/Infrastructure/*"],
+    //   "@Presentation/*": ["./src/Presentation/*"],
+    //   "@Constants/*": ["./src/Constants/*"],
+    //   "@Utils/*": ["./src/Utils/*"],
+    //   "@Helpers/*": ["./src/Helpers/*"],
+    //   "@Hooks/*": ["./src/Hooks/*"]
+    // }
   },
   "exclude": ["node_modules"]
 }
