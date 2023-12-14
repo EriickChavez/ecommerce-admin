@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, View} from 'react-native';
-import {AddProductPt2NavigationProps} from '../../../@Types/navigation';
+import {AddProductPt2NavigationProps} from '../../../@Types/navigation.newProduct';
 import styles from './styles';
 import Input from '../../Components/Input/Input';
 import {INPUT_TYPE} from '../../../Enum/Inputs';

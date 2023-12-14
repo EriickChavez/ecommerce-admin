@@ -5,7 +5,7 @@ import {
 } from '../Config/navigation';
 import {SCREEN_NAME} from '../Enum/Screens';
 import HomeScreen from '../Presentation/Screen/Home/HomeScreen';
-import {InventoryStackNavigationProps} from '../@Types/navigation';
+import {InventoryStackNavigationProps} from '../@Types/navigation.inventory';
 
 const InventoryStack: React.FC<InventoryStackNavigationProps> = () => {
   return (

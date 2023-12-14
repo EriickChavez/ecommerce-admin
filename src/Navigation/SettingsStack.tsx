@@ -4,7 +4,7 @@ import {
   screenWithoutTopbarOptions,
 } from '../Config/navigation';
 import {SCREEN_NAME} from '../Enum/Screens';
-import {SettingsStackNavigationProps} from '../@Types/navigation';
+import {SettingsStackNavigationProps} from '../@Types/navigation.settings';
 import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
 
 const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {

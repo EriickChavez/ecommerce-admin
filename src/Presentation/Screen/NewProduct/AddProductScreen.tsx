@@ -1,12 +1,12 @@
 import React from 'react';
 import {Button, SafeAreaView, ScrollView} from 'react-native';
-import {AddProductNavigationProps} from '../../../@Types/navigation';
 import UploadImage from '../../Components/UploadImage/UploadImage';
 import Input from '../../Components/Input/Input';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
 import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import styles from './styles';
 import {SCREEN_NAME} from '../../../Enum/Screens';
+import {AddProductNavigationProps} from '../../../@Types/navigation.newProduct';
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
 }) => {

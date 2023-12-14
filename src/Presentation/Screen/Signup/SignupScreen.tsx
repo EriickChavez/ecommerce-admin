@@ -13,7 +13,7 @@ import styles from './styles';
 
 import {Logo} from '../../Components/LogoComponent';
 import useSignup from '../../../Hook/useSignup';
-import {SignupNavigationProps} from '../../../@Types/navigation';
+import {SignupNavigationProps} from '../../../@Types/navigation.auth';
 
 const SignUpScreen: React.FC<SignupNavigationProps> = props => {
   const {handleLogin, handleSignup, onChange} = useSignup(props);

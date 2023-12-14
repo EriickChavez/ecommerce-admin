@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, SafeAreaView, ScrollView, View} from 'react-native';
-import {ConfirmDetailsNavigationProps} from '../../../@Types/navigation';
+import {ConfirmDetailsNavigationProps} from '../../../@Types/navigation.newProduct';
 import ImagePager from '../../Components/ImagePager/ImagePager';
 import styles from './styles';
 import Text from '../../Components/Text/Text';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, ScrollView} from 'react-native';
-import {SettingsScreenNavigationProps} from '../../../@Types/navigation';
+import {SettingsScreenNavigationProps} from '../../../@Types/navigation.settings';
 import styles from './styles';
 import Text from '../../Components/Text/Text';
 import * as Icon from 'iconsax-react-native';

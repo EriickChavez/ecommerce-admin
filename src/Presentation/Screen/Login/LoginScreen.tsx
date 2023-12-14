@@ -8,7 +8,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import {LoginNavigationProps} from '../../../@Types/navigation';
+import {LoginNavigationProps} from '../../../@Types/navigation.auth';
 import {Logo} from '../../Components/LogoComponent';
 import styles from './styles';
 import useLogin from '../../../Hook/useLogin';
