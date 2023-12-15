@@ -9,4 +9,7 @@ export default StyleSheet.create({
   content: {
     flex: 1,
   },
+  inputContent: {
+    marginVertical: 10,
+  },
 });

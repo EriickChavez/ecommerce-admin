@@ -3,7 +3,7 @@ import {navigationProps} from '../@Types/navigation';
 import {SCREEN_NAME} from '../Enum/Screens';
 import InventoryStack from './InventoryStack';
 import {NavigationContainer} from '@react-navigation/native';
-import {BottomTab} from '../Config/navigation';
+import {BottomTab, bottomBarWithoutTopbarOptions} from '../Config/navigation';
 import {AddCircle, Category} from 'iconsax-react-native';
 import NewProductStack from './NewProductStack';
 import Topbar from '../Presentation/Components/Topbar/Topbar';
@@ -27,6 +27,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           name={SCREEN_NAME.NEW_PRODUCT_STACK}
           component={NewProductStack}
           options={{
+            ...bottomBarWithoutTopbarOptions,
             tabBarIcon: ({color, size}) => {
               return <AddCircle size={size} color={color} variant="Bold" />;
             },

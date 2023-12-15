@@ -21,9 +21,7 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
         </View>
         <ImagePager
           imageStyles={styles.banner}
-          images={[
-            'https://yt3.googleusercontent.com/Eo-ns4GaYmA_LqdKqmTYWxQjMdETJ2ml2yuwmqfnsBRwx7_-xiozAIW570wm0Maj34WtkiOCYw=s900-c-k-c0x00ffffff-no-rj',
-          ]}
+          images={['https://picsum.photos/200/300']}
         />
       </View>
       <ProductList />

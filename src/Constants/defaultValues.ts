@@ -1,3 +1,4 @@
+import {Product} from '../Domain/Entity';
 import {UserView} from '../Domain/Entity/User/User';
 
 const defaultUser: UserView = {
@@ -8,4 +9,26 @@ const defaultUser: UserView = {
   username: 'NoName',
 };
 
-export {defaultUser};
+const defaultProduct: Product = {
+  id: '-',
+  categoryId: [],
+  cover: '',
+  title: '',
+  subtitle: undefined,
+  price: 0.0,
+  imageUri: undefined,
+  album: [],
+  characteristics: [],
+  stock: 0,
+  sellerId: '',
+  discount: undefined,
+};
+
+const defaultImage: {
+  filename: string;
+  uri: string;
+} = {
+  filename: '',
+  uri: '',
+};
+export {defaultUser, defaultProduct, defaultImage};

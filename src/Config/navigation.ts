@@ -2,18 +2,22 @@ import {
   NativeStackNavigationOptions,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
+import {BottomStackParamList} from '../@Types/navigation';
 import {
-  AuthStackParamList,
-  BottomStackParamList,
-  HomeStackParamList,
-  NewProductStackParamList,
-  SettingsStackParamList,
-} from '../@Types/navigation';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import {HomeStackParamList} from '../@Types/navigation.inventory';
+import {NewProductStackParamList} from '../@Types/navigation.newProduct';
+import {SettingsStackParamList} from '../@Types/navigation.settings';
+import {AuthStackParamList} from '../@Types/navigation.auth';
 
 export const screenWithTopbarOptions: NativeStackNavigationOptions = {};
 
 export const screenWithoutTopbarOptions: NativeStackNavigationOptions = {
+  headerShown: false,
+};
+export const bottomBarWithoutTopbarOptions: BottomTabNavigationOptions = {
   headerShown: false,
 };
 export const groupModalContainedModalScreenOptions: NativeStackNavigationOptions =

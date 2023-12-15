@@ -13,6 +13,7 @@ import {NewProductStackNavigationProps} from '../@Types/navigation.newProduct';
 const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
   return (
     <AddProductStackNavigatior.Navigator
+      screenOptions={screenWithTopbarOptions}
       initialRouteName={SCREEN_NAME.ADD_PRODUCT_SCREEN}>
       <AddProductStackNavigatior.Screen
         options={screenWithTopbarOptions}

@@ -4,7 +4,7 @@ import AuthStack from './AuthStack';
 import {Theme} from '@react-navigation/native';
 import themes from '../Themes/themes';
 import {useSelector} from 'react-redux';
-import {userSelector} from '../Infrastructure/Store/Slice/userSlice';
+import {userSelector} from '../Infrastructure/Store/Slice/UserSlice';
 
 interface NavigationProps {
   theme: Theme;
@@ -14,7 +14,7 @@ const Navigation: React.FC<NavigationProps> = ({theme = themes.light}) => {
   const userState = useSelector(userSelector);
   const isLogged = useMemo(() => userState.user.token, [userState.user.token]);
 
-  if (isLogged) {
+  if (true) {
     return <BottomNavigation theme={theme} />;
   } else {
     return <AuthStack theme={theme} />;

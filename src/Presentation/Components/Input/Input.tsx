@@ -1,16 +1,25 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {View, Text, Pressable, Modal, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import TextInput from '../TextInput/TextInput';
 import {ArrowDown2} from 'iconsax-react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
 import styles from './styles';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 interface InputProps {
   placeholder?: string;
   type: INPUT_TYPE;
   value: string;
   title?: string;
+  onChangeText?: (text: string) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +27,7 @@ const Input: React.FC<InputProps> = ({
   type = INPUT_TYPE.TEXT,
   value,
   title,
+  onChangeText,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const isEditable = useMemo(
@@ -49,12 +59,12 @@ const Input: React.FC<InputProps> = ({
           editable: isEditable,
           placeholder,
           value,
-          onChangeText: () => {},
+          onChangeText,
           keyboardType,
         }}
       />
     );
-  }, [isEditable, placeholder, value, keyboardType]);
+  }, [isEditable, placeholder, value, onChangeText, keyboardType]);
 
   const PickerInput = useCallback(() => {
     return (
@@ -86,16 +96,40 @@ const Input: React.FC<InputProps> = ({
           <TextInput
             borderRadius={styles.dropPickerInputContent}
             TextInputProps={{
-              editable: false,
+              editable: true,
               placeholder,
               value,
+              onChangeText,
             }}
           />
         </View>
       </View>
     );
-  }, [onPress, placeholder, value]);
+  }, [onPress, placeholder, value, onChangeText]);
 
+  const renderItems = () => {
+    return (
+      <View style={styles.modalItems}>
+        <View style={styles.modalItemCheck}>
+          <BouncyCheckbox
+            style={styles.checkbox}
+            size={RFValue(15)}
+            text="Item 1"
+          />
+        </View>
+        {/* <View style={[styles.modalItemTextContainer]}>
+          <Text>Item 1</Text>
+        </View> */}
+      </View>
+    );
+  };
+
+  const onPressCancel = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+  const onPressOk = useCallback(() => {
+    setModalVisible(false);
+  }, []);
   return (
     <View>
       {title && <Text>{title}</Text>}
@@ -112,11 +146,23 @@ const Input: React.FC<InputProps> = ({
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Hello World!</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.textStyle}>Hide Modal</Text>
-                </Pressable>
+                <ScrollView style={styles.containerModalItems}>
+                  {[].map(() => {
+                    return renderItems();
+                  })}
+                </ScrollView>
+                <View style={styles.buttonContainer}>
+                  <Pressable
+                    style={[styles.button, styles.buttonCancel]}
+                    onPress={onPressCancel}>
+                    <Text style={styles.textStyle}>Cancel</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonConfirm]}
+                    onPress={onPressOk}>
+                    <Text style={styles.textStyle}>Confirm</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </Modal>

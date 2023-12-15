@@ -1,6 +1,8 @@
 import {IMAGE_TYPE} from '../Enum/Image';
 import IMAGES from '../Constants/IMAGES';
 import {getColorFromURL} from 'rn-dominant-color';
+import RNFetchBlob from 'rn-fetch-blob';
+import {Platform} from 'react-native';
 
 export interface bgColor {
   background: string;
@@ -24,10 +26,35 @@ const getBackgroundColor = (
 ) => {
   getColorFromURL(source)
     .then((colors: bgColor) => {
-      callback(colors.background);
+      callback && callback(colors.background);
     })
-    .catch(err => {
+    .catch((err: Error) => {
       console.log({err});
     });
 };
-export {getDefaultImage, getBackgroundColor};
+
+const fetchImageIos = async (url: string, filename: string, uri: string) => {
+  // image.assets[0].fileName
+  RNFetchBlob.fetch(
+    'POST',
+    url,
+    {
+      'Content-Type': 'multipart/form-data',
+    },
+    [
+      {
+        name: 'picture', // Nombre del campo en el servidor
+        filename,
+        type: 'image/jpg',
+        data: RNFetchBlob.wrap(
+          Platform.OS === 'ios' ? uri.replace('file://', '') : uri,
+        ),
+      },
+      {
+        name: 'additionalData',
+        data: 'someValue',
+      },
+    ],
+  );
+};
+export {getDefaultImage, getBackgroundColor, fetchImageIos};

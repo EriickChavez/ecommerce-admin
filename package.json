@@ -22,6 +22,7 @@
     "patch-package": "^8.0.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
+    "react-native-bouncy-checkbox": "^3.0.7",
     "react-native-fast-image": "^8.6.3",
     "react-native-flipper": "^0.212.0",
     "react-native-gesture-handler": "^2.14.0",
@@ -35,7 +36,8 @@
     "redux-flipper": "^2.0.2",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "rn-dominant-color": "^1.7.2"
+    "rn-dominant-color": "^1.7.2",
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

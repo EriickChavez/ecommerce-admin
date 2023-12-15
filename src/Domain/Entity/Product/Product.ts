@@ -3,15 +3,16 @@ export interface Product {
   id: string;
   categoryId: string[];
   title: string;
-  subtitle: string;
+  subtitle: string | undefined;
   price: number;
-  imageUri: string;
+  imageUri: string | undefined;
+  sellerId: string;
   /* FALTA POR AGREGAR COSAS */
   album: string[];
   characteristics: Characteristics[];
   stock: number;
-  sellerId?: string;
-  discount?: Discount;
+  cover?: string;
+  discount?: Discount | undefined;
 }
 
 export interface Discount {

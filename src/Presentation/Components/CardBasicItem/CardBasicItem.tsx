@@ -10,7 +10,9 @@ interface CardBasicItemProps {
   source: string;
 }
 
-const CardBasicItem: React.FC<CardBasicItemProps> = ({source}) => {
+const CardBasicItem: React.FC<CardBasicItemProps> = ({
+  source = 'https://picsum.photos/200/300',
+}) => {
   const [backgroundColor, setBackgroundColor] = useState<string>();
 
   useEffect(() => {

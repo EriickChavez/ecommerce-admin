@@ -1,5 +1,5 @@
 import {DocumentUpload} from 'iconsax-react-native';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import Text from '../Text/Text';
 import styles from './styles';
@@ -13,6 +13,8 @@ interface UploadImageProps {
   fontSize?: number;
   borderWidth?: number;
   title?: string;
+  onPress?: (data: any) => void;
+  onChangeImage?: (data: any) => void;
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({
@@ -21,22 +23,31 @@ const UploadImage: React.FC<UploadImageProps> = ({
   fontSize = 14,
   borderWidth = 2,
   title,
+  onChangeImage,
 }) => {
   const [source, setSource] = useState<string>();
   const handleUpload = async () => {
     launchImageLibrary({
       mediaType: 'photo',
       selectionLimit: 1,
-    }).then(data => {
-      // @ts-ignore
-      return setSource(data.assets[0].uri ?? undefined);
-    });
+    })
+      .then(data => {
+        // @ts-ignore
+        onChangeImage && onChangeImage(data.assets[0].uri);
+        // @ts-ignore
+        return setSource(data.assets[0].uri);
+      })
+      .catch(err => console.log('ERROR AL SUBIR LA IMAGEN', err));
   };
+
+  const hasSource: boolean = useMemo(() => {
+    return !!source;
+  }, [source]);
 
   return (
     <View>
       <Text>{title}</Text>
-      {!source ? (
+      {!hasSource ? (
         <TouchableOpacity
           onPress={handleUpload}
           style={[

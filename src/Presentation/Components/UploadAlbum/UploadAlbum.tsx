@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, Text, Dimensions} from 'react-native';
 import styles from './styles';
 
@@ -9,12 +9,22 @@ interface AlbumProps {
   theme?: ThemeEntry;
   onViewAll?: () => void;
   album?: string[];
+  onChangeAlbum?: (data: any) => void;
 }
 const {width} = Dimensions.get('screen');
 
 const contentWidth = width - width * 0.2;
 const imageAlbumSize = contentWidth * 0.3;
-const Album: React.FC<AlbumProps> = ({}) => {
+const Album: React.FC<AlbumProps> = ({
+  album = ['', '', '', '', '', ''],
+  onChangeAlbum,
+}) => {
+  const albumUploaded = useMemo(() => album, [album]);
+  const onChangeImage = (image: string, index: number) => {
+    const newAlbum = [...album];
+    newAlbum[index] = image;
+    onChangeAlbum && onChangeAlbum(newAlbum);
+  };
   return (
     <View style={styles.container}>
       <View>
@@ -27,12 +37,15 @@ const Album: React.FC<AlbumProps> = ({}) => {
           </View>
         </View>
         <View style={styles.album}>
-          {[1, 2, 3, 4, 5, 6].map((_, index) => {
+          {albumUploaded.map((_, index) => {
             return (
               <View style={styles.imageContent} key={`album-photo-${index}`}>
                 <UploadImage
                   iconSize={25}
                   fontSize={8}
+                  onChangeImage={data => {
+                    onChangeImage && onChangeImage(data, index);
+                  }}
                   containerStyle={[
                     styles.imageAlbum,
                     {width: imageAlbumSize, height: imageAlbumSize},
