@@ -13,8 +13,8 @@ interface UploadImageProps {
   fontSize?: number;
   borderWidth?: number;
   title?: string;
-  onPress?: (data: any) => void;
-  onChangeImage?: (data: any) => void;
+  src?: string;
+  onChangeImage?: (data: string) => void;
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({
@@ -24,8 +24,9 @@ const UploadImage: React.FC<UploadImageProps> = ({
   borderWidth = 2,
   title,
   onChangeImage,
+  src,
 }) => {
-  const [source, setSource] = useState<string>();
+  const [source, setSource] = useState<string>(src || '');
   const handleUpload = async () => {
     launchImageLibrary({
       mediaType: 'photo',

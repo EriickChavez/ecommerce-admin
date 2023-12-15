@@ -46,6 +46,7 @@ const Album: React.FC<AlbumProps> = ({
                   onChangeImage={data => {
                     onChangeImage && onChangeImage(data, index);
                   }}
+                  src={albumUploaded[index]}
                   containerStyle={[
                     styles.imageAlbum,
                     {width: imageAlbumSize, height: imageAlbumSize},

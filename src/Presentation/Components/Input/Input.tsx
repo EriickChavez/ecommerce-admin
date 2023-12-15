@@ -13,6 +13,8 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
 import styles from './styles';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {PickerItem, PickerOptions} from '../../../@Types/picker';
+import injectionSort from '../../../Utils/sort';
 
 interface InputProps {
   placeholder?: string;
@@ -20,6 +22,7 @@ interface InputProps {
   value: string;
   title?: string;
   onChangeText?: (text: string) => void;
+  options?: PickerOptions;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,8 +31,12 @@ const Input: React.FC<InputProps> = ({
   value,
   title,
   onChangeText,
+  options = {pickerOptions: {onPickerSelectOption: () => {}, data: []}},
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [pickerArraySelected, setPickerArraySelected] = useState<PickerItem[]>(
+    [],
+  );
   const isEditable = useMemo(
     () => type === INPUT_TYPE.TEXT || type === INPUT_TYPE.NUMBER,
     [type],
@@ -74,14 +81,14 @@ const Input: React.FC<InputProps> = ({
             TextInputProps={{
               editable: false,
               placeholder,
-              value,
+              value: pickerArraySelected.map(i => i.label).join(', '),
             }}
             rightIcon={<ArrowDown2 size={RFValue(12)} variant="Bold" />}
           />
         </>
       </TouchableOpacity>
     );
-  }, [onPress, placeholder, value]);
+  }, [onPress, pickerArraySelected, placeholder]);
 
   const DropDownInput = useCallback(() => {
     return (
@@ -107,19 +114,37 @@ const Input: React.FC<InputProps> = ({
     );
   }, [onPress, placeholder, value, onChangeText]);
 
-  const renderItems = () => {
+  const onCheckboxPress = (item: PickerItem) => {
+    if (pickerArraySelected.includes(item)) {
+      const newArray = pickerArraySelected.filter(i => i !== item);
+      setPickerArraySelected(newArray);
+      options.pickerOptions.onPickerSelectOption(newArray);
+    } else {
+      const newArray = injectionSort(pickerArraySelected, item, 'id');
+      setPickerArraySelected(newArray);
+      options.pickerOptions.onPickerSelectOption(newArray);
+    }
+  };
+  const renderCheckItems = ({
+    item,
+    index,
+  }: {
+    item: PickerItem;
+    index: number;
+  }) => {
+    const isChecked = pickerArraySelected.some(i => i.id === item.id);
+
     return (
-      <View style={styles.modalItems}>
+      <View key={`key-checkbox-${index}`} style={styles.modalItems}>
         <View style={styles.modalItemCheck}>
           <BouncyCheckbox
+            onPress={() => onCheckboxPress(item)}
+            isChecked={isChecked}
             style={styles.checkbox}
             size={RFValue(15)}
-            text="Item 1"
+            text={item.label}
           />
         </View>
-        {/* <View style={[styles.modalItemTextContainer]}>
-          <Text>Item 1</Text>
-        </View> */}
       </View>
     );
   };
@@ -147,8 +172,8 @@ const Input: React.FC<InputProps> = ({
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Hello World!</Text>
                 <ScrollView style={styles.containerModalItems}>
-                  {[].map(() => {
-                    return renderItems();
+                  {options.pickerOptions.data.map((item, index) => {
+                    return renderCheckItems({item, index});
                   })}
                 </ScrollView>
                 <View style={styles.buttonContainer}>

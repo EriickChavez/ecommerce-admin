@@ -1,5 +1,6 @@
 import {IMAGE_TYPE} from '../Enum/Image';
 import IMAGES from '../Constants/IMAGES';
+// @ts-ignore
 import {getColorFromURL} from 'rn-dominant-color';
 import RNFetchBlob from 'rn-fetch-blob';
 import {Platform} from 'react-native';
