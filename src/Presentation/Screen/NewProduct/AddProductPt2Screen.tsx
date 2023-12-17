@@ -31,7 +31,7 @@ const AddProductPt2Screen: React.FC<AddProductPt2NavigationProps> = ({
   };
   const onChangePrice = (text: string) => {
     const num = text.split(' ')[1];
-    console.log({num});
+
     if (/^\d+(\.\d{0,2})?$/.test(num)) {
       setPrice(Number(num));
     } else {
@@ -50,13 +50,7 @@ const AddProductPt2Screen: React.FC<AddProductPt2NavigationProps> = ({
           onChangeText={onChangePrice}
         />
       </View>
-      <Button
-        title="Next"
-        onPress={() => {
-          onPress();
-          navigation.navigate(SCREEN_NAME.CONFIRM_DETAILS_SCREEN);
-        }}
-      />
+      <Button title="Next" onPress={onPress} />
     </View>
   );
 };

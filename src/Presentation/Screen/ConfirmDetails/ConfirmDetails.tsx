@@ -6,11 +6,27 @@ import styles from './styles';
 import Text from '../../Components/Text/Text';
 import {Characteristics} from '../../../Domain/Entity';
 import Characteristic from '../../Components/Characteristic/Characteristic';
-import {SCREEN_NAME} from '../../../Enum/Screens';
+// import {SCREEN_NAME} from '../../../Enum/Screens';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchNewProducts} from '../../../Infrastructure/Store/Actions/ProductAction';
+import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 
-const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
-  navigation,
-}) => {
+const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = (
+  {
+    // navigation,
+  },
+) => {
+  const productStore = useSelector(productSelector);
+  const dispatch = useDispatch();
+  const onPress = () => {
+    console.info('onPress');
+    dispatch(
+      // @ts-ignore
+      fetchNewProducts({newProduct: productStore.tmpProduct, type: 'cover'}),
+    );
+    // dispatch(fetchAlbumProducts({newProduct: productStore.tmpProduct}));
+    // navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN);
+  };
   const renderItem = ({
     item,
     index,
@@ -36,21 +52,18 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
         <View>
           <Text>Product Cover</Text>
-          <ImagePager
-            imageStyles={styles.banner}
-            images={['https://picsum.photos/200/300']}
-          />
+          {productStore?.tmpProduct?.cover && (
+            <ImagePager
+              imageStyles={styles.banner}
+              images={[productStore?.tmpProduct?.cover]}
+            />
+          )}
         </View>
         {characteristics.map((value, index) => {
           return renderItem({index, item: value});
         })}
       </ScrollView>
-      <Button
-        title="Next"
-        onPress={() => {
-          navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN);
-        }}
-      />
+      <Button title="Next" onPress={onPress} />
     </SafeAreaView>
   );
 };

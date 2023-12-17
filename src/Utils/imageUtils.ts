@@ -21,17 +21,17 @@ const getDefaultImage = (type: IMAGE_TYPE) => {
       return IMAGES.AVATAR;
   }
 };
-const getBackgroundColor = (
+const getBackgroundColor = async (
   source: string,
   callback?: (color: string) => void,
 ) => {
-  getColorFromURL(source)
-    .then((colors: bgColor) => {
-      callback && callback(colors.background);
-    })
-    .catch((err: Error) => {
-      console.log({err});
-    });
+  try {
+    const color = await getColorFromURL(source);
+    callback && callback(color);
+    return color;
+  } catch (err) {
+    throw new Error('Error al obtener el color');
+  }
 };
 
 const fetchImageIos = async (url: string, filename: string, uri: string) => {

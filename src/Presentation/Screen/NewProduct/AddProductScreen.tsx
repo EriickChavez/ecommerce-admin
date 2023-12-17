@@ -64,7 +64,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
     const newCategories: Category[] = [];
     ids.forEach(id => {
       const categoryIndex = Categories.findIndex(cty => cty.id === id);
-      console.log({categoryIndex});
+
       if (categoryIndex !== -1) {
         newCategories.push(Categories[categoryIndex]);
       }
@@ -77,19 +77,20 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   );
 
   const dispatch = useDispatch();
-  console.log({tmpProduct: tmpProduct?.categoryId});
   const onPress = () => {
+    const data = {
+      ...tmpProduct,
+      title,
+      subtitle,
+      stock: Number(quantity),
+      categoryId: productCategories.map(cty => cty.id),
+      album: album.filter(item => item !== ''),
+      cover,
+    };
+
     dispatch(
       ProductSlice.actions.setTmpProduct({
-        data: {
-          ...tmpProduct,
-          title,
-          subtitle,
-          stock: Number(quantity),
-          categoryId: productCategories.map(cty => cty.id),
-          album,
-          cover,
-        },
+        data,
       }),
     );
     navigation.navigate(SCREEN_NAME.ADD_PRODUCT_SCREEN_PT2);

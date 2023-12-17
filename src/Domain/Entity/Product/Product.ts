@@ -9,6 +9,7 @@ export interface Product {
   sellerId: string;
   /* FALTA POR AGREGAR COSAS */
   album: string[];
+  userId: string;
   characteristics: Characteristics[];
   stock: number;
   cover?: string;
@@ -24,4 +25,21 @@ export interface Characteristics {
   icon: string;
   title: string;
   description: string;
+}
+
+export interface ProductInput {
+  id: string;
+  userId: string;
+  categoryId?: string[];
+  title?: string;
+  subtitle?: string | undefined;
+  price?: number;
+  imageUri?: string | undefined;
+  sellerId?: string;
+  /* FALTA POR AGREGAR COSAS */
+  album?: string[];
+  characteristics?: Characteristics[];
+  stock?: number;
+  cover?: string;
+  discount?: Discount | undefined;
 }

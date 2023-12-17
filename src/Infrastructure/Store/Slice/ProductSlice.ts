@@ -24,7 +24,6 @@ const productSlice = createSlice({
     resetState: () => initialState,
     setTmpProduct: (state, action: PayloadAction<{data: Product}>) => {
       const {data} = action.payload;
-      console.log({data});
       state.tmpProduct = {...data};
     },
   },

@@ -11,6 +11,7 @@ const defaultUser: UserView = {
 
 const defaultProduct: Product = {
   id: '-',
+  userId: 'userIdTremendo',
   categoryId: [],
   cover: '',
   title: '',
