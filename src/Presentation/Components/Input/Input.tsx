@@ -18,8 +18,8 @@ import injectionSort from '../../../Utils/sort';
 
 interface InputProps {
   placeholder?: string;
-  type: INPUT_TYPE;
-  value: string;
+  type?: INPUT_TYPE;
+  value?: string;
   title?: string;
   onChangeText?: (text: string) => void;
   options?: PickerOptions;

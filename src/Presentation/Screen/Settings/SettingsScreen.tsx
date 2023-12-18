@@ -8,8 +8,11 @@ import {SettingsButtonList} from '../../../Constants/SettingsList';
 import {RFValue} from 'react-native-responsive-fontsize';
 import ImageView from '../../Components/ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
+import {SCREEN_NAME} from '../../../Enum/Screens';
 
-const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({}) => {
+const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
+  navigation,
+}) => {
   return (
     <View style={styles.container}>
       <ScrollView bounces={false} style={styles.scrollView}>
@@ -35,7 +38,12 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({}) => {
             : null;
 
           return (
-            <TouchableOpacity style={styles.button} key={`${index}`}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(SCREEN_NAME.NEW_CATEGORY_SCREEN);
+              }}
+              style={styles.button}
+              key={`${index}`}>
               <View style={styles.buttonContainer}>
                 {item.leftIcon && (
                   <View style={styles.icon}>

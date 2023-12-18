@@ -28,6 +28,7 @@ const rootReducer = combineReducers({
   example: ExampleSlice.reducer,
   user: userSlice.reducer,
   product: productSlice.reducer,
+  category: productSlice.reducer,
 });
 
 const middlewares = [thunk];

@@ -18,4 +18,7 @@ export default StyleSheet.create({
     margin: 10,
     alignItems: 'center',
   },
+  chipsContainer: {
+    padding: 5,
+  },
 });

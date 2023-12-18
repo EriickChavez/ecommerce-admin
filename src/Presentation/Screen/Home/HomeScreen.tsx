@@ -7,9 +7,13 @@ import styles from './styles';
 import ProductList from '../../Components/ProductList/ProductList';
 import useHome from '../../../Hook/useHome';
 import {HomeScreenNavigationProps} from '../../../@Types/navigation.inventory';
+import { useDispatch } from 'react-redux';
+import ProductSlice from '../../../Infrastructure/Store/Slice/ProductSlice';
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   const {theme} = useHome(props);
+  // const dispatch = useDispatch();
+  // dispatch(ProductSlice.actions.resetState());
   return (
     <View style={styles.container}>
       <View style={styles.content}>

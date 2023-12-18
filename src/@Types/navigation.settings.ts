@@ -10,6 +10,11 @@ export type SettingsScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
   SCREEN_NAME.SETTINGS_SCREEN
 >;
+export type NewCategoryScreenNavigationProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  SCREEN_NAME.NEW_CATEGORY_SCREEN
+>;
 export type SettingsStackParamList = {
   [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
+  [SCREEN_NAME.NEW_CATEGORY_SCREEN]: undefined;
 };

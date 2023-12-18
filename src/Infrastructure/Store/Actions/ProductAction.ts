@@ -50,17 +50,18 @@ export const fetchNewProducts = createAsyncThunk<
 
 export const fetchPictureAlbum = createAsyncThunk<
   {
-    data: Product;
+    response: boolean;
     error: string | null;
     status: number;
   },
-  {newProduct: ProductInput; type: string}
+  {album: string[]; type: string; title: string}
 >(
   '',
   async ({
-    newProduct,
+    album = [],
+    title,
   }): Promise<{
-    data: Product;
+    response: boolean;
     error: string | null;
     status: number;
   }> => {
@@ -69,11 +70,8 @@ export const fetchPictureAlbum = createAsyncThunk<
     const HEADERS = {'Content-Type': 'multipart/form-data'};
     const userId = 'soyUnIdDePrueba'; // newProduct.userId;
     try {
-      let index = 0;
-      const filename =
-        userId + '*' + index + '.album-' + newProduct.title + '.jpg';
-      const album = newProduct?.album ?? [];
-      if (album.length > 0) {
+      for (let index = 0; index < album.length; index++) {
+        const filename = userId + '*' + index + '.album-' + title + '.jpg';
         RNFetchBlob.fetch(METHOD, URL, HEADERS, [
           {
             name: 'album',
@@ -81,8 +79,8 @@ export const fetchPictureAlbum = createAsyncThunk<
             type: 'image/jpg',
             data: RNFetchBlob.wrap(
               Platform.OS === 'ios'
-                ? album?.[0].replace('file://', '')
-                : album?.[0],
+                ? album?.[index].replace('file://', '')
+                : album?.[index],
             ),
           },
         ])
@@ -98,15 +96,13 @@ export const fetchPictureAlbum = createAsyncThunk<
           .catch(err => {
             console.error(err);
           });
-        index++;
-      } else {
-        console.log('no hay album');
       }
     } catch (err) {
       console.warn({err});
+      throw new Error('Algo salio mal al intentar subir el album');
     }
     return {
-      data: newProduct as Product,
+      response: true,
       error: null,
       status: 200,
     };

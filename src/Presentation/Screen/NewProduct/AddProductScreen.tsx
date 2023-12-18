@@ -14,6 +14,7 @@ import ProductSlice, {
 } from '../../../Infrastructure/Store/Slice/ProductSlice';
 import {Category} from '../../../Domain/Entity';
 import {PickerItem} from '../../../@Types/picker';
+import {getCategoriesByIds} from '../../../Utils/categoryUtils';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
@@ -60,20 +61,8 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
     ];
   }, []);
 
-  const getCategoriesByIds = (ids: string[]) => {
-    const newCategories: Category[] = [];
-    ids.forEach(id => {
-      const categoryIndex = Categories.findIndex(cty => cty.id === id);
-
-      if (categoryIndex !== -1) {
-        newCategories.push(Categories[categoryIndex]);
-      }
-    });
-    return newCategories;
-  };
-
   const [productCategories, setProductCategories] = useState<Category[]>(
-    getCategoriesByIds(tmpProduct?.categoryId),
+    getCategoriesByIds(tmpProduct?.categoryId, Categories),
   );
 
   const dispatch = useDispatch();

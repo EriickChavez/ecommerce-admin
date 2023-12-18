@@ -15,9 +15,13 @@ const SettingsButtonList = [
   },
   {
     name: 'Notifications',
-    // leftIcon: 'Notification',
     leftIcon: 'Notification',
     rightIcon: 'ToggleOn',
+  },
+  {
+    name: 'Categories',
+    leftIcon: 'Category',
+    rightIcon: null,
   },
   {
     name: 'Privacy',

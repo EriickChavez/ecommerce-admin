@@ -13,6 +13,7 @@ enum SCREEN_NAME {
 
   SETTINGS_STACK = 'SettingsStack',
   SETTINGS_SCREEN = 'SettingsScreen',
+  NEW_CATEGORY_SCREEN = 'addCategoryScreen',
 }
 enum SCREEN_NAME_TITLE {
   INVENTORY_STACK = 'Inventory',
@@ -27,6 +28,7 @@ enum SCREEN_NAME_TITLE {
   SIGNUP_SCREEN = 'Signup',
   SETTINGS_STACK = 'Settings',
   SETTINGS_SCREEN = 'Settings',
+  NEW_CATEGORY_SCREEN = 'Add Category',
 }
 
 const getScreenTitles = (title: SCREEN_NAME): string => {
@@ -45,6 +47,7 @@ const getScreenTitles = (title: SCREEN_NAME): string => {
     // SETTINGS STACK
     [SCREEN_NAME.SETTINGS_STACK]: SCREEN_NAME_TITLE.SETTINGS_STACK,
     [SCREEN_NAME.SETTINGS_SCREEN]: SCREEN_NAME_TITLE.SETTINGS_SCREEN,
+    [SCREEN_NAME.NEW_CATEGORY_SCREEN]: SCREEN_NAME_TITLE.NEW_CATEGORY_SCREEN,
   };
   return SCREENS[title];
 };
