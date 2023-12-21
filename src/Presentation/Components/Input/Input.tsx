@@ -1,7 +1,6 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {
   View,
-  Text,
   Pressable,
   Modal,
   TouchableOpacity,
@@ -15,6 +14,7 @@ import styles from './styles';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {PickerItem, PickerOptions} from '../../../@Types/picker';
 import injectionSort from '../../../Utils/sort';
+import Text from '../Text/Text';
 
 interface InputProps {
   placeholder?: string;
@@ -31,12 +31,17 @@ const Input: React.FC<InputProps> = ({
   value,
   title,
   onChangeText,
-  options = {pickerOptions: {onPickerSelectOption: () => {}, data: []}},
+  options = {
+    pickerOptions: {
+      onPickerSelectOption: () => {},
+      data: [],
+      setPickerArraySelected: () => {},
+      pickerArraySelected: [],
+    },
+  },
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [pickerArraySelected, setPickerArraySelected] = useState<PickerItem[]>(
-    [],
-  );
+
   const isEditable = useMemo(
     () => type === INPUT_TYPE.TEXT || type === INPUT_TYPE.NUMBER,
     [type],
@@ -81,14 +86,16 @@ const Input: React.FC<InputProps> = ({
             TextInputProps={{
               editable: false,
               placeholder,
-              value: pickerArraySelected.map(i => i.label).join(', '),
+              value: options.pickerOptions.pickerArraySelected
+                .map(i => i.label)
+                .join(', '),
             }}
             rightIcon={<ArrowDown2 size={RFValue(12)} variant="Bold" />}
           />
         </>
       </TouchableOpacity>
     );
-  }, [onPress, pickerArraySelected, placeholder]);
+  }, [onPress, options.pickerOptions.pickerArraySelected, placeholder]);
 
   const DropDownInput = useCallback(() => {
     return (
@@ -115,13 +122,19 @@ const Input: React.FC<InputProps> = ({
   }, [onPress, placeholder, value, onChangeText]);
 
   const onCheckboxPress = (item: PickerItem) => {
-    if (pickerArraySelected.includes(item)) {
-      const newArray = pickerArraySelected.filter(i => i !== item);
-      setPickerArraySelected(newArray);
+    if (options.pickerOptions.pickerArraySelected.includes(item)) {
+      const newArray = options.pickerOptions.pickerArraySelected.filter(
+        i => i !== item,
+      );
+      options.pickerOptions.setPickerArraySelected(newArray);
       options.pickerOptions.onPickerSelectOption(newArray);
     } else {
-      const newArray = injectionSort(pickerArraySelected, item, 'id');
-      setPickerArraySelected(newArray);
+      const newArray = injectionSort(
+        options.pickerOptions.pickerArraySelected,
+        item,
+        'id',
+      );
+      options.pickerOptions.setPickerArraySelected(newArray);
       options.pickerOptions.onPickerSelectOption(newArray);
     }
   };
@@ -132,7 +145,9 @@ const Input: React.FC<InputProps> = ({
     item: PickerItem;
     index: number;
   }) => {
-    const isChecked = pickerArraySelected.some(i => i.id === item.id);
+    const isChecked = options.pickerOptions.pickerArraySelected.some(
+      i => i.id === item.id,
+    );
 
     return (
       <View key={`key-checkbox-${index}`} style={styles.modalItems}>

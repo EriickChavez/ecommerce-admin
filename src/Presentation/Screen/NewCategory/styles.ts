@@ -20,6 +20,11 @@ export default StyleSheet.create({
   input: {
     marginVertical: 10,
   },
+  uploadImage: {
+    borderRadius: 10,
+    width: '100%',
+    height: RFValue(150),
+  },
   ExpandableTextInput: {
     borderColor: '#8B96A5',
     borderWidth: 1,

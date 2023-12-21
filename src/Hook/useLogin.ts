@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {LoginNavigationProps} from '../@Types/navigation';
+import {LoginNavigationProps} from '../@Types/navigation.auth';
 import {useDispatch} from 'react-redux';
 import {SCREEN_NAME} from '../Enum/Screens';
 import {fetchLogin} from '../Infrastructure/Store/Actions/UserAction';

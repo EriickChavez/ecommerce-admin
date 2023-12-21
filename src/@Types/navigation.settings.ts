@@ -1,6 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SCREEN_NAME} from '../Enum/Screens';
 import {BottomStackParamList} from './navigation';
+import {ITEMS} from '../Enum';
 
 export type SettingsStackNavigationProps = NativeStackScreenProps<
   BottomStackParamList,
@@ -17,4 +18,5 @@ export type NewCategoryScreenNavigationProps = NativeStackScreenProps<
 export type SettingsStackParamList = {
   [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
   [SCREEN_NAME.NEW_CATEGORY_SCREEN]: undefined;
+  [SCREEN_NAME.CONFIRMATION_SCREEN]: {item: ITEMS};
 };

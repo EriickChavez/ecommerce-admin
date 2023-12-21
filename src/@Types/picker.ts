@@ -2,6 +2,8 @@ export interface PickerOptions {
   pickerOptions: {
     data: PickerItem[];
     onPickerSelectOption: (data: PickerItem[]) => void;
+    pickerArraySelected: PickerItem[];
+    setPickerArraySelected: (data: PickerItem[]) => void;
   };
 }
 

@@ -18,6 +18,7 @@ import {reduxStorage} from '../../Config/storageConfig';
 import ExampleSlice from './Slice/ExampleSlice';
 import userSlice from './Slice/UserSlice';
 import productSlice from './Slice/ProductSlice';
+import CategorySlice from './Slice/CategorySlice';
 
 const persistConfig = {
   key: 'root',
@@ -28,7 +29,7 @@ const rootReducer = combineReducers({
   example: ExampleSlice.reducer,
   user: userSlice.reducer,
   product: productSlice.reducer,
-  category: productSlice.reducer,
+  category: CategorySlice.reducer,
 });
 
 const middlewares = [thunk];

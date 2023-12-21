@@ -21,7 +21,7 @@ export const fetchSignup = createAsyncThunk<
     username,
   }): Promise<{data: UserView; error: string | null; status: number}> => {
     try {
-      const url = `${Config.API_URL}/auth/signup`;
+      const url = `${Config.API_ADMIN_URL}/auth/signup`;
       const method = 'POST';
       const headers = {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export const fetchLogin = createAsyncThunk<
     password,
   }): Promise<{data: UserView; error: string | null; status: number}> => {
     try {
-      const url = `${Config.API_URL}/auth/login`;
+      const url = `${Config.API_ADMIN_URL}/auth/login`;
       const method = 'POST';
       const headers = {
         'Content-Type': 'application/json',

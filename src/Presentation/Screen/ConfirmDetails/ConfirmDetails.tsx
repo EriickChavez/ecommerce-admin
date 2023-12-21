@@ -7,6 +7,7 @@ import Text from '../../Components/Text/Text';
 import {Characteristics} from '../../../Domain/Entity';
 import Characteristic from '../../Components/Characteristic/Characteristic';
 // import {SCREEN_NAME} from '../../../Enum/Screens';
+// import {ITEMS} from '../../../Enum';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   fetchNewProducts,
@@ -38,7 +39,9 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = (
         title: productStore.tmpProduct.title,
       }),
     );
-    // navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN);
+    // navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN, {
+    //   item: ITEMS.PRODUCT,
+    // });
   };
 
   const isLoadingUpload = useMemo(

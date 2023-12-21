@@ -25,8 +25,8 @@ export const fetchNewProducts = createAsyncThunk<
     // const URL: string = Config.API_URL + '/product/add';
     const URL: string =
       type === 'cover'
-        ? Config.API_URL + '/product/add/'
-        : Config.API_URL + '/product/add/album';
+        ? Config.API_ADMIN_URL + '/product/add/'
+        : Config.API_ADMIN_URL + '/product/add/album';
     const METHOD = 'POST';
     const HEADERS = {'Content-Type': 'multipart/form-data'};
     const userId = 'soyUnIdDePrueba'; // newProduct.userId;
@@ -65,7 +65,7 @@ export const fetchPictureAlbum = createAsyncThunk<
     error: string | null;
     status: number;
   }> => {
-    const URL: string = Config.API_URL + '/product/add/album';
+    const URL: string = Config.API_ADMIN_URL + '/product/add/album';
     const METHOD = 'POST';
     const HEADERS = {'Content-Type': 'multipart/form-data'};
     const userId = 'soyUnIdDePrueba'; // newProduct.userId;

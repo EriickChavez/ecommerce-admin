@@ -15,11 +15,13 @@ import ProductSlice, {
 import {Category} from '../../../Domain/Entity';
 import {PickerItem} from '../../../@Types/picker';
 import {getCategoriesByIds} from '../../../Utils/categoryUtils';
+import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlice';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
 }) => {
   const productState = useSelector(productSelector);
+  const categoryState = useSelector(categorySelector);
 
   const tmpProduct = useMemo(
     () => productState.tmpProduct,
@@ -33,33 +35,9 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   const [subtitle, setSubtitle] = useState<string>(tmpProduct?.subtitle ?? '');
   const [quantity, setQuantity] = useState<number>(tmpProduct.stock);
   const Categories: Category[] = useMemo(() => {
-    return [
-      {
-        id: '1',
-        name: 'Category 1',
-        description: 'Category 1',
-        imageCover: '',
-      },
-      {
-        id: '2',
-        name: 'Category 2',
-        description: 'Category 2',
-        imageCover: '',
-      },
-      {
-        id: '4',
-        name: 'Category 4',
-        description: 'Category 4',
-        imageCover: '',
-      },
-      {
-        id: '5',
-        name: 'Category 5',
-        description: 'Category 5',
-        imageCover: '',
-      },
-    ];
-  }, []);
+    console.log({categoryState: categoryState});
+    return [];
+  }, [categoryState]);
 
   const [productCategories, setProductCategories] = useState<Category[]>(
     getCategoriesByIds(tmpProduct?.categoryId, Categories),

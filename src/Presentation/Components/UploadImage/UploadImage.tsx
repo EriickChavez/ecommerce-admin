@@ -1,5 +1,5 @@
 import {DocumentUpload} from 'iconsax-react-native';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
 import Text from '../Text/Text';
 import styles from './styles';
@@ -26,7 +26,14 @@ const UploadImage: React.FC<UploadImageProps> = ({
   onChangeImage,
   src,
 }) => {
-  const [source, setSource] = useState<string>(src || '');
+  const [source, setSource] = useState<string | undefined>(src || '');
+
+  useEffect(() => {
+    if (!src) {
+      setSource(undefined);
+    }
+  }, [src]);
+
   const handleUpload = async () => {
     launchImageLibrary({
       mediaType: 'photo',

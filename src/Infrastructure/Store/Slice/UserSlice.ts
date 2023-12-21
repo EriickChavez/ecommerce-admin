@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {UserView} from '../../../Domain/Entity/User/User';
 import {defaultUser} from '../../../Constants/defaultValues';
-import {fetchSignup} from '../Actions/UserAction';
+import {fetchLogin, fetchSignup} from '../Actions/UserAction';
 import {RootState} from '../Store';
 
 interface UserSliceState {
@@ -42,6 +42,21 @@ const userSlice = createSlice({
         },
       )
       .addCase(fetchSignup.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'An error occurred';
+      });
+
+    builder
+      .addCase(fetchLogin.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        const {data} = action.payload;
+        state.loading = false;
+        state.user = data;
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'An error occurred';
       });
