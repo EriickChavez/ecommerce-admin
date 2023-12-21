@@ -18,8 +18,24 @@ export default StyleSheet.create({
     margin: 10,
     alignItems: 'center',
   },
+  text: {
+    fontSize: RFValue(14),
+    marginBottom: 5,
+  },
+  title: {
+    marginVertical: 10,
+    fontSize: RFValue(16),
+  },
+  containerDescription: {
+    marginVertical: 10,
+    borderWidth: 0,
+    padding: 0,
+  },
   chipsContainer: {
     padding: 5,
+  },
+  categoryContainer: {
+    marginBottom: 10,
   },
   button: {
     borderRadius: 10,
