@@ -33,6 +33,7 @@ export const HomeStackNavigatior =
 
 export const AddProductStackNavigatior =
   createNativeStackNavigator<NewProductStackParamList>();
+
 export const SettingsStackNavigatior =
   createNativeStackNavigator<SettingsStackParamList>();
 

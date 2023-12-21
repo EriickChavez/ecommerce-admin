@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import * as Icon from 'iconsax-react-native';
 import {IconsTypes} from '../../../@Types/icon';
@@ -16,6 +16,8 @@ interface ChipsProps {
     fontSize?: number;
     iconLeftSize?: number;
     iconRightSize?: number;
+    onIconLeftPress?: () => void;
+    onIconRightPress?: () => void;
   };
   text?: string;
   leftIcon?: IconsTypes;
@@ -97,7 +99,13 @@ const Chips: React.FC<ChipsProps> = ({
           borderColor: opts.borderColor,
         },
       ]}>
-      {hasLeftIcon && <LeftIcon />}
+      {hasLeftIcon && (
+        <TouchableOpacity
+          onPress={opts.onIconLeftPress}
+          activeOpacity={opts.onIconLeftPress ? 0.5 : 1}>
+          <LeftIcon />
+        </TouchableOpacity>
+      )}
       {hasText && (
         <View style={styles.text}>
           <Text
@@ -109,7 +117,13 @@ const Chips: React.FC<ChipsProps> = ({
           </Text>
         </View>
       )}
-      {hasRightIcon && <RightIcon />}
+      {hasRightIcon && (
+        <TouchableOpacity
+          onPress={opts.onIconRightPress}
+          activeOpacity={opts.onIconRightPress ? 0.5 : 1}>
+          <RightIcon />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

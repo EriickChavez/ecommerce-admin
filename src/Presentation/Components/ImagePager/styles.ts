@@ -6,6 +6,7 @@ export default StyleSheet.create({
   scrollView: {
     backgroundColor: '#121212',
     borderRadius: 10,
+    width: '100%',
   },
   image: {
     width: width,

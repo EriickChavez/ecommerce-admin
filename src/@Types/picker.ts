@@ -7,6 +7,12 @@ export interface PickerOptions {
   };
 }
 
+export interface TextOptions {
+  textOptions: {
+    contextMenuHidden: boolean;
+  };
+}
+
 export interface PickerItem {
   id: string;
   label: string;

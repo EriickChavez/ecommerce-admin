@@ -6,7 +6,7 @@ export interface Product {
   subtitle: string | undefined;
   price: number;
   imageUri: string | undefined;
-  sellerId: string;
+  sellerId: string | undefined;
   /* FALTA POR AGREGAR COSAS */
   album: string[];
   userId: string;

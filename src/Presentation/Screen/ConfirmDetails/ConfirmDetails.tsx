@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react';
 import {Button, FlatList, SafeAreaView, ScrollView, View} from 'react-native';
 import {ConfirmDetailsNavigationProps} from '../../../@Types/navigation.newProduct';
-import ImagePager from '../../Components/ImagePager/ImagePager';
 import styles from './styles';
 import Text from '../../Components/Text/Text';
 import {Characteristics} from '../../../Domain/Entity';
@@ -16,6 +15,7 @@ import {
 import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 import ExpandableText from '../../Components/ExpandibleText/ExpandibleText';
 import Chips from '../../Components/Chips/Chips';
+import ImageView from '../../Components/ImageView/ImageView';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = (
   {
     // navigation,
@@ -76,15 +76,19 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = (
     );
   };
   return (
-    <SafeAreaView style={styles.flex}>
+    <SafeAreaView style={[styles.flex, styles.banner]}>
       <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
         <View>
           <Text>Product Cover</Text>
           {productStore?.tmpProduct?.cover && (
-            <ImagePager
-              imageStyles={styles.banner}
-              images={[productStore?.tmpProduct?.cover]}
-            />
+            <>
+              <ImageView
+                imageProps={{
+                  source: {uri: productStore?.tmpProduct?.cover},
+                  style: [styles.button],
+                }}
+              />
+            </>
           )}
         </View>
         <Text>{product.title}</Text>

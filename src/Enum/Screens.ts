@@ -6,6 +6,7 @@ enum SCREEN_NAME {
   ADD_PRODUCT_SCREEN_PT2 = 'AddProductScreen2',
   CONFIRM_DETAILS_SCREEN = 'ConfirmDetailsScreen',
   CONFIRMATION_SCREEN = 'ConfirmScreen',
+  ICON_HELP_SCREEN = 'IconHelpScreen',
 
   AUTH_STACK = 'LoginScreen',
   LOGIN_SCREEN = 'LoginScreen',
@@ -29,6 +30,7 @@ enum SCREEN_NAME_TITLE {
   SETTINGS_STACK = 'Settings',
   SETTINGS_SCREEN = 'Settings',
   NEW_CATEGORY_SCREEN = 'Add Category',
+  ICON_HELP_SCREEN = 'Help',
 }
 
 const getScreenTitles = (title: SCREEN_NAME): string => {
@@ -48,6 +50,7 @@ const getScreenTitles = (title: SCREEN_NAME): string => {
     [SCREEN_NAME.SETTINGS_STACK]: SCREEN_NAME_TITLE.SETTINGS_STACK,
     [SCREEN_NAME.SETTINGS_SCREEN]: SCREEN_NAME_TITLE.SETTINGS_SCREEN,
     [SCREEN_NAME.NEW_CATEGORY_SCREEN]: SCREEN_NAME_TITLE.NEW_CATEGORY_SCREEN,
+    [SCREEN_NAME.ICON_HELP_SCREEN]: SCREEN_NAME_TITLE.ICON_HELP_SCREEN,
   };
   return SCREENS[title];
 };

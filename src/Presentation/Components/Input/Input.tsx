@@ -12,7 +12,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
 import styles from './styles';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {PickerItem, PickerOptions} from '../../../@Types/picker';
+import {PickerItem, PickerOptions, TextOptions} from '../../../@Types/picker';
 import injectionSort from '../../../Utils/sort';
 import Text from '../Text/Text';
 
@@ -22,7 +22,8 @@ interface InputProps {
   value?: string;
   title?: string;
   onChangeText?: (text: string) => void;
-  options?: PickerOptions;
+  pickerOptions?: PickerOptions;
+  textOptions?: TextOptions;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -31,12 +32,17 @@ const Input: React.FC<InputProps> = ({
   value,
   title,
   onChangeText,
-  options = {
+  pickerOptions = {
     pickerOptions: {
       onPickerSelectOption: () => {},
       data: [],
       setPickerArraySelected: () => {},
       pickerArraySelected: [],
+    },
+  },
+  textOptions = {
+    textOptions: {
+      contextMenuHidden: false,
     },
   },
 }) => {
@@ -73,10 +79,18 @@ const Input: React.FC<InputProps> = ({
           value,
           onChangeText,
           keyboardType,
+          contextMenuHidden: textOptions.textOptions.contextMenuHidden,
         }}
       />
     );
-  }, [isEditable, placeholder, value, onChangeText, keyboardType]);
+  }, [
+    isEditable,
+    placeholder,
+    value,
+    onChangeText,
+    keyboardType,
+    textOptions.textOptions.contextMenuHidden,
+  ]);
 
   const PickerInput = useCallback(() => {
     return (
@@ -86,7 +100,7 @@ const Input: React.FC<InputProps> = ({
             TextInputProps={{
               editable: false,
               placeholder,
-              value: options.pickerOptions.pickerArraySelected
+              value: pickerOptions.pickerOptions.pickerArraySelected
                 .map(i => i.label)
                 .join(', '),
             }}
@@ -95,7 +109,7 @@ const Input: React.FC<InputProps> = ({
         </>
       </TouchableOpacity>
     );
-  }, [onPress, options.pickerOptions.pickerArraySelected, placeholder]);
+  }, [onPress, pickerOptions.pickerOptions.pickerArraySelected, placeholder]);
 
   const DropDownInput = useCallback(() => {
     return (
@@ -122,20 +136,20 @@ const Input: React.FC<InputProps> = ({
   }, [onPress, placeholder, value, onChangeText]);
 
   const onCheckboxPress = (item: PickerItem) => {
-    if (options.pickerOptions.pickerArraySelected.includes(item)) {
-      const newArray = options.pickerOptions.pickerArraySelected.filter(
+    if (pickerOptions.pickerOptions.pickerArraySelected.includes(item)) {
+      const newArray = pickerOptions.pickerOptions.pickerArraySelected.filter(
         i => i !== item,
       );
-      options.pickerOptions.setPickerArraySelected(newArray);
-      options.pickerOptions.onPickerSelectOption(newArray);
+      pickerOptions.pickerOptions.setPickerArraySelected(newArray);
+      pickerOptions.pickerOptions.onPickerSelectOption(newArray);
     } else {
       const newArray = injectionSort(
-        options.pickerOptions.pickerArraySelected,
+        pickerOptions.pickerOptions.pickerArraySelected,
         item,
         'id',
       );
-      options.pickerOptions.setPickerArraySelected(newArray);
-      options.pickerOptions.onPickerSelectOption(newArray);
+      pickerOptions.pickerOptions.setPickerArraySelected(newArray);
+      pickerOptions.pickerOptions.onPickerSelectOption(newArray);
     }
   };
   const renderCheckItems = ({
@@ -145,7 +159,7 @@ const Input: React.FC<InputProps> = ({
     item: PickerItem;
     index: number;
   }) => {
-    const isChecked = options.pickerOptions.pickerArraySelected.some(
+    const isChecked = pickerOptions.pickerOptions.pickerArraySelected.some(
       i => i.id === item.id,
     );
 
@@ -187,7 +201,7 @@ const Input: React.FC<InputProps> = ({
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Hello World!</Text>
                 <ScrollView style={styles.containerModalItems}>
-                  {options.pickerOptions.data.map((item, index) => {
+                  {pickerOptions.pickerOptions.data.map((item, index) => {
                     return renderCheckItems({item, index});
                   })}
                 </ScrollView>

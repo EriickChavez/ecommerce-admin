@@ -95,7 +95,7 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
           <Input
             type={INPUT_TYPE.PICKER}
             title="Related Categories"
-            options={{
+            pickerOptions={{
               pickerOptions: {
                 data: categoryState.data.map((cty): PickerItem => {
                   return {

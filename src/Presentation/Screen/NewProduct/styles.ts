@@ -6,10 +6,18 @@ export default StyleSheet.create({
     paddingHorizontal: '5%',
     paddingVertical: '3%',
   },
+  uploadImage: {
+    width: '100%',
+  },
   content: {
     flex: 1,
   },
   inputContent: {
     marginVertical: 10,
+  },
+  expandibleTextInput: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#8B96A5',
   },
 });

@@ -21,4 +21,9 @@ export default StyleSheet.create({
   chipsContainer: {
     padding: 5,
   },
+  button: {
+    borderRadius: 10,
+    width: '100%',
+    height: RFValue(150),
+  },
 });
