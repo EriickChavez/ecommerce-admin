@@ -1,12 +1,3 @@
-// import {
-//   Profile,
-//   Notification,
-//   Chainlink,
-//   Settings2,
-//   Logout,
-//   ToggleOn,
-// } from 'iconsax-react-native';
-
 const SettingsButtonList = [
   {
     name: 'Profile',
@@ -14,33 +5,13 @@ const SettingsButtonList = [
     rightIcon: null,
   },
   {
-    name: 'Notifications',
-    leftIcon: 'Notification',
-    rightIcon: 'ToggleOn',
-  },
-  {
     name: 'Categories',
     leftIcon: 'Category',
     rightIcon: null,
   },
   {
-    name: 'Privacy',
-    leftIcon: 'Lock',
-    rightIcon: null,
-  },
-  {
-    name: 'Preferences',
-    leftIcon: 'Candle',
-    rightIcon: null,
-  },
-  {
-    name: 'Help',
-    leftIcon: 'Flag2',
-    rightIcon: null,
-  },
-  {
-    name: 'About',
-    leftIcon: 'ToggleOn',
+    name: 'Banner',
+    leftIcon: 'AddCircle',
     rightIcon: null,
   },
   {

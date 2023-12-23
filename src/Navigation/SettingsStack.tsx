@@ -8,6 +8,7 @@ import {SettingsStackNavigationProps} from '../@Types/navigation.settings';
 import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
 import NewCategory from '../Presentation/Screen/NewCategory/NewCategory';
 import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
+import NewBannerScreen from '../Presentation/Screen/NewBanner/NewBannerScreen';
 
 const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
   return (
@@ -22,6 +23,11 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.NEW_CATEGORY_SCREEN}
         component={NewCategory}
+      />
+      <SettingsStackNavigatior.Screen
+        options={screenWithoutTopbarOptions}
+        name={SCREEN_NAME.NEW_BANNER_SCREEN}
+        component={NewBannerScreen}
       />
       <SettingsStackNavigatior.Screen
         options={screenWithoutTopbarOptions}

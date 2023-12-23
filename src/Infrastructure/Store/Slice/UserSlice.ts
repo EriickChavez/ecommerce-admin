@@ -54,6 +54,8 @@ const userSlice = createSlice({
       .addCase(fetchLogin.fulfilled, (state, action) => {
         const {data} = action.payload;
         state.loading = false;
+        // @ts-ignore
+        state.error = data?.error;
         state.user = data;
       })
       .addCase(fetchLogin.rejected, (state, action) => {

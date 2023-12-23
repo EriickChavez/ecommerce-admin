@@ -37,7 +37,10 @@ const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
         component={Confirmation}
       />
 
-      <AddProductStackNavigatior.Group>
+      <AddProductStackNavigatior.Group
+        screenOptions={{
+          presentation: 'modal',
+        }}>
         <AddProductStackNavigatior.Screen
           options={screenWithTopbarOptions}
           name={SCREEN_NAME.ICON_HELP_SCREEN}

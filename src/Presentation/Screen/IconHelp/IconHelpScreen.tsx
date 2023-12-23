@@ -68,7 +68,7 @@ const IconHelpScreen: React.FC<IconHelpProps> = ({theme = themes.light}) => {
         scrollEventThrottle={400}
         style={[styles.container, styles.scroll]}>
         <View style={styles.content}>
-          {iconsList.map((key, index) => {
+          {iconsList.map(key => {
             const IconToUse = Icon[key as keyof typeof Icon];
             return (
               <View
@@ -82,7 +82,7 @@ const IconHelpScreen: React.FC<IconHelpProps> = ({theme = themes.light}) => {
                 key={key}>
                 <IconToUse key={key} size={30} color={theme?.colors.icon} />
                 <Text style={[styles.text, {color: theme?.colors.icon}]}>
-                  {index}-{key}
+                  {key}
                 </Text>
               </View>
             );

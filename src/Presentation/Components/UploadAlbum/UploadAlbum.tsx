@@ -13,6 +13,7 @@ import UploadImage from '../UploadImage/UploadImage';
 
 interface AlbumProps {
   theme?: ThemeEntry;
+  title?: string;
   album?: string[];
   onChangeAlbum?: (data: any) => void;
   optionsAction?: {
@@ -25,9 +26,10 @@ const {width} = Dimensions.get('screen');
 
 const contentWidth = width - width * 0.2;
 const imageAlbumSize = contentWidth * 0.3;
-const Album: React.FC<AlbumProps> = ({
+const UploadAlbum: React.FC<AlbumProps> = ({
   album = ['', '', '', '', '', ''],
   onChangeAlbum,
+  title,
   optionsAction = {
     action: undefined,
     textAction: undefined,
@@ -44,7 +46,7 @@ const Album: React.FC<AlbumProps> = ({
     <View style={styles.container}>
       <View>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Products</Text>
+          <Text style={styles.title}>{title}</Text>
           <View style={styles.albumContainer}>
             {optionsAction && (
               <TouchableOpacity
@@ -82,4 +84,4 @@ const Album: React.FC<AlbumProps> = ({
   );
 };
 
-export default Album;
+export default UploadAlbum;

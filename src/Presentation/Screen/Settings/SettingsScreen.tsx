@@ -32,6 +32,7 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
             ? // @ts-ignore
               Icon[item.leftIcon]
             : null;
+          // @ts-ignore
           const IconRightToUse: Icon.Icon = item.rightIcon
             ? // @ts-ignore
               Icon[item.rightIcon]
@@ -40,7 +41,11 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
           return (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate(SCREEN_NAME.NEW_CATEGORY_SCREEN);
+                if (index === 0) {
+                  navigation.navigate(SCREEN_NAME.NEW_CATEGORY_SCREEN);
+                } else if (item.name === 'Banner') {
+                  navigation.navigate(SCREEN_NAME.NEW_BANNER_SCREEN);
+                }
               }}
               style={styles.button}
               key={`${index}`}>

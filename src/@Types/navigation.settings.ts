@@ -15,8 +15,13 @@ export type NewCategoryScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
   SCREEN_NAME.NEW_CATEGORY_SCREEN
 >;
+export type NewBannerScreenNavigationProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  SCREEN_NAME.NEW_BANNER_SCREEN
+>;
 export type SettingsStackParamList = {
   [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
   [SCREEN_NAME.NEW_CATEGORY_SCREEN]: undefined;
+  [SCREEN_NAME.NEW_BANNER_SCREEN]: undefined;
   [SCREEN_NAME.CONFIRMATION_SCREEN]: {item: ITEMS};
 };

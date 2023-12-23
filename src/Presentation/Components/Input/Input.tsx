@@ -38,16 +38,25 @@ const Input: React.FC<InputProps> = ({
       data: [],
       setPickerArraySelected: () => {},
       pickerArraySelected: [],
+      multiple: true,
     },
   },
   textOptions = {
     textOptions: {
       contextMenuHidden: false,
+      error: undefined,
     },
   },
 }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const checkBoxRef = React.useRef<
+    Array<React.MutableRefObject<BouncyCheckbox | null>>
+  >(
+    Array.from({length: pickerOptions.pickerOptions.data.length}, () =>
+      React.createRef<BouncyCheckbox | null>(),
+    ),
+  );
 
+  const [modalVisible, setModalVisible] = useState(false);
   const isEditable = useMemo(
     () => type === INPUT_TYPE.TEXT || type === INPUT_TYPE.NUMBER,
     [type],
@@ -162,11 +171,11 @@ const Input: React.FC<InputProps> = ({
     const isChecked = pickerOptions.pickerOptions.pickerArraySelected.some(
       i => i.id === item.id,
     );
-
     return (
       <View key={`key-checkbox-${index}`} style={styles.modalItems}>
         <View style={styles.modalItemCheck}>
           <BouncyCheckbox
+            ref={checkBoxRef.current[index]}
             onPress={() => onCheckboxPress(item)}
             isChecked={isChecked}
             style={styles.checkbox}

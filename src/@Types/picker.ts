@@ -4,12 +4,14 @@ export interface PickerOptions {
     onPickerSelectOption: (data: PickerItem[]) => void;
     pickerArraySelected: PickerItem[];
     setPickerArraySelected: (data: PickerItem[]) => void;
+    multiple?: boolean;
   };
 }
 
 export interface TextOptions {
   textOptions: {
     contextMenuHidden: boolean;
+    error: boolean;
   };
 }
 

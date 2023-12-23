@@ -93,8 +93,7 @@ export const fetchLogin = createAsyncThunk<
         status: response.status,
       };
     } catch (error) {
-      console.error('Error en fetchMe: ->', error);
-      throw new Error(`${error}`);
+      throw error;
     }
   },
 );
