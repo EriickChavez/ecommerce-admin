@@ -36,6 +36,14 @@ const useLogin = ({navigation}: LoginNavigationProps): loginHook => {
   const handleForgotPassword = () => {
     console.log(`Iniciando sesión con el usuario: ${email}`);
   };
+  const onChangeEmail = (text: string) => {
+    setError(undefined);
+    setEmail(text);
+  };
+  const onChangePassword = (text: string) => {
+    setError(undefined);
+    setPassword(text);
+  };
   const errorManager = () => {
     switch (error) {
       case ERROR_MESSAGE.INTERNAL_SERVER_ERROR:
@@ -67,8 +75,8 @@ const useLogin = ({navigation}: LoginNavigationProps): loginHook => {
     onChange: {
       email,
       password,
-      setEmail,
-      setPassword,
+      setEmail: onChangeEmail,
+      setPassword: onChangePassword,
     },
     error: errorManager(),
   };

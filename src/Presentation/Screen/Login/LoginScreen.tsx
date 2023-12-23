@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -12,11 +11,14 @@ import {LoginNavigationProps} from '../../../@Types/navigation.auth';
 import {Logo} from '../../Components/LogoComponent';
 import styles from './styles';
 import useLogin from '../../../Hook/useLogin';
+import Input from '../../Components/Input/Input';
+import {INPUT_TYPE} from '../../../Enum';
+import ShakeView from '../../../Animations/ShakeView';
 
 const LoginScreen: React.FC<LoginNavigationProps> = props => {
-  const {handleForgotPassword, handleLogin, handleSignUp, onChange} =
+  const {handleForgotPassword, handleLogin, handleSignUp, onChange, error} =
     useLogin(props);
-
+  console.log(error);
   return (
     <KeyboardAvoidingView
       behavior="padding"
@@ -31,19 +33,30 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
             <Logo width={'100%'} height={'100%'} />
           </View>
         </View>
-        <TextInput
-          style={styles.input}
-          value={onChange.email}
-          onChangeText={onChange.setEmail}
-          placeholder="Nombre de usuario"
-        />
-        <TextInput
-          style={styles.input}
-          value={onChange.password}
-          onChangeText={onChange.setPassword}
-          placeholder="Contraseña"
-          secureTextEntry
-        />
+        <View style={[styles.input]}>
+          <ShakeView Angle={10} Time={1000}>
+            <Input
+              type={INPUT_TYPE.TEXT}
+              placeholder="email"
+              onChangeText={onChange.setEmail}
+              value={onChange.email}
+              textOptions={{
+                textOptions: {
+                  error: error === 4,
+                },
+              }}
+            />
+          </ShakeView>
+        </View>
+        <View style={[styles.input]}>
+          <Input
+            type={INPUT_TYPE.PASSWORD}
+            placeholder="Password"
+            onChangeText={onChange.setPassword}
+            value={onChange.password}
+          />
+        </View>
+
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Iniciar sesión</Text>
         </TouchableOpacity>
