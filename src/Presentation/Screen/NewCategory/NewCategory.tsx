@@ -68,6 +68,14 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
       </View>
       <View style={styles.content}>
         <View style={styles.input}>
+          <UploadImage
+            title="Cover"
+            onChangeImage={setImageCover}
+            src={imageCover}
+            containerStyle={styles.uploadImage}
+          />
+        </View>
+        <View style={styles.input}>
           <Input
             type={INPUT_TYPE.TEXT}
             title="Category Name"
@@ -81,14 +89,6 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
             onChangeText={text => setDescription(text)}
             value={description}
             containerStyle={styles.ExpandableTextInput}
-          />
-        </View>
-        <View style={styles.input}>
-          <UploadImage
-            title="Cover"
-            onChangeImage={setImageCover}
-            src={imageCover}
-            containerStyle={styles.uploadImage}
           />
         </View>
         <View style={styles.input}>

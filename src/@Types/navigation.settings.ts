@@ -11,17 +11,17 @@ export type SettingsScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
   SCREEN_NAME.SETTINGS_SCREEN
 >;
-export type NewCategoryScreenNavigationProps = NativeStackScreenProps<
+export type CategoryStockScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
-  SCREEN_NAME.NEW_CATEGORY_SCREEN
+  SCREEN_NAME.CATEGORY_STOCK_SCREEN
 >;
-export type NewBannerScreenNavigationProps = NativeStackScreenProps<
+export type ProductStockScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
-  SCREEN_NAME.NEW_BANNER_SCREEN
+  SCREEN_NAME.PRODUCT_STOCK_SCREEN
 >;
 export type SettingsStackParamList = {
   [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
-  [SCREEN_NAME.NEW_CATEGORY_SCREEN]: undefined;
-  [SCREEN_NAME.NEW_BANNER_SCREEN]: undefined;
+  [SCREEN_NAME.PRODUCT_STOCK_SCREEN]: undefined;
+  [SCREEN_NAME.CATEGORY_STOCK_SCREEN]: undefined;
   [SCREEN_NAME.CONFIRMATION_SCREEN]: {item: ITEMS};
 };

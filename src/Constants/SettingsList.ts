@@ -10,6 +10,11 @@ const SettingsButtonList = [
     rightIcon: null,
   },
   {
+    name: 'Products',
+    leftIcon: 'Category',
+    rightIcon: null,
+  },
+  {
     name: 'Banner',
     leftIcon: 'AddCircle',
     rightIcon: null,

@@ -1,32 +1,17 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Text from '../../Components/Text/Text';
 import OkIcon from '../../../Assets/svg/OkIcon';
 import {ConfirmNavigationProps} from '../../../@Types/navigation.newProduct';
 import {SCREEN_NAME} from '../../../Enum/Screens';
 import styles from './styles';
-import {ITEMS} from '../../../Enum';
 
-const Confirmation: React.FC<ConfirmNavigationProps> = ({
-  navigation,
-  route,
-}) => {
-  const {item} = useMemo(() => route.params, [route]);
+const Confirmation: React.FC<ConfirmNavigationProps> = ({navigation}) => {
   const handlePress = () => {
-    switch (item) {
-      case ITEMS.PRODUCT:
-        navigation.reset({
-          index: 0,
-          routes: [{name: SCREEN_NAME.ADD_PRODUCT_SCREEN}],
-        });
-        break;
-      case ITEMS.CATEGORY:
-        navigation.reset({
-          index: 0,
-          routes: [{name: SCREEN_NAME.NEW_CATEGORY_SCREEN}],
-        });
-        break;
-    }
+    navigation.reset({
+      index: 0,
+      routes: [{name: SCREEN_NAME.SELECT_ITEM_SCREEN}],
+    });
   };
 
   return (

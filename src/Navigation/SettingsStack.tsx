@@ -6,9 +6,9 @@ import {
 import {SCREEN_NAME} from '../Enum/Screens';
 import {SettingsStackNavigationProps} from '../@Types/navigation.settings';
 import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
-import NewCategory from '../Presentation/Screen/NewCategory/NewCategory';
 import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
-import NewBannerScreen from '../Presentation/Screen/NewBanner/NewBannerScreen';
+import CategoryStock from '../Presentation/Screen/Stock/CategoryStock';
+import ProductStock from '../Presentation/Screen/Stock/ProductStock';
 
 const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
   return (
@@ -21,13 +21,13 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
       />
       <SettingsStackNavigatior.Screen
         options={screenWithoutTopbarOptions}
-        name={SCREEN_NAME.NEW_CATEGORY_SCREEN}
-        component={NewCategory}
+        name={SCREEN_NAME.CATEGORY_STOCK_SCREEN}
+        component={CategoryStock}
       />
       <SettingsStackNavigatior.Screen
         options={screenWithoutTopbarOptions}
-        name={SCREEN_NAME.NEW_BANNER_SCREEN}
-        component={NewBannerScreen}
+        name={SCREEN_NAME.PRODUCT_STOCK_SCREEN}
+        component={ProductStock}
       />
       <SettingsStackNavigatior.Screen
         options={screenWithoutTopbarOptions}

@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
-import {NewBannerScreenNavigationProps} from '../../../@Types/navigation.settings';
 import styles from './styles';
 import Input from '../../Components/Input/Input';
-import {ALL_SCREENS, INPUT_TYPE} from '../../../Enum';
+import {ALL_SCREENS, INPUT_TYPE, ITEMS, SCREEN_NAME} from '../../../Enum';
 import ExpandableTextInput from '../../Components/ExpandibleTextInput/ExpandibleTextInput';
 import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import Text from '../../Components/Text/Text';
-const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({}) => {
+import {NewBannerScreenNavigationProps} from '../../../@Types/navigation.newProduct';
+const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
+  navigation,
+}) => {
   const [showIn, setShowIn] = useState<string>('');
 
   return (
@@ -50,7 +52,13 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({}) => {
         <UploadAlbum title="Images" />
       </ScrollView>
       <View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN, {
+              item: ITEMS.BANNER,
+            })
+          }>
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>

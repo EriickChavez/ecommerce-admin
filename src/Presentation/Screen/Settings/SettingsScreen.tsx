@@ -41,10 +41,11 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
           return (
             <TouchableOpacity
               onPress={() => {
-                if (index === 0) {
-                  navigation.navigate(SCREEN_NAME.NEW_CATEGORY_SCREEN);
+                if (item.name === 'Categories') {
+                  navigation.navigate(SCREEN_NAME.CATEGORY_STOCK_SCREEN);
                 } else if (item.name === 'Banner') {
-                  navigation.navigate(SCREEN_NAME.NEW_BANNER_SCREEN);
+                } else if (item.name === 'Products') {
+                  navigation.navigate(SCREEN_NAME.PRODUCT_STOCK_SCREEN);
                 }
               }}
               style={styles.button}
