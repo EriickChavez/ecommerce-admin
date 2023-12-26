@@ -15,6 +15,10 @@ interface TextInputProps {
   placeholder?: string;
   TextInputProps?: RNTextInputProps;
   theme?: ThemeEntry;
+  error?: {
+    borderColor: string;
+    color: string;
+  };
   borderRadius?: {
     borderTopLeftRadius: number;
     borderBottomLeftRadius: number;
@@ -41,6 +45,7 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
         borderBottomRightRadius: 5,
         borderTopRightRadius: 5,
       },
+      error,
     },
     ref,
   ) => {
@@ -86,12 +91,17 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
       : {};
 
     return (
-      <View style={[styles.container, borderRadius]}>
+      <View
+        style={[
+          styles.container,
+          borderRadius,
+          error && {borderColor: error.borderColor},
+        ]}>
         {renderLeftIcon()}
         {isEditable ? (
           <RNTextInput
             ref={textInputRef}
-            style={[styles.input]}
+            style={[styles.input, error && {color: error?.color}]}
             placeholderTextColor={theme.colors.text_secondary}
             {...TextInputProps}
           />

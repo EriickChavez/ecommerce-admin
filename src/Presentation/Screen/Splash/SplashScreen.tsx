@@ -6,22 +6,19 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchCategories} from '../../../Infrastructure/Store/Actions/CategoryAction';
-import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {useDispatch} from 'react-redux';
 import styles from './styles';
+import {resetError} from '../../../Utils/restartState';
 
 const SplashScreen: React.FC = () => {
   const dispatch = useDispatch();
-  const stateUser = useSelector(userSelector);
-  // @ts-ignore
-  dispatch(fetchCategories({token: stateUser.user.token}));
 
   const logoOpacity = useSharedValue(0);
 
   useEffect(() => {
+    resetError(dispatch);
     logoOpacity.value = withTiming(1, {
-      duration: 1000,
+      duration: 500,
       easing: Easing.ease,
     });
 

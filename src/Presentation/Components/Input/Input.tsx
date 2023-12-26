@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = ({
   textOptions = {
     textOptions: {
       contextMenuHidden: false,
-      error: undefined,
+      error: false,
     },
   },
 }) => {
@@ -58,7 +58,10 @@ const Input: React.FC<InputProps> = ({
 
   const [modalVisible, setModalVisible] = useState(false);
   const isEditable = useMemo(
-    () => type === INPUT_TYPE.TEXT || type === INPUT_TYPE.NUMBER,
+    () =>
+      type === INPUT_TYPE.TEXT ||
+      type === INPUT_TYPE.PASSWORD ||
+      type === INPUT_TYPE.NUMBER,
     [type],
   );
   const isPicker = useMemo(() => type === INPUT_TYPE.PICKER, [type]);
@@ -89,16 +92,24 @@ const Input: React.FC<InputProps> = ({
           onChangeText,
           keyboardType,
           contextMenuHidden: textOptions.textOptions.contextMenuHidden,
+          secureTextEntry: type === INPUT_TYPE.PASSWORD,
         }}
+        error={
+          textOptions.textOptions.error
+            ? {borderColor: 'red', color: 'red'}
+            : undefined
+        }
       />
     );
   }, [
+    type,
     isEditable,
     placeholder,
     value,
     onChangeText,
     keyboardType,
     textOptions.textOptions.contextMenuHidden,
+    textOptions.textOptions.error,
   ]);
 
   const PickerInput = useCallback(() => {
