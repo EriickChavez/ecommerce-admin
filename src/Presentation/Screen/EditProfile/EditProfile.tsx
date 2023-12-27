@@ -1,5 +1,6 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
+  ActivityIndicator,
   LayoutChangeEvent,
   ScrollView,
   TouchableOpacity,
@@ -18,8 +19,23 @@ import Animated, {
   withSpring,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import {useDispatch, useSelector} from 'react-redux';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {UserViewInput} from '../../../Domain/Entity/User/User';
+import {fetchEditUser} from '../../../Infrastructure/Store/Actions/UserAction';
 
 const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
+  const userState = useSelector(userSelector);
+  const dispatch = useDispatch();
+  const [imageUri, setImageUri] = useState<string>(
+    userState.user.imageUri || '',
+  );
+  const [username, setUsername] = useState<string>(userState.user.username);
+  const [country, setCountry] = useState<string>(userState.user?.country || '');
+  const [state, setState] = useState<string>(userState.user.state || '');
+  const [age, setAge] = useState<string>(userState.user.age?.toString() || '');
+  const [bio, setBio] = useState<string>(userState.user.bio || '');
+
   const {isKeyboardVisible, keyboardHeight} = useKeyboardVisible();
   const scaleAnimation = useSharedValue(1);
 
@@ -37,6 +53,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
   const refTxtAge = React.createRef<inputRef>();
   // TODO: Está pendiente hacer ref de este componente
   // const refTxtBio = React.createRef<inputRef>();
+  const isLoading = useMemo(() => userState.loading, [userState.loading]);
 
   const [layoutArray, setLayoutArray] = useState<{[key: string]: any}>({
     Username: {},
@@ -110,6 +127,30 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
     }
   };
 
+  const handleSave = useCallback(() => {
+    const editUser: UserViewInput = {
+      username,
+      country,
+      state,
+      age: Number(age),
+      bio,
+      id: userState.user.id,
+      imageUri,
+    };
+    // @ts-ignore
+    dispatch(fetchEditUser({token: userState.user.token, user: editUser}));
+  }, [
+    username,
+    country,
+    state,
+    age,
+    bio,
+    userState.user.id,
+    userState.user.token,
+    imageUri,
+    dispatch,
+  ]);
+
   const animatedStyle = useAnimatedStyle(() => {
     return {
       height: withSpring(scaleAnimation.value),
@@ -124,13 +165,19 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
         style={styles.scrollView}
         stickyHeaderIndices={[6]}>
         <View onLayout={e => onLayout(e, 0)} style={styles.input}>
-          <UploadImage title="Profile Image" containerStyle={styles.image} />
+          <UploadImage
+            title="Profile Image"
+            containerStyle={styles.image}
+            onChangeImage={(src: string) => setImageUri(src)}
+          />
         </View>
         <View onLayout={e => onLayout(e, 1)} style={styles.input}>
           <Input
             ref={refTxtUsnm}
             title="Username"
             placeholder="Username"
+            value={username}
+            onChangeText={(text: string) => setUsername(text)}
             type={INPUT_TYPE.TEXT}
           />
         </View>
@@ -139,6 +186,8 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
             ref={refTxtCountry}
             title="Country"
             placeholder="Mexico"
+            value={country}
+            onChangeText={(text: string) => setCountry(text)}
             type={INPUT_TYPE.TEXT}
           />
         </View>
@@ -147,6 +196,8 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
             ref={refTxtState}
             title="State"
             placeholder="Torreón"
+            value={state}
+            onChangeText={(text: string) => setState(text)}
             type={INPUT_TYPE.TEXT}
           />
         </View>
@@ -156,6 +207,8 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
             title="Age"
             placeholder="21"
             type={INPUT_TYPE.NUMBER}
+            value={age}
+            onChangeText={(text: string) => setAge(text)}
           />
         </View>
         <View
@@ -165,11 +218,12 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           <ExpandableTextInput
             text="Bio"
             placeholder="Bio"
+            value={bio}
+            onChangeText={(text: string) => setBio(text)}
             containerStyle={styles.inputExpandible}
             placeholderTextColor={'#949BA6'}
           />
         </View>
-
         <View
           style={{
             height: keyboardHeight,
@@ -178,8 +232,17 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
         <Animated.View style={[styles.box, animatedStyle]} />
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Save</Text>
+        <TouchableOpacity
+          disabled={isLoading}
+          onPress={handleSave}
+          style={styles.button}
+          activeOpacity={0.8}>
+          <View style={styles.buttonTextContainer}>
+            <View style={styles.buttonIndicator}>
+              <ActivityIndicator size={'small'} />
+            </View>
+            <Text style={styles.buttonText}>Save</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>

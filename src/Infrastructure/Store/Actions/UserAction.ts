@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Config} from '../../../Config/ENV';
-import {UserView} from '../../../Domain/Entity/User/User';
+import {UserView, UserViewInput} from '../../../Domain/Entity/User/User';
 
 export const fetchSignup = createAsyncThunk<
   {
@@ -78,6 +78,55 @@ export const fetchLogin = createAsyncThunk<
       const body = {
         email,
         password,
+      };
+      const options = {
+        headers,
+        method,
+        body: JSON.stringify(body),
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      return {
+        data,
+        error: null,
+        status: response.status,
+      };
+    } catch (error) {
+      throw error;
+    }
+  },
+);
+export const fetchEditUser = createAsyncThunk<
+  {
+    data: UserView;
+    error: string | null;
+    status: number;
+  },
+  {
+    token: string;
+    user: UserViewInput;
+  }
+>(
+  'userSlice/fetchEditUser',
+  async ({
+    token,
+    user,
+  }): Promise<{
+    data: UserView;
+    error: string | null;
+    status: number;
+  }> => {
+    try {
+      const url = `${Config.API_ADMIN_URL}/auth/editProfile`;
+      const method = 'POST';
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      };
+
+      const body = {
+        user,
       };
       const options = {
         headers,

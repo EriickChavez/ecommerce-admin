@@ -44,4 +44,10 @@ export default StyleSheet.create({
     height: 1,
     backgroundColor: 'rgba(0,0,0,0,0)',
   },
+  buttonTextContainer: {
+    flexDirection: 'row',
+  },
+  buttonIndicator: {
+    marginRight: 10,
+  },
 });
