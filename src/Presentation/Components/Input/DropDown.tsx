@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ArrowDown2} from 'iconsax-react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import TextInput from './TextInput';
+import Text from '../Text/Text';
 
 interface DropDownProps {
   placeholder?: string;

@@ -170,11 +170,6 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           />
         </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-            <Text style={styles.buttonText}>Save</Text>
-          </TouchableOpacity>
-        </View>
         <View
           style={{
             height: keyboardHeight,
@@ -182,6 +177,11 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
         />
         <Animated.View style={[styles.box, animatedStyle]} />
       </ScrollView>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

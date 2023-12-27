@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   SettingsStackNavigatior,
-  screenWithoutTopbarOptions,
+  screenWithTopbarOptions,
 } from '../Config/navigation';
-import {SCREEN_NAME} from '../Enum/Screens';
+import {SCREEN_NAME, getScreenTitles} from '../Enum/Screens';
 import {SettingsStackNavigationProps} from '../@Types/navigation.settings';
 import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
 import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
@@ -17,34 +17,52 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
     <SettingsStackNavigatior.Navigator
       initialRouteName={SCREEN_NAME.SETTINGS_SCREEN}>
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.SETTINGS_SCREEN),
+        }}
         name={SCREEN_NAME.SETTINGS_SCREEN}
         component={SettingsScreen}
       />
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
-        name={SCREEN_NAME.CATEGORY_STOCK_SCREEN}
         component={CategoryStock}
+        name={SCREEN_NAME.CATEGORY_STOCK_SCREEN}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.CATEGORY_STOCK_SCREEN),
+        }}
       />
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.PRODUCT_STOCK_SCREEN}
         component={ProductStock}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.PRODUCT_STOCK_SCREEN),
+        }}
       />
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.CONFIRMATION_SCREEN}
         component={Confirmation}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.CONFIRMATION_SCREEN),
+        }}
       />
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.PROFILE_SCREEN}
         component={ProfileScreen}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.PROFILE_SCREEN),
+        }}
       />
       <SettingsStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.EDIT_PROFILE_SCREEN}
         component={EditProfile}
+        options={{
+          ...screenWithTopbarOptions,
+          title: getScreenTitles(SCREEN_NAME.EDIT_PROFILE_SCREEN),
+        }}
       />
     </SettingsStackNavigatior.Navigator>
   );

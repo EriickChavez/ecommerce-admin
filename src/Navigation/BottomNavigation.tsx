@@ -37,6 +37,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           name={SCREEN_NAME.SETTINGS_STACK}
           component={SettingsStack}
           options={{
+            ...bottomBarWithoutTopbarOptions,
             tabBarIcon: ({color, size}) => {
               return <Setting2 size={size} color={color} variant="Bold" />;
             },
