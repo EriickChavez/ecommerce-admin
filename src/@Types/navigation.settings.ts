@@ -19,9 +19,19 @@ export type ProductStockScreenNavigationProps = NativeStackScreenProps<
   SettingsStackParamList,
   SCREEN_NAME.PRODUCT_STOCK_SCREEN
 >;
+export type ProfileScreenScreenNavigationProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  SCREEN_NAME.PROFILE_SCREEN
+>;
+export type EditProfileScreenScreenNavigationProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  SCREEN_NAME.EDIT_PROFILE_SCREEN
+>;
 export type SettingsStackParamList = {
   [SCREEN_NAME.SETTINGS_SCREEN]: undefined;
   [SCREEN_NAME.PRODUCT_STOCK_SCREEN]: undefined;
+  [SCREEN_NAME.EDIT_PROFILE_SCREEN]: undefined;
+  [SCREEN_NAME.PROFILE_SCREEN]: undefined;
   [SCREEN_NAME.CATEGORY_STOCK_SCREEN]: undefined;
   [SCREEN_NAME.CONFIRMATION_SCREEN]: {item: ITEMS};
 };

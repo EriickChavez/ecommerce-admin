@@ -46,6 +46,8 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
                 } else if (item.name === 'Banner') {
                 } else if (item.name === 'Products') {
                   navigation.navigate(SCREEN_NAME.PRODUCT_STOCK_SCREEN);
+                } else if (item.name === 'Profile') {
+                  navigation.navigate(SCREEN_NAME.PROFILE_SCREEN);
                 }
               }}
               style={styles.button}

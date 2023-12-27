@@ -9,6 +9,8 @@ import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
 import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
 import CategoryStock from '../Presentation/Screen/Stock/CategoryStock';
 import ProductStock from '../Presentation/Screen/Stock/ProductStock';
+import ProfileScreen from '../Presentation/Screen/Profile/ProfileScreen';
+import EditProfile from '../Presentation/Screen/EditProfile/EditProfile';
 
 const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
   return (
@@ -33,6 +35,16 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         options={screenWithoutTopbarOptions}
         name={SCREEN_NAME.CONFIRMATION_SCREEN}
         component={Confirmation}
+      />
+      <SettingsStackNavigatior.Screen
+        options={screenWithoutTopbarOptions}
+        name={SCREEN_NAME.PROFILE_SCREEN}
+        component={ProfileScreen}
+      />
+      <SettingsStackNavigatior.Screen
+        options={screenWithoutTopbarOptions}
+        name={SCREEN_NAME.EDIT_PROFILE_SCREEN}
+        component={EditProfile}
       />
     </SettingsStackNavigatior.Navigator>
   );

@@ -13,6 +13,7 @@ interface ExpandableTextInputProps {
   value?: string;
   onChangeText?: (text: string) => void;
   text?: string;
+  placeholderTextColor?: string;
 }
 
 const ExpandableTextInput: React.FC<ExpandableTextInputProps> = ({
@@ -23,6 +24,7 @@ const ExpandableTextInput: React.FC<ExpandableTextInputProps> = ({
   onChangeText = () => {},
   containerStyle,
   text = '',
+  placeholderTextColor = '#949BA6',
 }) => {
   const textColor = {color: theme.colors.text};
 
@@ -46,7 +48,7 @@ const ExpandableTextInput: React.FC<ExpandableTextInputProps> = ({
           multiline={expanded}
           numberOfLines={expanded ? undefined : 1}
           placeholder={placeholder}
-          placeholderTextColor={theme.colors.placeholder}
+          placeholderTextColor={placeholderTextColor}
           value={value}
           onChangeText={onChangeText}
         />

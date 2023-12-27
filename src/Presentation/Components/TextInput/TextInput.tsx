@@ -30,6 +30,7 @@ interface TextInputProps {
 export interface TextInputRef {
   focus: () => void;
   blur: () => void;
+  isFocused: () => boolean;
 }
 
 const TextInput = forwardRef<TextInputRef, TextInputProps>(
@@ -53,10 +54,18 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
 
     useImperativeHandle(ref, () => ({
       focus: () => {
+        console.log('TextInput-focus: ', textInputRef);
         textInputRef?.current?.focus();
       },
       blur: () => {
+        console.log('TextInput-blur: ', textInputRef);
         textInputRef?.current?.blur();
+      },
+      isFocused: () => {
+        if (textInputRef?.current) {
+          return textInputRef?.current?.isFocused();
+        }
+        return false;
       },
     }));
 
