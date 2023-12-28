@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({theme = themes.light}) => {
 
   if (showSplash) {
     return <SplashScreen />;
-  } else if (!isLogged) {
+  } else if (isLogged) {
     return <BottomNavigation theme={theme} />;
   } else {
     return <AuthStack theme={theme} />;

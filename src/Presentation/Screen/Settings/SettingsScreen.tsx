@@ -9,10 +9,15 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import ImageView from '../../Components/ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
 import {SCREEN_NAME} from '../../../Enum/Screens';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {useSelector} from 'react-redux';
+import {Config} from '../../../Config/ENV';
 
 const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
   navigation,
 }) => {
+  const {user} = useSelector(userSelector);
+
   return (
     <View style={styles.container}>
       <ScrollView bounces={false} style={styles.scrollView}>
@@ -21,10 +26,11 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
             imageType={IMAGE_TYPE.AVATAR}
             imageProps={{
               style: styles.image,
+              source: {uri: Config.BASE_URI_PROFILE_IMAGE + user.imageUri},
             }}
           />
           <View style={styles.textcontainer}>
-            <Text style={styles.username}>John Doe</Text>
+            <Text style={styles.username}>{user.username}</Text>
           </View>
         </View>
         {SettingsButtonList.map((item, index) => {

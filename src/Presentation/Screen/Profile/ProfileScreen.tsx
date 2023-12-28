@@ -8,13 +8,15 @@ import ImageView from '../../Components/ImageView/ImageView';
 import {ProfileScreenScreenNavigationProps} from '../../../@Types/navigation.settings';
 import {Edit} from 'iconsax-react-native';
 import {SCREEN_NAME} from '../../../Enum';
-
-const fakeText =
-  'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ullam pariatur unde! Beatae obcaecati fuga est magni suscipit minima, molestiae perspiciatis porro, mollitia vel expedita accusantium repellat commodi quam nostrum?';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {Config} from '../../../Config/ENV';
 
 const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
   navigation,
 }) => {
+  const {user} = useSelector(userSelector);
+
   const onEdit = () => {
     navigation.navigate(SCREEN_NAME.EDIT_PROFILE_SCREEN);
   };
@@ -31,7 +33,7 @@ const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
           <View style={styles.imageContainer}>
             <ImageView
               imageProps={{
-                source: {uri: 'https://picsum.photos/200/300'},
+                source: {uri: Config.BASE_URI_PROFILE_IMAGE + user.imageUri},
                 style: styles.image,
               }}
             />
@@ -39,16 +41,16 @@ const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
           <View style={styles.spacer} />
           <View style={styles.sellerBio}>
             <Text style={[styles.centerText, styles.textName]}>
-              Jessica Jones, 27
+              {user.username}, {user.age}
             </Text>
             <Text style={[styles.centerText, styles.textFrom]}>
-              San Francisco, USA
+              {user.state}, {user.country}
             </Text>
             <View style={styles.divder} />
             <ExpandableText
               containerStyle={styles.contentBio}
               textStyle={[styles.bio, styles.centerText]}
-              text={fakeText}
+              text={user.bio}
             />
           </View>
           <View style={styles.spacer} />

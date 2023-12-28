@@ -7,9 +7,12 @@ import Text from '../Text/Text';
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../../../@Types/theme';
 import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 
 const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
+  const {user} = useSelector(userSelector);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +27,7 @@ const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
           Welcome Back,
         </Text>
         <Text style={[styles.username, {color: theme.colors.text}]}>
-          Erick Chavez
+          {user.username}
         </Text>
       </View>
 

@@ -3,7 +3,7 @@ import ProductSlice from '../Infrastructure/Store/Slice/ProductSlice';
 import UserSlice from '../Infrastructure/Store/Slice/UserSlice';
 
 const resetError = (dispatch: any) => {
-  dispatch(UserSlice.actions.resetState());
+  dispatch(UserSlice.actions.resetError());
   dispatch(ProductSlice.actions.resetState());
   dispatch(CategorySlice.actions.resetState());
 };

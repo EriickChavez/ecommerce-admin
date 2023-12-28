@@ -49,5 +49,7 @@ export default StyleSheet.create({
   },
   buttonIndicator: {
     marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

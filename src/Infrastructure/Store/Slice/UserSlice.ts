@@ -60,6 +60,7 @@ const userSlice = createSlice({
         // @ts-ignore
         state.error = data?.error;
         state.user = data;
+        console.info({data});
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loading = false;
@@ -73,9 +74,16 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchEditUser.fulfilled,
-        (state, action: PayloadAction<{data: UserView}>) => {
+        (state, action: PayloadAction<{data: UserView | {error: string}}>) => {
           const {data} = action.payload;
-          state.user = {...data};
+
+          // @ts-ignore
+          state.error = data?.error;
+          const newUserData = {
+            ...state.user,
+            ...data,
+          };
+          state.user = newUserData;
           state.loading = false;
         },
       )

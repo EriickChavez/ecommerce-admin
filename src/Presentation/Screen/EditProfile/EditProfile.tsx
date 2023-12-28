@@ -137,6 +137,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
       id: userState.user.id,
       imageUri,
     };
+    console.info({handleSave: editUser});
     // @ts-ignore
     dispatch(fetchEditUser({token: userState.user.token, user: editUser}));
   }, [
@@ -239,7 +240,11 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           activeOpacity={0.8}>
           <View style={styles.buttonTextContainer}>
             <View style={styles.buttonIndicator}>
-              <ActivityIndicator size={'small'} />
+              <ActivityIndicator
+                color={'#fff'}
+                animating={isLoading}
+                size={'small'}
+              />
             </View>
             <Text style={styles.buttonText}>Save</Text>
           </View>

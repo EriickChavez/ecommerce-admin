@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   View,
   ScrollView,
-  Dimensions,
   ImageStyle,
   StyleProp,
+  LayoutChangeEvent,
 } from 'react-native';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
@@ -24,6 +24,7 @@ export interface PagerRef {
 
 const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [width, setWidth] = useState(0);
   const [firstBgColor, setFirstBackgroundColor] = useState<{
     [key: string]: string;
   }>({});
@@ -38,7 +39,7 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
     });
   }, [currentPage, images]);
 
-  const {width} = Dimensions.get('window');
+  // const {width} = Dimensions.get('window');
   const pagerRef = React.createRef<ScrollView>();
 
   const handlePageChange = (event: any) => {
@@ -52,12 +53,17 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
   );
   const hasMultipleImage = useMemo(() => images.length > 1, [images]);
 
+  const onLayoutScroll = (e: LayoutChangeEvent) => {
+    setWidth(e.nativeEvent.layout.width);
+  };
+
   return (
     <View>
       <ScrollView
         horizontal
         ref={pagerRef}
         pagingEnabled
+        onLayout={onLayoutScroll}
         style={styles.scrollView}
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handlePageChange}>
@@ -70,7 +76,7 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
               imageProps={{
                 source: {uri: image},
                 // @ts-ignore
-                style: [styles.image, imageStyles],
+                style: [styles.image, imageStyles, {width}],
                 resizeMode: FastImage.resizeMode.contain,
               }}
             />

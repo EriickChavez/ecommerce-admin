@@ -26,7 +26,10 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
 
   useEffect(() => {
     console.log({error});
-    if (error === ERROR_CODE.EMAIL_FORMAT) {
+    if (
+      error === ERROR_CODE.EMAIL_FORMAT ||
+      error === ERROR_CODE.USER_NOT_FOUND
+    ) {
       shakeEmailRef?.current?.startShake();
     }
     if (error === ERROR_CODE.PASSWORD_INCORRECT) {
@@ -60,7 +63,9 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
               value={onChange.email}
               textOptions={{
                 textOptions: {
-                  error: error === ERROR_CODE.EMAIL_FORMAT,
+                  error:
+                    error === ERROR_CODE.EMAIL_FORMAT ||
+                    error === ERROR_CODE.USER_NOT_FOUND,
                 },
               }}
             />

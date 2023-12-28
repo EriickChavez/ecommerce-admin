@@ -70,16 +70,13 @@ const Input = forwardRef<inputRef, InputProps>(
 
     useImperativeHandle(ref, () => ({
       blur: () => {
-        console.log('TxtInput-blur: ', textInputRef);
         textInputRef?.current?.blur();
       },
       focus: () => {
-        console.log('TxtInput-focus: ', textInputRef);
         textInputRef.current?.focus();
       },
       isFocused: () => {
         if (textInputRef?.current) {
-          console.log('TxtInput-isFocused: ', textInputRef);
           return textInputRef?.current?.isFocused();
         }
         return false;
