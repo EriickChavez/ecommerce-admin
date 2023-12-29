@@ -1,28 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import ImageView from '../ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
 import Text from '../Text/Text';
 import styles from './styles';
-import {getBackgroundColor} from '../../../Utils/imageUtils';
+import {bgColor, getBackgroundColor} from '../../../Utils/imageUtils';
+import {Product} from '../../../Domain/Entity';
+import {defaultProduct} from '../../../Constants/defaultValues';
 
 interface CardBasicItemProps {
-  source: string;
+  product: Product;
+  onPress: () => void;
 }
 
 const CardBasicItem: React.FC<CardBasicItemProps> = ({
-  source = 'https://picsum.photos/200/300',
+  product = defaultProduct,
+  onPress = () => {},
 }) => {
   const [backgroundColor, setBackgroundColor] = useState<string>();
 
   useEffect(() => {
-    getBackgroundColor(source, color => {
-      setBackgroundColor(color);
-    });
-  }, [source]);
+    if (product.imageUri) {
+      getBackgroundColor(product.imageUri).catch((data: bgColor) => {
+        setBackgroundColor(data.background);
+      });
+    }
+  }, [product?.imageUri]);
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View>
         <View
           style={[styles.imageContainer, {backgroundColor: backgroundColor}]}>
@@ -32,27 +38,29 @@ const CardBasicItem: React.FC<CardBasicItemProps> = ({
               resizeMode: 'contain',
               style: styles.image,
               source: {
-                uri: source,
+                uri: product?.imageUri
+                  ? product.imageUri
+                  : 'https://picsum.photos/200/300',
               },
             }}
           />
         </View>
-        <View style={styles.tag}>
+        {/* <View style={styles.tag}>
           <Text>200 sold</Text>
-        </View>
+        </View> */}
         <View style={styles.infoContainer}>
           <View>
-            <Text style={[styles.text, styles.titleText]}>
-              Air Jordan 1 Retro & ...
-            </Text>
+            <Text style={[styles.text, styles.titleText]}>{product.title}</Text>
             <Text style={[styles.text, styles.titleStock]}>
-              12 pcs • M,L,XL
+              {product.subtitle}
             </Text>
-            <Text style={[styles.text, styles.titlePrice]}>$400</Text>
+            <Text style={[styles.text, styles.titlePrice]}>
+              ${product.price}
+            </Text>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

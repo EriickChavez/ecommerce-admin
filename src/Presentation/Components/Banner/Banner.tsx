@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import LoadingImage from '../LoadingImage/LoadingImage';
 import FastImage from 'react-native-fast-image';
-import {ThemeEntry} from '../../@Types/theme';
+import ImageView from '../ImageView/ImageView';
+import {ThemeEntry} from '../../../@Types/theme';
 // import Countdown from '../Countdown/Countdown';
 
 interface BannerProps {
@@ -17,7 +17,7 @@ const Banner: React.FC<BannerProps> = ({imageUri}) => {
   return (
     <View>
       <View style={styles.banner}>
-        <LoadingImage
+        <ImageView
           imageProps={{
             source: {
               uri: imageUri,

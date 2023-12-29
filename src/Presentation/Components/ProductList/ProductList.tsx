@@ -8,6 +8,7 @@ import {Product} from '../../../Domain/Entity';
 interface ProductListProps {
   title?: string;
   data?: Product[];
+  onPressCard?: (item: Product) => void;
   action?: {
     onPress?: () => void;
     text?: string;
@@ -21,11 +22,12 @@ const ProductList: React.FC<ProductListProps> = ({
     text: '',
   },
   data = [],
+  onPressCard = () => {},
 }) => {
-  const renderItem = () => {
+  const renderItem = ({item, index}: {item: Product; index: number}) => {
     return (
-      <View style={styles.card}>
-        <CardBasicItem />
+      <View style={styles.card} key={`key-${index}-${item.id}`}>
+        <CardBasicItem product={item} onPress={() => onPressCard(data[0])} />
       </View>
     );
   };

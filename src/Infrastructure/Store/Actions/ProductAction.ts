@@ -22,7 +22,6 @@ export const fetchProductsByUserId = createAsyncThunk<
     status: number;
   }> => {
     const URL: string = 'http://localhost:3000/product/productsByUser';
-    console.log({URL});
     const METHOD = 'POST';
     const HEADERS = {
       'Content-Type': 'application/json',
@@ -45,8 +44,7 @@ export const fetchProductsByUserId = createAsyncThunk<
         status: response.status,
       };
     } catch (err) {
-      console.error({err});
-      throw new Error(`${err}`);
+      throw err;
     }
   },
 );
@@ -83,7 +81,6 @@ export const fetchNewProducts = createAsyncThunk<
     // const filename = `${userId}.${type}-${newProduct.title}.jpg`;
 
     // const body = buildFetchBodyProduct(newProduct, type, filename, type);
-    console.info({newProduct});
     try {
       // const resp = await RNFetchBlob.fetch(METHOD, URL, HEADERS, body);
       const resp = await fetch(URL, {
@@ -99,8 +96,7 @@ export const fetchNewProducts = createAsyncThunk<
         status: 200,
       };
     } catch (err) {
-      console.error({fetchNewProducts: err});
-      throw new Error(`${err}`);
+      throw err;
     }
   },
 );
@@ -151,11 +147,11 @@ export const fetchPictureAlbum = createAsyncThunk<
             };
           })
           .catch(err => {
-            console.error(err);
+            throw err;
           });
       }
     } catch (err) {
-      console.warn({err});
+      console.error({err});
       throw new Error('Algo salio mal al intentar subir el album');
     }
     return {

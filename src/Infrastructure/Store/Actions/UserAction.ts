@@ -121,7 +121,7 @@ export const fetchEditUser = createAsyncThunk<
     try {
       return await buildFetchBodyProfile(user, token);
     } catch (error) {
-      console.log('error en fetchEditUser', error);
+      console.error('error en fetchEditUser', error);
       throw error;
     }
   },
@@ -183,7 +183,7 @@ const buildFetchBodyProfile = async (user: UserViewInput, token: string) => {
       };
     }
   } catch (err) {
-    console.log('error en fetchEditUser', err);
+    console.error('error en fetchEditUser', err);
     throw err;
   }
 };

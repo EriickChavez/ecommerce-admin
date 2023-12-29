@@ -45,7 +45,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
         // @ts-ignore
         return setSource(data.assets[0].uri);
       })
-      .catch(err => console.log('ERROR AL SUBIR LA IMAGEN', err));
+      .catch(err => console.error('ERROR AL SUBIR LA IMAGEN', err));
   };
 
   const hasSource: boolean = useMemo(() => {

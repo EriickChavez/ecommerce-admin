@@ -25,7 +25,6 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
     useLogin(props);
 
   useEffect(() => {
-    console.log({error});
     if (
       error === ERROR_CODE.EMAIL_FORMAT ||
       error === ERROR_CODE.USER_NOT_FOUND

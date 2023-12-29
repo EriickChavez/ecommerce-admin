@@ -59,7 +59,6 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
     });
   };
   const categoryData = useMemo(() => {
-    console.log({d: categoryState.data});
     try {
       const catdat = categoryState.data.map(cty => {
         return {
@@ -70,7 +69,6 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
       });
       return catdat;
     } catch (err) {
-      console.error('->', {err});
       return [];
     }
   }, [categoryState]);

@@ -10,7 +10,7 @@ import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import {ThemeEntry} from '../../../@Types/theme';
 import ImageView from '../ImageView/ImageView';
-import {getBackgroundColor} from '../../../Utils/imageUtils';
+import {bgColor, getBackgroundColor} from '../../../Utils/imageUtils';
 
 interface ImagePagerProps {
   images: string[];
@@ -32,9 +32,9 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
   useEffect(() => {
     images.forEach((_, i) => {
       getBackgroundColor(images[i])
-        .then((color: any) =>
-          setFirstBackgroundColor({[`${i}`]: color.secondary}),
-        )
+        .then((color: bgColor) => {
+          setFirstBackgroundColor({[`${i}`]: color.background});
+        })
         .catch(() => setFirstBackgroundColor({[`${i}`]: '#000000'}));
     });
   }, [currentPage, images]);

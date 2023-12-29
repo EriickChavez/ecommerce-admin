@@ -54,29 +54,35 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
     [productStore.uploadProduct.loading],
   );
   const renderItem = ({
-    item,
+    cItem,
     index,
   }: {
-    item: Characteristics;
+    cItem: Characteristics;
     index: number;
   }) => {
     return (
       <View style={[styles.characteristicContainer]} key={index}>
         <View style={[styles.flex]}>
           <Characteristic
-            icon={item.icon}
-            description={item.description}
-            title={item.title}
+            icon={cItem.icon}
+            description={cItem.description}
+            title={cItem.title}
           />
         </View>
       </View>
     );
   };
 
-  const renderCategory = ({item, index}: {item: string; index: number}) => {
+  const renderCategory = ({
+    categoryItem,
+    index,
+  }: {
+    categoryItem: string;
+    index: number;
+  }) => {
     return (
       <View style={styles.chipsContainer} key={index}>
-        <Chips text={item} options={{fontSize: 12}} />
+        <Chips text={categoryItem} options={{fontSize: 12}} />
       </View>
     );
   };
@@ -109,14 +115,16 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
             horizontal
             showsHorizontalScrollIndicator={false}
             data={product.categoryId}
-            renderItem={renderCategory}
+            renderItem={({index, item: CatItem}) =>
+              renderCategory({categoryItem: CatItem, index})
+            }
             keyExtractor={() => (Math.random() * 100).toString()}
           />
         </View>
         <Text style={styles.text}>Available {product.stock}</Text>
 
         {product.characteristics.map((value, index) => {
-          return renderItem({index, item: value});
+          return renderItem({index, cItem: value});
         })}
 
         <Album album={product.album} />
