@@ -17,55 +17,25 @@ import ExpandableText from '../../Components/ExpandibleText/ExpandibleText';
 import Chips from '../../Components/Chips/Chips';
 import ImageView from '../../Components/ImageView/ImageView';
 import Album from '../../Components/Album/Album';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   navigation,
 }) => {
+  const userState = useSelector(userSelector);
   const productStore = useSelector(productSelector);
   const product: Product = useMemo(
     () => productStore.tmpProduct,
-    // () => ({
-    //   album: [
-    //     'https://m.media-amazon.com/images/I/61XDCdhExsL.__AC_SY300_SX300_QL70_ML2_.jpg',
-    //     'https://m.media-amazon.com/images/I/61XDCdhExsL.__AC_SY300_SX300_QL70_ML2_.jpg',
-    //     'https://m.media-amazon.com/images/I/61XDCdhExsL.__AC_SY300_SX300_QL70_ML2_.jpg',
-    //     'https://m.media-amazon.com/images/I/61XDCdhExsL.__AC_SY300_SX300_QL70_ML2_.jpg',
-    //   ],
-    //   categoryId: ['Tecnologia', 'Cocina', 'Camara', 'Electronica'],
-    //   characteristics: [
-    //     {
-    //       icon: 'DocumentText1',
-    //       title: 'remould',
-    //       description: 'icing',
-    //     },
-    //     {
-    //       icon: 'SliderHorizontal',
-    //       title: 'spy',
-    //       description: 'era',
-    //     },
-    //     {
-    //       icon: 'Solana',
-    //       title: 'jest',
-    //       description: 'duel',
-    //     },
-    //   ],
-    //   id: '1234',
-    //   imageUri: productStore.tmpProduct.cover,
-    //   price: 1200,
-    //   subtitle: 'Soy una camara bien bonita',
-    //   sellerId: '1234',
-    //   stock: 12,
-    //   title: 'Camara sony abc',
-    //   userId: '1234',
-    //   cover:
-    //     'https://m.media-amazon.com/images/I/61XDCdhExsL.__AC_SY300_SX300_QL70_ML2_.jpg',
-    // }),
     [productStore.tmpProduct],
   );
   const dispatch = useDispatch();
   const onPress = () => {
     dispatch(
       // @ts-ignore
-      fetchNewProducts({newProduct: productStore.tmpProduct, type: 'cover'}),
+      fetchNewProducts({
+        newProduct: productStore.tmpProduct,
+        type: 'cover',
+        token: userState.user.token,
+      }),
     );
     dispatch(
       // @ts-ignore
@@ -115,6 +85,7 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
         <View>
           <Text style={styles.text}>Product Cover</Text>
+          <Text style={styles.text}>{productStore.tmpProduct.userId}</Text>
           {productStore?.tmpProduct?.cover && (
             <>
               <ImageView

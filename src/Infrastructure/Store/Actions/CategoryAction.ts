@@ -10,7 +10,7 @@ export const fetchCategories = createAsyncThunk<
   },
   {token: string}
 >('categorySlice/fetchCategories', async ({token}) => {
-  const URL = Config.API_ADMIN_URL + '/category';
+  const URL = Config.API_URL + '/category';
   const METHOD = 'GET';
   const HEADERS = {
     'Content-Type': 'application/json',
@@ -24,7 +24,6 @@ export const fetchCategories = createAsyncThunk<
     });
 
     const data = await response.json();
-
     return {
       data,
       error: null,
@@ -37,7 +36,7 @@ export const fetchCategories = createAsyncThunk<
 
 export const fetchAddCategory = createAsyncThunk<
   {
-    data: Category[];
+    data: Category;
     error: string | null;
     status: number;
   },
@@ -48,7 +47,7 @@ export const fetchAddCategory = createAsyncThunk<
     token,
     category,
   }): Promise<{
-    data: Category[];
+    data: Category;
     error: string | null;
     status: number;
   }> => {

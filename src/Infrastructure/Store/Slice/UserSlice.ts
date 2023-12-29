@@ -60,7 +60,6 @@ const userSlice = createSlice({
         // @ts-ignore
         state.error = data?.error;
         state.user = data;
-        console.info({data});
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loading = false;

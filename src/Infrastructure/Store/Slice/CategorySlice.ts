@@ -31,7 +31,10 @@ const categorySlice = createSlice({
         fetchCategories.fulfilled,
         (state, action: PayloadAction<{data: Category[]}>) => {
           const {data} = action.payload;
-          state.data = data;
+
+          if (Array.isArray(data)) {
+            state.data = data;
+          }
           state.loading = false;
         },
       )
@@ -47,9 +50,10 @@ const categorySlice = createSlice({
       })
       .addCase(
         fetchAddCategory.fulfilled,
-        (state, action: PayloadAction<{data: Category[]}>) => {
+        (state, action: PayloadAction<{data: Category}>) => {
           const {data} = action.payload;
-          state.data = data;
+          const newArray = [...state.data, data];
+          state.data = newArray;
           state.loading = false;
         },
       )

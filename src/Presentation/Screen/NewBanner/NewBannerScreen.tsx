@@ -22,7 +22,6 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
             type={INPUT_TYPE.TEXT}
           />
         </View>
-
         <View style={styles.input}>
           <ExpandableTextInput
             containerStyle={styles.containerInput}

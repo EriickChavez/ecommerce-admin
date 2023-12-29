@@ -18,17 +18,20 @@ import {getCategoriesByIds} from '../../../Utils/categoryUtils';
 import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlice';
 import ExpandableTextInput from '../../Components/ExpandibleTextInput/ExpandibleTextInput';
 import CharacteristicInput from '../../Components/CharacteristicInput/CharacteristicInput';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
 }) => {
   const productState = useSelector(productSelector);
   const categoryState = useSelector(categorySelector);
+  const userState = useSelector(userSelector);
 
   const tmpProduct = useMemo(
     () => productState.tmpProduct,
     [productState.tmpProduct],
   );
+
   const [album, setAlbum] = useState(
     Array.from({length: 6}, (_, index) => tmpProduct?.album[index] || ''),
   );
@@ -80,6 +83,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   const onPress = () => {
     const data = {
       ...tmpProduct,
+      userId: userState.user.id,
       title,
       subtitle,
       stock: Number(quantity),

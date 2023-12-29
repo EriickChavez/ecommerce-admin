@@ -9,14 +9,17 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import ImageView from '../../Components/ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
 import {SCREEN_NAME} from '../../../Enum/Screens';
-import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
-import {useSelector} from 'react-redux';
+import UserSlice, {
+  userSelector,
+} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import {Config} from '../../../Config/ENV';
 
 const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
   navigation,
 }) => {
   const {user} = useSelector(userSelector);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -54,6 +57,8 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
                   navigation.navigate(SCREEN_NAME.PRODUCT_STOCK_SCREEN);
                 } else if (item.name === 'Profile') {
                   navigation.navigate(SCREEN_NAME.PROFILE_SCREEN);
+                } else if (item.name === 'Logout') {
+                  dispatch(UserSlice.actions.resetState());
                 }
               }}
               style={styles.button}

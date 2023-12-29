@@ -137,7 +137,6 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
       id: userState.user.id,
       imageUri,
     };
-    console.info({handleSave: editUser});
     // @ts-ignore
     dispatch(fetchEditUser({token: userState.user.token, user: editUser}));
   }, [

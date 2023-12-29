@@ -119,8 +119,6 @@ export const fetchEditUser = createAsyncThunk<
     status: number;
   }> => {
     try {
-      console.info('Aqui si llego');
-      console.info({user});
       return await buildFetchBodyProfile(user, token);
     } catch (error) {
       console.log('error en fetchEditUser', error);

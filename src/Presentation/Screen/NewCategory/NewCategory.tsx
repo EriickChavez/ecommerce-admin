@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View, ScrollView} from 'react-native';
-import {NewCategoryScreenNavigationProps} from '../../../@Types/navigation.settings';
+import {NewCategoryScreenNavigationProps} from '../../../@Types/navigation.newProduct';
 import Input from '../../Components/Input/Input';
 import {INPUT_TYPE} from '../../../Enum/Inputs';
 import ExpandableTextInput from '../../Components/ExpandibleTextInput/ExpandibleTextInput';
@@ -58,6 +58,22 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
       item: ITEMS.CATEGORY,
     });
   };
+  const categoryData = useMemo(() => {
+    console.log({d: categoryState.data});
+    try {
+      const catdat = categoryState.data.map(cty => {
+        return {
+          label: cty.name,
+          value: cty.name,
+          id: cty.id,
+        };
+      });
+      return catdat;
+    } catch (err) {
+      console.error('->', {err});
+      return [];
+    }
+  }, [categoryState]);
 
   return (
     <ScrollView
@@ -97,13 +113,7 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
             title="Related Categories"
             pickerOptions={{
               pickerOptions: {
-                data: categoryState.data.map((cty): PickerItem => {
-                  return {
-                    label: cty.name,
-                    value: cty.name,
-                    id: cty.id,
-                  };
-                }),
+                data: categoryData,
                 onPickerSelectOption: (itemValue: PickerItem[]) => {
                   const ids: string[] = itemValue.map(i => i.id);
                   setRelatedCategoriesIds(ids);

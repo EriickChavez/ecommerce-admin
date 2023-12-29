@@ -8,10 +8,12 @@ import {SearchNormal} from 'iconsax-react-native';
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../../../@Types/theme';
 import {Category} from '../../../Domain/Entity';
+import {useSelector} from 'react-redux';
+import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlice';
 
 const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
-
+  const {data = []} = useSelector(categorySelector);
   const renderItem = ({index, item}: {index: number; item: Category}) => {
     return (
       <View key={index} style={styles.categoryCard}>
@@ -32,7 +34,7 @@ const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
           columnWrapperStyle={styles.columnWrapperStyle}
           renderItem={renderItem}
           keyExtractor={({id}) => id}
-          data={[]}
+          data={data}
           numColumns={2}
         />
       </View>
