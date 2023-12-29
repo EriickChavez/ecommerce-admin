@@ -4,6 +4,52 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {Config} from '../../../Config/ENV';
 // import {buildFetchBodyProduct} from '../../../Utils/productBodyConstructor';
 import {Platform} from 'react-native';
+export const fetchProductsByUserId = createAsyncThunk<
+  {
+    data: Product[];
+    error: string | null;
+    status: number;
+  },
+  {userId: string; token: string}
+>(
+  'productSlice/fetchProducts',
+  async ({
+    userId,
+    token,
+  }): Promise<{
+    data: Product[];
+    error: string | null;
+    status: number;
+  }> => {
+    const URL: string = 'http://localhost:3000/product/productsByUser';
+    console.log({URL});
+    const METHOD = 'POST';
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      authentication: `Bearer ${token}`,
+    };
+    const BODY = {
+      user_id: userId,
+    };
+
+    try {
+      const response = await fetch(URL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify(BODY),
+      });
+      const res = await response.json();
+      return {
+        data: res,
+        error: null,
+        status: response.status,
+      };
+    } catch (err) {
+      console.error({err});
+      throw new Error(`${err}`);
+    }
+  },
+);
 
 export const fetchNewProducts = createAsyncThunk<
   {

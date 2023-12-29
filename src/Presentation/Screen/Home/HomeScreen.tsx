@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import TextInput from '../../Components/TextInput/TextInput';
 import {SearchNormal} from 'iconsax-react-native';
@@ -7,13 +7,28 @@ import styles from './styles';
 import ProductList from '../../Components/ProductList/ProductList';
 import useHome from '../../../Hook/useHome';
 import {HomeScreenNavigationProps} from '../../../@Types/navigation.inventory';
-import { useDispatch } from 'react-redux';
-import ProductSlice from '../../../Infrastructure/Store/Slice/ProductSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
+import {fetchProductsByUserId} from '../../../Infrastructure/Store/Actions/ProductAction';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   const {theme} = useHome(props);
-  // const dispatch = useDispatch();
-  // dispatch(ProductSlice.actions.resetState());
+  const userState = useSelector(userSelector);
+  const productState = useSelector(productSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      // @ts-ignore
+      fetchProductsByUserId({
+        token: userState.user.token,
+        userId: userState.user.id,
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -28,7 +43,7 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
           images={['https://picsum.photos/200/300']}
         />
       </View>
-      <ProductList />
+      <ProductList data={productState.products} />
     </View>
   );
 };

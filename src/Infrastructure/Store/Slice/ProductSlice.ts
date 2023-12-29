@@ -2,7 +2,10 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {Product} from '../../../Domain/Entity';
 import {RootState} from '../Store';
 import {defaultProduct} from '../../../Constants/defaultValues';
-import {fetchPictureAlbum} from '../Actions/ProductAction';
+import {
+  fetchPictureAlbum,
+  fetchProductsByUserId,
+} from '../Actions/ProductAction';
 
 interface ProductSliceState {
   products: Product[];
@@ -47,6 +50,23 @@ const productSlice = createSlice({
       .addCase(fetchPictureAlbum.rejected, state => {
         state.uploadProduct.loading = false;
         state.uploadProduct.error = 'An error occurred';
+      });
+
+    builder
+      .addCase(fetchProductsByUserId.pending, state => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchProductsByUserId.fulfilled,
+        (state, action: PayloadAction<{data: Product[]}>) => {
+          const {data} = action.payload;
+          state.products = data;
+          state.loading = false;
+        },
+      )
+      .addCase(fetchProductsByUserId.rejected, state => {
+        state.loading = false;
+        state.error = 'An error occurred';
       });
   },
 });

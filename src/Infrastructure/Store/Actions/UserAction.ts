@@ -137,7 +137,7 @@ const buildFetchBodyProfile = async (user: UserViewInput, token: string) => {
     '.jpg';
 
   let imageUri = null;
-  if (user.imageUri !== '/public/imgsDefault.jpeg') {
+  if (user.imageUri !== 'public/imgsDefault.jpeg') {
     imageUri =
       Platform.OS === 'ios'
         ? user.imageUri?.replace('file://', '')

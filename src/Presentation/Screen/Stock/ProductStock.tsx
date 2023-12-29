@@ -7,9 +7,12 @@ import {SearchNormal} from 'iconsax-react-native';
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../../../@Types/theme';
 import ProductList from '../../Components/ProductList/ProductList';
+import {useSelector} from 'react-redux';
+import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 
 const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
+  const {products} = useSelector(productSelector);
 
   return (
     <View style={styles.container}>
@@ -21,7 +24,7 @@ const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
           />
         </View>
       </View>
-      <ProductList />
+      <ProductList data={products} />
     </View>
   );
 };

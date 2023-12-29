@@ -3,10 +3,11 @@ import {View, FlatList, TouchableOpacity} from 'react-native';
 import Text from '../Text/Text';
 import CardBasicItem from '../CardBasicItem/CardBasicItem';
 import styles from './styles';
+import {Product} from '../../../Domain/Entity';
 
 interface ProductListProps {
   title?: string;
-  data?: [];
+  data?: Product[];
   action?: {
     onPress?: () => void;
     text?: string;
@@ -19,6 +20,7 @@ const ProductList: React.FC<ProductListProps> = ({
     onPress: () => {},
     text: '',
   },
+  data = [],
 }) => {
   const renderItem = () => {
     return (
@@ -40,7 +42,7 @@ const ProductList: React.FC<ProductListProps> = ({
       </View>
       <FlatList
         numColumns={2}
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]}
+        data={data}
         columnWrapperStyle={styles.flatListColumnWrapper}
         renderItem={renderItem}
       />
