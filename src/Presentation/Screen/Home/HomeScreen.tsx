@@ -11,6 +11,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 import {fetchProductsByUserId} from '../../../Infrastructure/Store/Actions/ProductAction';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import {Product} from '../../../Domain/Entity';
+import {SCREEN_NAME} from '../../../Enum';
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   const {theme} = useHome(props);
@@ -29,6 +31,11 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onPressCard = (item: Product) => {
+    props.navigation.navigate(SCREEN_NAME.PRODUCT_DETAILS_SCREEN, {item});
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -43,7 +50,7 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
           images={['https://picsum.photos/200/300']}
         />
       </View>
-      <ProductList data={productState.products} />
+      <ProductList onPressCard={onPressCard} data={productState.products} />
     </View>
   );
 };

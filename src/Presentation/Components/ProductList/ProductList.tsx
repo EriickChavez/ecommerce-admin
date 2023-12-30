@@ -27,7 +27,10 @@ const ProductList: React.FC<ProductListProps> = ({
   const renderItem = ({item, index}: {item: Product; index: number}) => {
     return (
       <View style={styles.card} key={`key-${index}-${item.id}`}>
-        <CardBasicItem product={item} onPress={() => onPressCard(data[0])} />
+        <CardBasicItem
+          product={item}
+          onPress={() => onPressCard(data[index])}
+        />
       </View>
     );
   };

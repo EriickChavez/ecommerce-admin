@@ -54,6 +54,7 @@ const Input = forwardRef<inputRef, InputProps>(
         textOptions: {
           contextMenuHidden: false,
           error: false,
+          editable: true,
         },
       },
     },
@@ -161,7 +162,7 @@ const Input = forwardRef<inputRef, InputProps>(
         {isEditable && (
           <TextInput
             ref={textInputRef}
-            isEditable={isEditable}
+            isEditable={isEditable && textOptions.textOptions.editable}
             onChangeText={onChangeText}
             placeholder={placeholder}
             textOptions={textOptions}

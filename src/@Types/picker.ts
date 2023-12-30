@@ -10,6 +10,7 @@ export interface PickerOptions {
 
 export interface TextOptions {
   textOptions: {
+    editable: boolean;
     contextMenuHidden?: boolean;
     error?: boolean;
   };
