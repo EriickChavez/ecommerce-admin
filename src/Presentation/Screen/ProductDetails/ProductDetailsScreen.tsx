@@ -8,6 +8,8 @@ import {IMAGE_TYPE, INPUT_TYPE} from '../../../Enum';
 import styles from './styles';
 import {CloseCircle, Edit} from 'iconsax-react-native';
 import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
+import UploadImage from '../../Components/UploadImage/UploadImage';
+
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
 }) => {
@@ -64,13 +66,17 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
         </View>
         <View style={styles.input}>
-          <ImageView
-            imageProps={{
-              style: styles.image,
-              resizeMode: 'contain',
-            }}
-            imageType={IMAGE_TYPE.PRODUCT}
-          />
+          {!isEditing ? (
+            <ImageView
+              imageProps={{
+                style: styles.image,
+                resizeMode: 'contain',
+              }}
+              imageType={IMAGE_TYPE.PRODUCT}
+            />
+          ) : (
+            <UploadImage />
+          )}
         </View>
         <View style={styles.input}>
           <Input

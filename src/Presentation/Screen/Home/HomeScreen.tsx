@@ -31,7 +31,6 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onPressCard = (item: Product) => {
     props.navigation.navigate(SCREEN_NAME.PRODUCT_DETAILS_SCREEN, {item});
   };

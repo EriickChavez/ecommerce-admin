@@ -54,7 +54,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
 
   return (
     <View>
-      <Text>{title}</Text>
+      {title && <Text>{title}</Text>}
       {!hasSource ? (
         <TouchableOpacity
           onPress={handleUpload}
