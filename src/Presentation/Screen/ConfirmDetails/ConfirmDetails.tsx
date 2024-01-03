@@ -8,10 +8,7 @@ import Characteristic from '../../Components/Characteristic/Characteristic';
 import {SCREEN_NAME} from '../../../Enum/Screens';
 import {ITEMS} from '../../../Enum';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  fetchNewProducts,
-  fetchPictureAlbum,
-} from '../../../Infrastructure/Store/Actions/ProductAction';
+import {fetchNewProducts} from '../../../Infrastructure/Store/Actions/ProductAction';
 import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 import ExpandableText from '../../Components/ExpandibleText/ExpandibleText';
 import Chips from '../../Components/Chips/Chips';
@@ -29,24 +26,22 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   );
   const dispatch = useDispatch();
   const onPress = () => {
-    dispatch(
-      // @ts-ignore
-      fetchNewProducts({
-        newProduct: productStore.tmpProduct,
-        type: 'cover',
-        token: userState.user.token,
-      }),
-    );
-    dispatch(
-      // @ts-ignore
-      fetchPictureAlbum({
-        album: productStore.tmpProduct.album,
-        title: productStore.tmpProduct.title,
-      }),
-    );
-    navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN, {
-      item: ITEMS.PRODUCT,
-    });
+    try {
+      dispatch(
+        // @ts-ignore
+        fetchNewProducts({
+          newProduct: productStore.tmpProduct,
+          type: 'cover',
+          token: userState.user.token,
+        }),
+      );
+      navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN, {
+        item: ITEMS.PRODUCT,
+      });
+    } catch (err) {
+      console.info({err});
+      // TODO: hacer una alerta de error
+    }
   };
 
   const isLoadingUpload = useMemo(

@@ -4,8 +4,8 @@ import UserSlice from '../Infrastructure/Store/Slice/UserSlice';
 
 const resetError = (dispatch: any) => {
   dispatch(UserSlice.actions.resetError());
-  dispatch(ProductSlice.actions.resetState());
-  dispatch(CategorySlice.actions.resetState());
+  dispatch(ProductSlice.actions.resetError());
+  dispatch(CategorySlice.actions.resetError());
 };
 
 export {resetError};

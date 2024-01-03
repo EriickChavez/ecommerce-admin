@@ -4,6 +4,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {Config} from '../../../Config/ENV';
 // import {buildFetchBodyProduct} from '../../../Utils/productBodyConstructor';
 import {Platform} from 'react-native';
+import {RESIZE_IMAGE, resizeImage} from '../../../Utils/imageUtils';
 export const fetchProductsByUserId = createAsyncThunk<
   {
     data: Product[];
@@ -60,42 +61,53 @@ export const fetchNewProducts = createAsyncThunk<
   'productSlice/fetchNewProducts',
   async ({
     newProduct,
-    type,
     token,
   }): Promise<{
     data: Product;
     error: string | null;
     status: number;
   }> => {
-    // const URL: string = Config.API_URL + '/product/add';
-    const URL: string =
-      type === 'cover'
-        ? Config.API_ADMIN_URL + '/product/add/'
-        : Config.API_ADMIN_URL + '/product/add/album';
+    const URL: string = Config.API_ADMIN_URL + '/product/add/';
     const METHOD = 'POST';
     const HEADERS = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
-    // const userId = 'soyUnIdDePrueba'; // newProduct.userId;
-    // const filename = `${userId}.${type}-${newProduct.title}.jpg`;
-
-    // const body = buildFetchBodyProduct(newProduct, type, filename, type);
     try {
-      // const resp = await RNFetchBlob.fetch(METHOD, URL, HEADERS, body);
       const resp = await fetch(URL, {
         method: METHOD,
         headers: HEADERS,
         body: JSON.stringify(newProduct),
       });
+
       const res = await resp.json();
       const resInJson = res;
+      let productWithCover: Product | null = null;
+      if (newProduct.cover) {
+        productWithCover = (await fetchAddProductCoverImage(
+          newProduct.userId,
+          resInJson,
+          newProduct.cover,
+          token,
+        )) as Product;
+      }
+      let productWithAlbum: Product | null = null;
+      if (newProduct.album) {
+        productWithAlbum = (await fetchAddProductAlbum(
+          newProduct.userId,
+          resInJson,
+          newProduct.album,
+          token,
+        )) as Product;
+      }
+
       return {
-        data: resInJson,
+        data: productWithAlbum || productWithCover || resInJson,
         error: null,
         status: 200,
       };
     } catch (err) {
+      console.error(err);
       throw err;
     }
   },
@@ -161,3 +173,166 @@ export const fetchPictureAlbum = createAsyncThunk<
     };
   },
 );
+
+export const fetchAddProductsAlbum = createAsyncThunk<
+  void,
+  {
+    album: string[];
+    product: Product;
+    userId: string;
+  }
+>(
+  'productSlice/fetchAddProductsAlbum',
+  async ({album, product, userId}): Promise<void> => {
+    const URL: string = Config.API_ADMIN_URL + '/product/add/album';
+    const METHOD = 'POST';
+    const HEADERS = {'Content-Type': 'multipart/form-data'};
+    const baseAlbumName = `${userId},${product.id},album`;
+    const albumUri: string[] = [];
+
+    for await (const src of album) {
+      const newUri = await resizeImage(
+        src,
+        RESIZE_IMAGE.targetWidth,
+        RESIZE_IMAGE.targetHeight,
+        RESIZE_IMAGE.compressFormat,
+        RESIZE_IMAGE.quality,
+      );
+      albumUri.push(newUri);
+    }
+    // abc-123,def-456,cover,cover-Camera,png
+    const BODY = albumUri.map((src, index) => {
+      return {
+        name: 'album',
+        filename: `${baseAlbumName},album-${index}-${product.title}.jpg`,
+        type: 'image/jpg',
+        data: RNFetchBlob.wrap(src.replace('file://', '')),
+      };
+    });
+    try {
+      const response = await RNFetchBlob.fetch(METHOD, URL, HEADERS, BODY);
+      const resInJson = JSON.parse(response.data);
+      console.log({resInJson});
+    } catch (err) {
+      console.error({err});
+      throw new Error('Algo salio mal al intentar subir el album');
+    }
+  },
+);
+
+export const fetchAddProductCover = createAsyncThunk<
+  void,
+  {
+    coverUri: string;
+    product: Product;
+    userId: string;
+  }
+>(
+  'productSlice/fetchAddProductsCover',
+  async ({coverUri, product, userId}): Promise<void> => {
+    const URL: string = Config.API_ADMIN_URL + '/product/add/album';
+    const METHOD = 'POST';
+    const HEADERS = {'Content-Type': 'multipart/form-data'};
+    const coverName = `${userId},${product.id},cover,cover-${product.title},png`;
+
+    const newUri = await resizeImage(
+      coverUri,
+      RESIZE_IMAGE.targetWidth,
+      RESIZE_IMAGE.targetHeight,
+      RESIZE_IMAGE.compressFormat,
+      RESIZE_IMAGE.quality,
+    );
+    const BODY = [
+      {
+        name: 'cover',
+        filename: coverName,
+        type: 'image/png',
+        data: RNFetchBlob.wrap(newUri.replace('file://', '')),
+      },
+    ];
+    const response = await RNFetchBlob.fetch(METHOD, URL, HEADERS, BODY);
+    const jsonResponse = await response.json();
+    console.info('[cover] ->', jsonResponse);
+  },
+);
+
+const fetchAddProductCoverImage = async (
+  userId: string,
+  product: Product,
+  coverUri: string,
+  token: string,
+) => {
+  const URL: string = Config.API_ADMIN_URL + '/product/addCoverProduct';
+  const METHOD = 'POST';
+  const HEADERS = {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `Bearer ${token}`,
+  };
+
+  try {
+    const newUri = await resizeImage(
+      coverUri,
+      RESIZE_IMAGE.targetWidth,
+      RESIZE_IMAGE.targetHeight,
+      RESIZE_IMAGE.compressFormat,
+      RESIZE_IMAGE.quality,
+    );
+    const BODY = [
+      {
+        name: 'cover',
+        filename:
+          userId + ',' + product.id + ',cover,cover-' + product.title + ',png',
+        type: 'image/png',
+        data: RNFetchBlob.wrap(newUri.replace('file://', '')),
+      },
+    ];
+
+    const response = await RNFetchBlob.fetch(METHOD, URL, HEADERS, BODY);
+
+    const res = await response.json();
+    return res;
+  } catch (err) {
+    console.info({err});
+  }
+};
+const fetchAddProductAlbum = async (
+  userId: string,
+  product: Product,
+  album: string[],
+  token: string,
+) => {
+  const URL: string = Config.API_ADMIN_URL + '/product/addAlbumProduct';
+  const METHOD = 'POST';
+  const HEADERS = {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `Bearer ${token}`,
+  };
+  const baseAlbumName = userId + ',' + product.id + ',album' + ',';
+  try {
+    const albumToUpload = album.filter(src => src !== '');
+    const albumUri: string[] = [];
+    for await (const src of albumToUpload) {
+      const newUri = await resizeImage(
+        src,
+        RESIZE_IMAGE.targetWidth,
+        RESIZE_IMAGE.targetHeight,
+        RESIZE_IMAGE.compressFormat,
+        RESIZE_IMAGE.quality,
+      );
+      albumUri.push(newUri);
+    }
+    const BODY = albumUri.map((src, index) => {
+      return {
+        name: 'album',
+        filename: baseAlbumName + 'foto-' + index + '-album,jpg',
+        type: 'image/png',
+        data: RNFetchBlob.wrap(src.replace('file://', '')),
+      };
+    });
+    const response = await RNFetchBlob.fetch(METHOD, URL, HEADERS, BODY);
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (err) {
+    console.info({err});
+  }
+};

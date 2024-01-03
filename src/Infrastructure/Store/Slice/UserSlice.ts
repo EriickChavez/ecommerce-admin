@@ -22,7 +22,7 @@ const userSlice = createSlice({
   reducers: {
     resetState: () => initialState,
     resetError: state => {
-      state.error = null;
+      state.error = initialState.error;
     },
   },
   extraReducers(builder) {

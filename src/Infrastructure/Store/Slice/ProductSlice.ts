@@ -3,6 +3,7 @@ import {Product} from '../../../Domain/Entity';
 import {RootState} from '../Store';
 import {defaultProduct} from '../../../Constants/defaultValues';
 import {
+  fetchNewProducts,
   fetchPictureAlbum,
   fetchProductsByUserId,
 } from '../Actions/ProductAction';
@@ -34,6 +35,9 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     resetState: () => initialState,
+    resetError: state => {
+      state.error = initialState.error;
+    },
     setTmpProduct: (state, action: PayloadAction<{data: Product}>) => {
       const {data} = action.payload;
       state.tmpProduct = {...data};
@@ -65,6 +69,28 @@ const productSlice = createSlice({
         },
       )
       .addCase(fetchProductsByUserId.rejected, state => {
+        state.loading = false;
+        state.error = 'An error occurred';
+      });
+
+    builder
+      .addCase(fetchNewProducts.pending, state => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchNewProducts.fulfilled,
+        (state, action: PayloadAction<{data: Product}>) => {
+          const {data} = action.payload;
+          const newProduct: Product = {
+            ...defaultProduct,
+            ...data,
+          };
+          state.products = [...state.products, newProduct];
+          state.loading = false;
+          state.tmpProduct = newProduct;
+        },
+      )
+      .addCase(fetchNewProducts.rejected, state => {
         state.loading = false;
         state.error = 'An error occurred';
       });

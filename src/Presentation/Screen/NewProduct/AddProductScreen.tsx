@@ -33,7 +33,8 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   );
 
   const [album, setAlbum] = useState(
-    Array.from({length: 6}, (_, index) => tmpProduct?.album[index] || ''),
+    // Array.from({length: 6}, (_, index) => tmpProduct?.album[index] || ''),
+    ['', '', '', '', '', ''],
   );
   const [cover, setCover] = useState<string>(tmpProduct.cover || '');
   const [title, setTitle] = useState<string>(tmpProduct.title);

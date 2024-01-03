@@ -1,5 +1,6 @@
 import {IMAGE_TYPE} from '../Enum/Image';
 import IMAGES from '../Constants/IMAGES';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 // @ts-ignore
 import {getColorFromURL} from 'rn-dominant-color';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -58,4 +59,45 @@ const fetchImageIos = async (url: string, filename: string, uri: string) => {
     ],
   );
 };
-export {getDefaultImage, getBackgroundColor, fetchImageIos};
+
+const resizeImage = async (
+  sourceUri: string,
+  targetWidth: number,
+  targetHeight: number,
+  compressFormat: 'JPEG' | 'PNG',
+  quality: number,
+) => {
+  try {
+    const resizedImageUri = await ImageResizer.createResizedImage(
+      sourceUri,
+      targetWidth,
+      targetHeight,
+      compressFormat,
+      quality,
+    );
+    return resizedImageUri.uri;
+  } catch (error) {
+    console.error('Error al redimensionar la imagen:', error);
+    return '';
+  }
+};
+
+const RESIZE_IMAGE: {
+  targetWidth: number;
+  targetHeight: number;
+  compressFormat: 'JPEG' | 'PNG';
+  quality: number;
+} = {
+  targetWidth: 300,
+  targetHeight: 200,
+  compressFormat: 'PNG',
+  quality: 100,
+};
+
+export {
+  getDefaultImage,
+  getBackgroundColor,
+  fetchImageIos,
+  resizeImage,
+  RESIZE_IMAGE,
+};

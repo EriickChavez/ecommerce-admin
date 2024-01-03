@@ -20,6 +20,9 @@ const categorySlice = createSlice({
   initialState,
   reducers: {
     resetState: () => initialState,
+    resetError: state => {
+      state.error = initialState.error;
+    },
   },
   extraReducers: builder => {
     builder
