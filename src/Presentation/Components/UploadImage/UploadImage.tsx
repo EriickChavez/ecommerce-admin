@@ -6,6 +6,8 @@ import styles from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ImageView from '../ImageView/ImageView';
+import {Config} from '../../../Config/ENV';
+import {FastImageProps} from 'react-native-fast-image';
 
 interface UploadImageProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -15,6 +17,7 @@ interface UploadImageProps {
   title?: string;
   src?: string;
   onChangeImage?: (data: string) => void;
+  resizeMode?: FastImageProps['resizeMode'];
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({
@@ -25,11 +28,12 @@ const UploadImage: React.FC<UploadImageProps> = ({
   title,
   onChangeImage,
   src,
+  resizeMode = 'cover',
 }) => {
   const [source, setSource] = useState<string | undefined>(src || '');
 
   useEffect(() => {
-    if (!src) {
+    if (!src || src === Config.BASE_URI_IMAGE) {
       setSource(undefined);
     }
   }, [src]);
@@ -81,6 +85,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
               source: {uri: source},
               // @ts-ignore
               style: [styles.button, containerStyle],
+              resizeMode,
             }}
           />
         </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -10,24 +10,28 @@ import styles from './styles';
 
 import {ThemeEntry} from '../../../@Types/theme';
 import UploadImage from '../UploadImage/UploadImage';
+import {Config} from '../../../Config/ENV';
+import {FastImageProps} from 'react-native-fast-image';
 
 interface AlbumProps {
   theme?: ThemeEntry;
   title?: string;
   album?: string[];
+  disabled?: boolean;
   onChangeAlbum?: (data: any) => void;
   optionsAction?: {
     action?: (data: any) => void;
     textAction?: string;
     textStyle?: TextStyle;
   };
+  resizeMode?: FastImageProps['resizeMode'];
 }
 const {width} = Dimensions.get('screen');
 
 const contentWidth = width - width * 0.2;
 const imageAlbumSize = contentWidth * 0.3;
 const UploadAlbum: React.FC<AlbumProps> = ({
-  album = ['', '', '', '', '', ''],
+  album = [],
   onChangeAlbum,
   title,
   optionsAction = {
@@ -35,8 +39,9 @@ const UploadAlbum: React.FC<AlbumProps> = ({
     textAction: undefined,
     textStyle: undefined,
   },
+  disabled = false,
+  resizeMode = 'cover',
 }) => {
-  const albumUploaded = useMemo(() => album, [album]);
   const onChangeImage = (image: string, index: number) => {
     const newAlbum = [...album];
     newAlbum[index] = image;
@@ -60,16 +65,18 @@ const UploadAlbum: React.FC<AlbumProps> = ({
           </View>
         </View>
         <View style={styles.album}>
-          {albumUploaded.map((_, index) => {
+          {album.map((_, index) => {
             return (
               <View style={styles.imageContent} key={`album-photo-${index}`}>
                 <UploadImage
                   iconSize={25}
                   fontSize={8}
+                  borderWidth={1}
+                  resizeMode={resizeMode}
                   onChangeImage={data => {
-                    onChangeImage && onChangeImage(data, index);
+                    !disabled && onChangeImage && onChangeImage(data, index);
                   }}
-                  src={albumUploaded[index]}
+                  src={Config.BASE_URI_IMAGE + album[index]}
                   containerStyle={[
                     styles.imageAlbum,
                     {width: imageAlbumSize, height: imageAlbumSize},

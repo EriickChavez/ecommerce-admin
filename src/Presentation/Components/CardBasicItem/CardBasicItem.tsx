@@ -7,7 +7,7 @@ import styles from './styles';
 import {bgColor, getBackgroundColor} from '../../../Utils/imageUtils';
 import {Product} from '../../../Domain/Entity';
 import {defaultProduct} from '../../../Constants/defaultValues';
-
+import {Config} from '../../../Config/ENV';
 interface CardBasicItemProps {
   product: Product;
   onPress: () => void;
@@ -38,9 +38,7 @@ const CardBasicItem: React.FC<CardBasicItemProps> = ({
               resizeMode: 'contain',
               style: styles.image,
               source: {
-                uri: product?.imageUri
-                  ? product.imageUri
-                  : 'https://picsum.photos/200/300',
+                uri: Config.BASE_URI_IMAGE + product.cover,
               },
             }}
           />

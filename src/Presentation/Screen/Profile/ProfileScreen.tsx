@@ -21,6 +21,7 @@ const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
     navigation.navigate(SCREEN_NAME.EDIT_PROFILE_SCREEN);
   };
 
+  console.log('user.imageUri', user.imageUri);
   return (
     <>
       <View style={styles.topbar}>

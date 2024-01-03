@@ -112,7 +112,7 @@ export const fetchNewProducts = createAsyncThunk<
     }
   },
 );
-
+// Creo que se puede borrar
 export const fetchPictureAlbum = createAsyncThunk<
   {
     response: boolean;
@@ -173,7 +173,7 @@ export const fetchPictureAlbum = createAsyncThunk<
     };
   },
 );
-
+// Creo que se puede borrar
 export const fetchAddProductsAlbum = createAsyncThunk<
   void,
   {
@@ -253,6 +253,82 @@ export const fetchAddProductCover = createAsyncThunk<
     const response = await RNFetchBlob.fetch(METHOD, URL, HEADERS, BODY);
     const jsonResponse = await response.json();
     console.info('[cover] ->', jsonResponse);
+  },
+);
+
+export const fetchUpdateProduct = createAsyncThunk<
+  {
+    updated: {
+      cover: boolean;
+      album: boolean;
+      product: boolean;
+    };
+    updatedProduct: Product;
+    error: string | null;
+  },
+  {data: ProductInput; idProduct: string; token: string}
+>(
+  'productSlice/fetchUpdateProduct',
+  async ({
+    data,
+    idProduct,
+    token,
+  }): Promise<{
+    updated: {
+      cover: boolean;
+      album: boolean;
+      product: boolean;
+    };
+    updatedProduct: Product;
+    error: string | null;
+  }> => {
+    const URL: string = Config.API_ADMIN_URL + '/product/updateProduct';
+    const METHOD = 'POST';
+    const HEADERS = {
+      'Content-Type': 'application/json',
+      authentication: `Bearer ${token}`,
+    };
+    try {
+      const resp = await fetch(URL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({product: data, id: idProduct}),
+      });
+
+      const res = await resp.json();
+      const resInJson = res;
+      let productWithCover: Product | null = null;
+      if (data.cover) {
+        productWithCover = (await fetchAddProductCoverImage(
+          data.userId,
+          resInJson,
+          data.cover,
+          token,
+        )) as Product;
+      }
+      let productWithAlbum: Product | null = null;
+      if (data.album) {
+        productWithAlbum = (await fetchAddProductAlbum(
+          data.userId,
+          resInJson,
+          data.album,
+          token,
+        )) as Product;
+      }
+
+      return {
+        updated: {
+          album: !!productWithAlbum,
+          cover: !!productWithCover,
+          product: !!resp,
+        },
+        error: null,
+        updatedProduct: productWithAlbum || productWithCover || resInJson,
+      };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   },
 );
 

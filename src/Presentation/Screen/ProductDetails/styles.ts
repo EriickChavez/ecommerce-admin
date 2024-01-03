@@ -38,6 +38,15 @@ export default StyleSheet.create({
     height: RFValue(150),
     borderWidth: 1,
   },
+  uploadImage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    overflow: 'hidden',
+    width: '100%',
+    height: RFValue(150),
+    borderWidth: 1,
+  },
   buttonContainer: {
     marginTop: 20,
   },

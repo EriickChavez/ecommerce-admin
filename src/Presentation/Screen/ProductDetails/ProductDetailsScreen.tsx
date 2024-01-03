@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import Text from '../../Components/Text/Text';
 import {ProductDetailsScreenNavigationProps} from '../../../@Types/navigation.inventory';
@@ -9,9 +9,11 @@ import styles from './styles';
 import {CloseCircle, Edit} from 'iconsax-react-native';
 import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import UploadImage from '../../Components/UploadImage/UploadImage';
+import {Config} from '../../../Config/ENV';
 
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
+  navigation,
 }) => {
   const {item} = route.params;
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -19,6 +21,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   const [subtitle, setSubtitle] = useState<string>(item.subtitle || '');
   const [price, setPrice] = useState<number>(item.price);
   const [stock, setStock] = useState<number>(item.stock);
+  const [album, setAlbum] = useState<string[]>(item?.album || []);
 
   const resetProduct = () => {
     setTitle(item.title);
@@ -34,7 +37,9 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     setIsEditing(false);
   };
 
-  const updateProduct = () => {};
+  const updateProduct = () => {
+    navigation.goBack();
+  };
 
   const onChangeNumber = (text: string, type: string) => {
     const num = text.split(' ')[1];
@@ -47,6 +52,15 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
       type === 'stock' && setStock(0);
     }
   };
+  const albumUploaded = useMemo(() => {
+    const newArray: string[] = [...album];
+    if (isEditing) {
+      new Array(Math.max(0, 6)).fill('').forEach(element => {
+        newArray.push(element);
+      });
+    }
+    return newArray.length > 6 ? newArray.slice(0, 6) : newArray;
+  }, [album, isEditing]);
 
   return (
     <View style={styles.container}>
@@ -71,11 +85,18 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
               imageProps={{
                 style: styles.image,
                 resizeMode: 'contain',
+                source: {uri: Config.BASE_URI_IMAGE + item.cover},
               }}
               imageType={IMAGE_TYPE.PRODUCT}
             />
           ) : (
-            <UploadImage />
+            <View style={styles.uploadImage}>
+              <UploadImage
+                src={Config.BASE_URI_IMAGE + item.cover}
+                borderWidth={2}
+                resizeMode={'contain'}
+              />
+            </View>
           )}
         </View>
         <View style={styles.input}>
@@ -119,7 +140,12 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           />
         </View>
         <View style={styles.input}>
-          <UploadAlbum title="Images" />
+          <UploadAlbum
+            disabled={!isEditing}
+            title="Images"
+            album={albumUploaded}
+            onChangeAlbum={setAlbum}
+          />
         </View>
       </ScrollView>
       {isEditing && (
