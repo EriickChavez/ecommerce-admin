@@ -13,6 +13,7 @@ import {fetchProductsByUserId} from '../../../Infrastructure/Store/Actions/Produ
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {Product} from '../../../Domain/Entity';
 import {SCREEN_NAME} from '../../../Enum';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   const {theme} = useHome(props);
@@ -36,21 +37,23 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.viewContainer}>
-          <TextInput
-            TextInputProps={{placeholder: 'Search', editable: true}}
-            leftIcon={<SearchNormal color={theme.colors.text} />}
+    <SceneView>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.viewContainer}>
+            <TextInput
+              TextInputProps={{placeholder: 'Search', editable: true}}
+              leftIcon={<SearchNormal color={theme.colors.text} />}
+            />
+          </View>
+          <ImagePager
+            imageStyles={styles.banner}
+            images={['https://picsum.photos/200/300']}
           />
         </View>
-        <ImagePager
-          imageStyles={styles.banner}
-          images={['https://picsum.photos/200/300']}
-        />
+        <ProductList onPressCard={onPressCard} data={productState.products} />
       </View>
-      <ProductList onPressCard={onPressCard} data={productState.products} />
-    </View>
+    </SceneView>
   );
 };
 

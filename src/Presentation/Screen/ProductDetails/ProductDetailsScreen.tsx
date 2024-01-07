@@ -6,10 +6,11 @@ import ImageView from '../../Components/ImageView/ImageView';
 import Input from '../../Components/Input/Input';
 import {IMAGE_TYPE, INPUT_TYPE} from '../../../Enum';
 import styles from './styles';
-import {CloseCircle, Edit} from 'iconsax-react-native';
+import {CloseCircle, Edit, Trash} from 'iconsax-react-native';
 import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import UploadImage from '../../Components/UploadImage/UploadImage';
 import {Config} from '../../../Config/ENV';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
@@ -41,6 +42,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     navigation.goBack();
   };
 
+  const onPressRemove = () => {};
   const onChangeNumber = (text: string, type: string) => {
     const num = text.split(' ')[1];
 
@@ -61,101 +63,116 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     }
     return newArray.length > 6 ? newArray.slice(0, 6) : newArray;
   }, [album, isEditing]);
-
+  const stickyArray = useMemo(() => {
+    return isEditing ? [7] : [];
+  }, [isEditing]);
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Product Details</Text>
-          <View style={styles.rightIcon}>
+    <SceneView>
+      <View style={styles.container}>
+        <ScrollView
+          stickyHeaderIndices={stickyArray}
+          style={styles.scroll}
+          showsVerticalScrollIndicator={false}>
+          <View>
+            <Text style={styles.title}>{item.title}</Text>
+
+            <View style={styles.header}>
+              <View>
+                <TouchableOpacity onPress={onPressRemove} style={styles.icon}>
+                  <Trash />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.rightIcon}>
+                {!isEditing ? (
+                  <TouchableOpacity onPress={onPressEdit} style={styles.icon}>
+                    <Edit />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={onCancel} style={styles.icon}>
+                    <CloseCircle />
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          </View>
+          <View style={styles.input}>
             {!isEditing ? (
-              <TouchableOpacity onPress={onPressEdit} style={styles.icon}>
-                <Edit />
-              </TouchableOpacity>
+              <ImageView
+                imageProps={{
+                  style: styles.image,
+                  resizeMode: 'contain',
+                  source: {uri: Config.BASE_URI_IMAGE + item.cover},
+                }}
+                imageType={IMAGE_TYPE.PRODUCT}
+              />
             ) : (
-              <TouchableOpacity onPress={onCancel} style={styles.icon}>
-                <CloseCircle />
-              </TouchableOpacity>
+              <View style={styles.uploadImage}>
+                <UploadImage
+                  src={Config.BASE_URI_IMAGE + item.cover}
+                  borderWidth={2}
+                  resizeMode={'contain'}
+                />
+              </View>
             )}
           </View>
-        </View>
-        <View style={styles.input}>
-          {!isEditing ? (
-            <ImageView
-              imageProps={{
-                style: styles.image,
-                resizeMode: 'contain',
-                source: {uri: Config.BASE_URI_IMAGE + item.cover},
-              }}
-              imageType={IMAGE_TYPE.PRODUCT}
+          <View style={styles.input}>
+            <Input
+              title="Name"
+              placeholder="Name"
+              type={INPUT_TYPE.TEXT}
+              textOptions={{textOptions: {editable: isEditing}}}
+              value={title}
+              onChangeText={setTitle}
             />
-          ) : (
-            <View style={styles.uploadImage}>
-              <UploadImage
-                src={Config.BASE_URI_IMAGE + item.cover}
-                borderWidth={2}
-                resizeMode={'contain'}
-              />
+          </View>
+          <View style={styles.input}>
+            <Input
+              title="Description"
+              placeholder="Description"
+              type={INPUT_TYPE.TEXT}
+              value={subtitle}
+              onChangeText={setSubtitle}
+              textOptions={{textOptions: {editable: isEditing}}}
+            />
+          </View>
+          <View style={styles.input}>
+            <Input
+              title="Price"
+              placeholder="Price"
+              type={INPUT_TYPE.TEXT}
+              textOptions={{textOptions: {editable: isEditing}}}
+              value={price.toString()}
+              onChangeText={text => onChangeNumber(text, 'price')}
+            />
+          </View>
+          <View style={styles.input}>
+            <Input
+              title="Stock"
+              placeholder="Stock"
+              value={stock.toString()}
+              onChangeText={text => onChangeNumber(text, 'stock')}
+              type={INPUT_TYPE.TEXT}
+              textOptions={{textOptions: {editable: isEditing}}}
+            />
+          </View>
+          <View style={styles.input}>
+            <UploadAlbum
+              disabled={!isEditing}
+              title="Images"
+              album={albumUploaded}
+              onChangeAlbum={setAlbum}
+            />
+          </View>
+          {isEditing && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={updateProduct} style={styles.button}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableOpacity>
             </View>
           )}
-        </View>
-        <View style={styles.input}>
-          <Input
-            title="Name"
-            placeholder="Name"
-            type={INPUT_TYPE.TEXT}
-            textOptions={{textOptions: {editable: isEditing}}}
-            value={title}
-            onChangeText={setTitle}
-          />
-        </View>
-        <View style={styles.input}>
-          <Input
-            title="Description"
-            placeholder="Description"
-            type={INPUT_TYPE.TEXT}
-            value={subtitle}
-            onChangeText={setSubtitle}
-            textOptions={{textOptions: {editable: isEditing}}}
-          />
-        </View>
-        <View style={styles.input}>
-          <Input
-            title="Price"
-            placeholder="Price"
-            type={INPUT_TYPE.TEXT}
-            textOptions={{textOptions: {editable: isEditing}}}
-            value={price.toString()}
-            onChangeText={text => onChangeNumber(text, 'price')}
-          />
-        </View>
-        <View style={styles.input}>
-          <Input
-            title="Stock"
-            placeholder="Stock"
-            value={stock.toString()}
-            onChangeText={text => onChangeNumber(text, 'stock')}
-            type={INPUT_TYPE.TEXT}
-            textOptions={{textOptions: {editable: isEditing}}}
-          />
-        </View>
-        <View style={styles.input}>
-          <UploadAlbum
-            disabled={!isEditing}
-            title="Images"
-            album={albumUploaded}
-            onChangeAlbum={setAlbum}
-          />
-        </View>
-      </ScrollView>
-      {isEditing && (
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={updateProduct} style={styles.button}>
-            <Text style={styles.buttonText}>Save</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+        </ScrollView>
+      </View>
+    </SceneView>
   );
 };
 

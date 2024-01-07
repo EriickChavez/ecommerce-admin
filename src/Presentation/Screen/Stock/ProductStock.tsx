@@ -9,23 +9,26 @@ import {ThemeEntry} from '../../../@Types/theme';
 import ProductList from '../../Components/ProductList/ProductList';
 import {useSelector} from 'react-redux';
 import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
   const {products} = useSelector(productSelector);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.input}>
-          <TextInput
-            TextInputProps={{placeholder: 'Search', editable: true}}
-            leftIcon={<SearchNormal color={theme.colors.text} />}
-          />
+    <SceneView>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.input}>
+            <TextInput
+              TextInputProps={{placeholder: 'Search', editable: true}}
+              leftIcon={<SearchNormal color={theme.colors.text} />}
+            />
+          </View>
         </View>
+        <ProductList data={products} />
       </View>
-      <ProductList data={products} />
-    </View>
+    </SceneView>
   );
 };
 

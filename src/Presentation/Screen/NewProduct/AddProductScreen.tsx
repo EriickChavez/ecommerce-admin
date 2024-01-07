@@ -19,6 +19,7 @@ import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlic
 import ExpandableTextInput from '../../Components/ExpandibleTextInput/ExpandibleTextInput';
 import CharacteristicInput from '../../Components/CharacteristicInput/CharacteristicInput';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
@@ -126,111 +127,113 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <UploadImage
-          title="Product Cover"
-          containerStyle={styles.uploadImage}
-          src={cover}
-          onChangeImage={data => {
-            setCover(data);
+    <SceneView>
+      <SafeAreaView style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <UploadImage
+            title="Product Cover"
+            containerStyle={styles.uploadImage}
+            src={cover}
+            onChangeImage={data => {
+              setCover(data);
+            }}
+          />
+          <View style={styles.inputContent}>
+            <Input
+              title="Select Product Categories"
+              placeholder="Select Categories"
+              type={INPUT_TYPE.PICKER}
+              pickerOptions={{
+                pickerOptions: {
+                  data: transformCategoryToPickerItem(),
+                  onPickerSelectOption: data => {
+                    setProductCategories(transformPickerItemToCategory(data));
+                  },
+                  pickerArraySelected: [],
+                  setPickerArraySelected: () => {},
+                },
+              }}
+              value={productCategories.join(', ')}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <Input
+              title="Product Name"
+              type={INPUT_TYPE.TEXT}
+              placeholder="Product Name"
+              value={title}
+              onChangeText={text => setTitle(text)}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <ExpandableTextInput
+              text="Product Description"
+              placeholder="Product Description"
+              containerStyle={styles.expandibleTextInput}
+              value={description}
+              onChangeText={text => setDescription(text)}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <Input
+              title="Product Brand"
+              type={INPUT_TYPE.TEXT}
+              placeholder="Product Brand"
+              value={subtitle}
+              onChangeText={text => setSubtitle(text)}
+            />
+          </View>
+          <View style={styles.content}>
+            <Input
+              title="Price"
+              type={INPUT_TYPE.DROPDOWN}
+              placeholder="Input Product Price"
+              value={`$ ${price}`}
+              onChangeText={onChangePrice}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <Input
+              title="Product Stock"
+              type={INPUT_TYPE.NUMBER}
+              placeholder="Product Stock"
+              value={`${quantity}`}
+              onChangeText={text => {
+                if (Number(text)) {
+                  setQuantity(Number(text));
+                } else {
+                  setQuantity(0);
+                }
+              }}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <CharacteristicInput
+              goToHelpIconScreen={goToHelpIconScreen}
+              options={{
+                characteristics,
+                addCharacteristics: onAddCharacteristic,
+                onRemoveItem: onRemoveCharacteristic,
+              }}
+            />
+          </View>
+          <View style={styles.inputContent}>
+            <UploadAlbum
+              onChangeAlbum={data => {
+                setAlbum(data);
+              }}
+              album={album}
+            />
+          </View>
+        </ScrollView>
+        <Button
+          title="Next"
+          onPress={() => {
+            onPress();
           }}
         />
-        <View style={styles.inputContent}>
-          <Input
-            title="Select Product Categories"
-            placeholder="Select Categories"
-            type={INPUT_TYPE.PICKER}
-            pickerOptions={{
-              pickerOptions: {
-                data: transformCategoryToPickerItem(),
-                onPickerSelectOption: data => {
-                  setProductCategories(transformPickerItemToCategory(data));
-                },
-                pickerArraySelected: [],
-                setPickerArraySelected: () => {},
-              },
-            }}
-            value={productCategories.join(', ')}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <Input
-            title="Product Name"
-            type={INPUT_TYPE.TEXT}
-            placeholder="Product Name"
-            value={title}
-            onChangeText={text => setTitle(text)}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <ExpandableTextInput
-            text="Product Description"
-            placeholder="Product Description"
-            containerStyle={styles.expandibleTextInput}
-            value={description}
-            onChangeText={text => setDescription(text)}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <Input
-            title="Product Brand"
-            type={INPUT_TYPE.TEXT}
-            placeholder="Product Brand"
-            value={subtitle}
-            onChangeText={text => setSubtitle(text)}
-          />
-        </View>
-        <View style={styles.content}>
-          <Input
-            title="Price"
-            type={INPUT_TYPE.DROPDOWN}
-            placeholder="Input Product Price"
-            value={`$ ${price}`}
-            onChangeText={onChangePrice}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <Input
-            title="Product Stock"
-            type={INPUT_TYPE.NUMBER}
-            placeholder="Product Stock"
-            value={`${quantity}`}
-            onChangeText={text => {
-              if (Number(text)) {
-                setQuantity(Number(text));
-              } else {
-                setQuantity(0);
-              }
-            }}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <CharacteristicInput
-            goToHelpIconScreen={goToHelpIconScreen}
-            options={{
-              characteristics,
-              addCharacteristics: onAddCharacteristic,
-              onRemoveItem: onRemoveCharacteristic,
-            }}
-          />
-        </View>
-        <View style={styles.inputContent}>
-          <UploadAlbum
-            onChangeAlbum={data => {
-              setAlbum(data);
-            }}
-            album={album}
-          />
-        </View>
-      </ScrollView>
-      <Button
-        title="Next"
-        onPress={() => {
-          onPress();
-        }}
-      />
-    </SafeAreaView>
+      </SafeAreaView>
+    </SceneView>
   );
 };
 

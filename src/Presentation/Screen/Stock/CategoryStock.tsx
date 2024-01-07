@@ -10,6 +10,7 @@ import {ThemeEntry} from '../../../@Types/theme';
 import {Category} from '../../../Domain/Entity';
 import {useSelector} from 'react-redux';
 import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlice';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
@@ -22,23 +23,25 @@ const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
     );
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.input}>
-          <TextInput
-            TextInputProps={{placeholder: 'Search', editable: true}}
-            leftIcon={<SearchNormal color={theme.colors.text} />}
+    <SceneView>
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <View style={styles.input}>
+            <TextInput
+              TextInputProps={{placeholder: 'Search', editable: true}}
+              leftIcon={<SearchNormal color={theme.colors.text} />}
+            />
+          </View>
+          <FlatList
+            columnWrapperStyle={styles.columnWrapperStyle}
+            renderItem={renderItem}
+            keyExtractor={({id}) => id}
+            data={data}
+            numColumns={2}
           />
         </View>
-        <FlatList
-          columnWrapperStyle={styles.columnWrapperStyle}
-          renderItem={renderItem}
-          keyExtractor={({id}) => id}
-          data={data}
-          numColumns={2}
-        />
       </View>
-    </View>
+    </SceneView>
   );
 };
 

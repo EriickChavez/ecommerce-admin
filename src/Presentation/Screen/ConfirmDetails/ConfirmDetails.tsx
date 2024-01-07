@@ -15,6 +15,7 @@ import Chips from '../../Components/Chips/Chips';
 import ImageView from '../../Components/ImageView/ImageView';
 import Album from '../../Components/Album/Album';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import SceneView from '../../Components/SceneView/SceneView';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   navigation,
 }) => {
@@ -82,50 +83,52 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
     );
   };
   return (
-    <SafeAreaView style={[styles.flex, styles.banner]}>
-      <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
-        <View>
-          <Text style={styles.text}>Product Cover</Text>
-          <Text style={styles.text}>{productStore.tmpProduct.userId}</Text>
-          {productStore?.tmpProduct?.cover && (
-            <>
-              <ImageView
-                imageProps={{
-                  source: {uri: productStore?.tmpProduct?.cover},
-                  style: [styles.button],
-                }}
-              />
-            </>
-          )}
-        </View>
-        <Text style={[styles.text, styles.title]}>{product.title}</Text>
-        <Text style={styles.text}>$ {product.price}</Text>
-        <ExpandableText
-          text={product.subtitle}
-          containerStyle={styles.containerDescription}
-          textStyle={styles.text}
-        />
-        <View style={styles.categoryContainer}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={product.categoryId}
-            renderItem={({index, item: CatItem}) =>
-              renderCategory({categoryItem: CatItem, index})
-            }
-            keyExtractor={() => (Math.random() * 100).toString()}
+    <SceneView>
+      <SafeAreaView style={[styles.flex, styles.banner]}>
+        <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
+          <View>
+            <Text style={styles.text}>Product Cover</Text>
+            <Text style={styles.text}>{productStore.tmpProduct.userId}</Text>
+            {productStore?.tmpProduct?.cover && (
+              <>
+                <ImageView
+                  imageProps={{
+                    source: {uri: productStore?.tmpProduct?.cover},
+                    style: [styles.button],
+                  }}
+                />
+              </>
+            )}
+          </View>
+          <Text style={[styles.text, styles.title]}>{product.title}</Text>
+          <Text style={styles.text}>$ {product.price}</Text>
+          <ExpandableText
+            text={product.subtitle}
+            containerStyle={styles.containerDescription}
+            textStyle={styles.text}
           />
-        </View>
-        <Text style={styles.text}>Available {product.stock}</Text>
+          <View style={styles.categoryContainer}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={product.categoryId}
+              renderItem={({index, item: CatItem}) =>
+                renderCategory({categoryItem: CatItem, index})
+              }
+              keyExtractor={() => (Math.random() * 100).toString()}
+            />
+          </View>
+          <Text style={styles.text}>Available {product.stock}</Text>
 
-        {product.characteristics.map((value, index) => {
-          return renderItem({index, cItem: value});
-        })}
+          {product.characteristics.map((value, index) => {
+            return renderItem({index, cItem: value});
+          })}
 
-        <Album album={product.album} />
-      </ScrollView>
-      <Button title="Next" onPress={onPress} disabled={isLoadingUpload} />
-    </SafeAreaView>
+          <Album album={product.album} />
+        </ScrollView>
+        <Button title="Next" onPress={onPress} disabled={isLoadingUpload} />
+      </SafeAreaView>
+    </SceneView>
   );
 };
 

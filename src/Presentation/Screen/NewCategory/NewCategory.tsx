@@ -14,6 +14,7 @@ import {PickerItem} from '../../../@Types/picker';
 import UploadImage from '../../Components/UploadImage/UploadImage';
 import {SCREEN_NAME} from '../../../Enum/Screens';
 import {ITEMS} from '../../../Enum';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
   navigation,
@@ -74,59 +75,61 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
   }, [categoryState]);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps="handled">
-      <View style={styles.header}>
-        <Text style={styles.title}>New Category</Text>
-      </View>
-      <View style={styles.content}>
-        <View style={styles.input}>
-          <UploadImage
-            title="Cover"
-            onChangeImage={setImageCover}
-            src={imageCover}
-            containerStyle={styles.uploadImage}
-          />
+    <SceneView>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
+          <Text style={styles.title}>New Category</Text>
         </View>
-        <View style={styles.input}>
-          <Input
-            type={INPUT_TYPE.TEXT}
-            title="Category Name"
-            value={name}
-            onChangeText={text => setName(text)}
-          />
-        </View>
-        <View style={styles.input}>
-          <ExpandableTextInput
-            text="Description"
-            onChangeText={text => setDescription(text)}
-            value={description}
-            containerStyle={styles.ExpandableTextInput}
-          />
-        </View>
-        <View style={styles.input}>
-          <Input
-            type={INPUT_TYPE.PICKER}
-            title="Related Categories"
-            pickerOptions={{
-              pickerOptions: {
-                data: categoryData,
-                onPickerSelectOption: (itemValue: PickerItem[]) => {
-                  const ids: string[] = itemValue.map(i => i.id);
-                  setRelatedCategoriesIds(ids);
+        <View style={styles.content}>
+          <View style={styles.input}>
+            <UploadImage
+              title="Cover"
+              onChangeImage={setImageCover}
+              src={imageCover}
+              containerStyle={styles.uploadImage}
+            />
+          </View>
+          <View style={styles.input}>
+            <Input
+              type={INPUT_TYPE.TEXT}
+              title="Category Name"
+              value={name}
+              onChangeText={text => setName(text)}
+            />
+          </View>
+          <View style={styles.input}>
+            <ExpandableTextInput
+              text="Description"
+              onChangeText={text => setDescription(text)}
+              value={description}
+              containerStyle={styles.ExpandableTextInput}
+            />
+          </View>
+          <View style={styles.input}>
+            <Input
+              type={INPUT_TYPE.PICKER}
+              title="Related Categories"
+              pickerOptions={{
+                pickerOptions: {
+                  data: categoryData,
+                  onPickerSelectOption: (itemValue: PickerItem[]) => {
+                    const ids: string[] = itemValue.map(i => i.id);
+                    setRelatedCategoriesIds(ids);
+                  },
+                  pickerArraySelected,
+                  setPickerArraySelected,
                 },
-                pickerArraySelected,
-                setPickerArraySelected,
-              },
-            }}
-          />
+              }}
+            />
+          </View>
         </View>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Save</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SceneView>
   );
 };
 

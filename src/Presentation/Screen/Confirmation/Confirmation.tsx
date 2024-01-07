@@ -5,6 +5,7 @@ import OkIcon from '../../../Assets/svg/OkIcon';
 import {ConfirmNavigationProps} from '../../../@Types/navigation.newProduct';
 import {SCREEN_NAME} from '../../../Enum/Screens';
 import styles from './styles';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const Confirmation: React.FC<ConfirmNavigationProps> = ({navigation}) => {
   const handlePress = () => {
@@ -15,24 +16,26 @@ const Confirmation: React.FC<ConfirmNavigationProps> = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.check}>
-        <OkIcon width={50} height={50} stroke="white" />
-      </View>
-      <View style={styles.separator} />
+    <SceneView>
+      <View style={styles.container}>
+        <View style={styles.check}>
+          <OkIcon width={50} height={50} stroke="white" />
+        </View>
+        <View style={styles.separator} />
 
-      <View>
-        <Text style={[styles.title, styles.text]}>Congratulations</Text>
-        <Text style={[styles.subtitle, styles.text]}>
-          Your product has been added to your {'\n'} portfolio kindly check your
-          email for more details
-        </Text>
+        <View>
+          <Text style={[styles.title, styles.text]}>Congratulations</Text>
+          <Text style={[styles.subtitle, styles.text]}>
+            Your product has been added to your {'\n'} portfolio kindly check
+            your email for more details
+          </Text>
+        </View>
+        <View style={styles.separator} />
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>OK</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.separator} />
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>OK</Text>
-      </TouchableOpacity>
-    </View>
+    </SceneView>
   );
 };
 

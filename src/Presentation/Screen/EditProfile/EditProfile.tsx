@@ -23,6 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {UserViewInput} from '../../../Domain/Entity/User/User';
 import {fetchEditUser} from '../../../Infrastructure/Store/Actions/UserAction';
+import SceneView from '../../Components/SceneView/SceneView';
 
 const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
   const userState = useSelector(userSelector);
@@ -158,98 +159,100 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
   });
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        onLayout={(e: any) => onLayout(e, -1)}
-        ref={scrollRef}
-        style={styles.scrollView}
-        stickyHeaderIndices={[6]}>
-        <View onLayout={e => onLayout(e, 0)} style={styles.input}>
-          <UploadImage
-            title="Profile Image"
-            containerStyle={styles.image}
-            onChangeImage={(src: string) => setImageUri(src)}
-          />
-        </View>
-        <View onLayout={e => onLayout(e, 1)} style={styles.input}>
-          <Input
-            ref={refTxtUsnm}
-            title="Username"
-            placeholder="Username"
-            value={username}
-            onChangeText={(text: string) => setUsername(text)}
-            type={INPUT_TYPE.TEXT}
-          />
-        </View>
-        <View onLayout={e => onLayout(e, 2)} style={styles.input}>
-          <Input
-            ref={refTxtCountry}
-            title="Country"
-            placeholder="Mexico"
-            value={country}
-            onChangeText={(text: string) => setCountry(text)}
-            type={INPUT_TYPE.TEXT}
-          />
-        </View>
-        <View onLayout={e => onLayout(e, 3)} style={styles.input}>
-          <Input
-            ref={refTxtState}
-            title="State"
-            placeholder="Torreón"
-            value={state}
-            onChangeText={(text: string) => setState(text)}
-            type={INPUT_TYPE.TEXT}
-          />
-        </View>
-        <View onLayout={e => onLayout(e, 4)} style={styles.input}>
-          <Input
-            ref={refTxtAge}
-            title="Age"
-            placeholder="21"
-            type={INPUT_TYPE.NUMBER}
-            value={age}
-            onChangeText={(text: string) => setAge(text)}
-          />
-        </View>
-        <View
-          // ref={refTxtBio}
-          onLayout={e => onLayout(e, 5)}
-          style={styles.input}>
-          <ExpandableTextInput
-            text="Bio"
-            placeholder="Bio"
-            value={bio}
-            onChangeText={(text: string) => setBio(text)}
-            containerStyle={styles.inputExpandible}
-            placeholderTextColor={'#949BA6'}
-          />
-        </View>
-        <View
-          style={{
-            height: keyboardHeight,
-          }}
-        />
-        <Animated.View style={[styles.box, animatedStyle]} />
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          disabled={isLoading}
-          onPress={handleSave}
-          style={styles.button}
-          activeOpacity={0.8}>
-          <View style={styles.buttonTextContainer}>
-            <View style={styles.buttonIndicator}>
-              <ActivityIndicator
-                color={'#fff'}
-                animating={isLoading}
-                size={'small'}
-              />
-            </View>
-            <Text style={styles.buttonText}>Save</Text>
+    <SceneView>
+      <View style={styles.container}>
+        <ScrollView
+          onLayout={(e: any) => onLayout(e, -1)}
+          ref={scrollRef}
+          style={styles.scrollView}
+          stickyHeaderIndices={[6]}>
+          <View onLayout={e => onLayout(e, 0)} style={styles.input}>
+            <UploadImage
+              title="Profile Image"
+              containerStyle={styles.image}
+              onChangeImage={(src: string) => setImageUri(src)}
+            />
           </View>
-        </TouchableOpacity>
+          <View onLayout={e => onLayout(e, 1)} style={styles.input}>
+            <Input
+              ref={refTxtUsnm}
+              title="Username"
+              placeholder="Username"
+              value={username}
+              onChangeText={(text: string) => setUsername(text)}
+              type={INPUT_TYPE.TEXT}
+            />
+          </View>
+          <View onLayout={e => onLayout(e, 2)} style={styles.input}>
+            <Input
+              ref={refTxtCountry}
+              title="Country"
+              placeholder="Mexico"
+              value={country}
+              onChangeText={(text: string) => setCountry(text)}
+              type={INPUT_TYPE.TEXT}
+            />
+          </View>
+          <View onLayout={e => onLayout(e, 3)} style={styles.input}>
+            <Input
+              ref={refTxtState}
+              title="State"
+              placeholder="Torreón"
+              value={state}
+              onChangeText={(text: string) => setState(text)}
+              type={INPUT_TYPE.TEXT}
+            />
+          </View>
+          <View onLayout={e => onLayout(e, 4)} style={styles.input}>
+            <Input
+              ref={refTxtAge}
+              title="Age"
+              placeholder="21"
+              type={INPUT_TYPE.NUMBER}
+              value={age}
+              onChangeText={(text: string) => setAge(text)}
+            />
+          </View>
+          <View
+            // ref={refTxtBio}
+            onLayout={e => onLayout(e, 5)}
+            style={styles.input}>
+            <ExpandableTextInput
+              text="Bio"
+              placeholder="Bio"
+              value={bio}
+              onChangeText={(text: string) => setBio(text)}
+              containerStyle={styles.inputExpandible}
+              placeholderTextColor={'#949BA6'}
+            />
+          </View>
+          <View
+            style={{
+              height: keyboardHeight,
+            }}
+          />
+          <Animated.View style={[styles.box, animatedStyle]} />
+        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            disabled={isLoading}
+            onPress={handleSave}
+            style={styles.button}
+            activeOpacity={0.8}>
+            <View style={styles.buttonTextContainer}>
+              <View style={styles.buttonIndicator}>
+                <ActivityIndicator
+                  color={'#fff'}
+                  animating={isLoading}
+                  size={'small'}
+                />
+              </View>
+              <Text style={styles.buttonText}>Save</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </SceneView>
   );
 };
 

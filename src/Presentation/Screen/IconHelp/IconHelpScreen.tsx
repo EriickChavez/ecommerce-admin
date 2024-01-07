@@ -7,6 +7,7 @@ import Input from '../../Components/Input/Input';
 import {INPUT_TYPE} from '../../../Enum';
 import {ThemeEntry} from '../../../@Types/theme';
 import themes from '../../../Themes/themes';
+import SceneView from '../../Components/SceneView/SceneView';
 
 interface IconHelpProps {
   theme?: ThemeEntry;
@@ -44,52 +45,54 @@ const IconHelpScreen: React.FC<IconHelpProps> = ({theme = themes.light}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination]);
   return (
-    <SafeAreaView
-      style={[styles.container, {backgroundColor: theme?.colors.background}]}>
-      <View style={styles.input}>
-        <Input
-          type={INPUT_TYPE.TEXT}
-          onChangeText={onChangeText}
-          placeholder="Buscar"
-          value={search}
-        />
-      </View>
-      <ScrollView
-        onScroll={({nativeEvent}) => {
-          const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
-          const isCloseToBottom =
-            layoutMeasurement.height + contentOffset.y >=
-            contentSize.height - 20;
-
-          if (isCloseToBottom && search === '') {
-            setPagination(pagination + 1);
-          }
-        }}
-        scrollEventThrottle={400}
-        style={[styles.container, styles.scroll]}>
-        <View style={styles.content}>
-          {iconsList.map(key => {
-            const IconToUse = Icon[key as keyof typeof Icon];
-            return (
-              <View
-                style={[
-                  styles.iconContainer,
-                  {
-                    backgroundColor: theme?.colors.card,
-                    borderColor: theme?.colors.border,
-                  },
-                ]}
-                key={key}>
-                <IconToUse key={key} size={30} color={theme?.colors.icon} />
-                <Text style={[styles.text, {color: theme?.colors.icon}]}>
-                  {key}
-                </Text>
-              </View>
-            );
-          })}
+    <SceneView>
+      <SafeAreaView
+        style={[styles.container, {backgroundColor: theme?.colors.background}]}>
+        <View style={styles.input}>
+          <Input
+            type={INPUT_TYPE.TEXT}
+            onChangeText={onChangeText}
+            placeholder="Buscar"
+            value={search}
+          />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <ScrollView
+          onScroll={({nativeEvent}) => {
+            const {layoutMeasurement, contentOffset, contentSize} = nativeEvent;
+            const isCloseToBottom =
+              layoutMeasurement.height + contentOffset.y >=
+              contentSize.height - 20;
+
+            if (isCloseToBottom && search === '') {
+              setPagination(pagination + 1);
+            }
+          }}
+          scrollEventThrottle={400}
+          style={[styles.container, styles.scroll]}>
+          <View style={styles.content}>
+            {iconsList.map(key => {
+              const IconToUse = Icon[key as keyof typeof Icon];
+              return (
+                <View
+                  style={[
+                    styles.iconContainer,
+                    {
+                      backgroundColor: theme?.colors.card,
+                      borderColor: theme?.colors.border,
+                    },
+                  ]}
+                  key={key}>
+                  <IconToUse key={key} size={30} color={theme?.colors.icon} />
+                  <Text style={[styles.text, {color: theme?.colors.icon}]}>
+                    {key}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SceneView>
   );
 };
 
