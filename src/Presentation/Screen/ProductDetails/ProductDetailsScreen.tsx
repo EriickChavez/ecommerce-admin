@@ -67,12 +67,12 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     return isEditing ? [7] : [];
   }, [isEditing]);
   return (
-    <SceneView>
-      <View style={styles.container}>
-        <ScrollView
-          stickyHeaderIndices={stickyArray}
-          style={styles.scroll}
-          showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
+      <ScrollView
+        stickyHeaderIndices={stickyArray}
+        style={styles.scroll}
+        showsVerticalScrollIndicator={false}>
+        <SceneView>
           <View>
             <Text style={styles.title}>{item.title}</Text>
 
@@ -170,9 +170,9 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
               </TouchableOpacity>
             </View>
           )}
-        </ScrollView>
-      </View>
-    </SceneView>
+        </SceneView>
+      </ScrollView>
+    </View>
   );
 };
 

@@ -11,19 +11,23 @@ const SelectNewItem: React.FC<SelectItemNavigationProps> = ({navigation}) => {
     <SceneView>
       <View style={styles.container}>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, styles.productButton]}
           onPress={() => navigation.navigate(SCREEN_NAME.ADD_PRODUCT_SCREEN)}>
-          <Text>{SCREEN_NAME_TITLE.ADD_PRODUCT_SCREEN}</Text>
+          <Text style={styles.text}>
+            {SCREEN_NAME_TITLE.ADD_PRODUCT_SCREEN}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, styles.categoryButton]}
           onPress={() => navigation.navigate(SCREEN_NAME.NEW_CATEGORY_SCREEN)}>
-          <Text>{SCREEN_NAME_TITLE.NEW_CATEGORY_SCREEN}</Text>
+          <Text style={styles.text}>
+            {SCREEN_NAME_TITLE.NEW_CATEGORY_SCREEN}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, styles.bannerButton]}
           onPress={() => navigation.navigate(SCREEN_NAME.NEW_BANNER_SCREEN)}>
-          <Text>{SCREEN_NAME_TITLE.NEW_BANNER_SCREEN}</Text>
+          <Text style={styles.text}>{SCREEN_NAME_TITLE.NEW_BANNER_SCREEN}</Text>
         </TouchableOpacity>
       </View>
     </SceneView>
