@@ -334,14 +334,15 @@ export const fetchUpdateProduct = createAsyncThunk<
 
 export const fetchDeleteProduct = createAsyncThunk<
   {isDeleted: boolean},
-  {productId: string}
+  {productId: string; token: string}
 >(
   'productSlice/fetchDeleteProduct',
-  async ({productId}): Promise<{isDeleted: boolean}> => {
-    const URL: string = Config.API_ADMIN_URL + '/product/deleteProduct';
+  async ({productId, token}): Promise<{isDeleted: boolean}> => {
+    const URL: string = Config.API_ADMIN_URL + '/product/delete';
     const METHOD = 'DELETE';
     const HEADERS = {
       'Content-Type': 'application/json',
+      authentication: `Bearer ${token}`,
     };
     try {
       const response = await fetch(URL, {
