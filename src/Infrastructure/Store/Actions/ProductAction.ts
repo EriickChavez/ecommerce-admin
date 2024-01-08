@@ -332,6 +332,32 @@ export const fetchUpdateProduct = createAsyncThunk<
   },
 );
 
+export const fetchDeleteProduct = createAsyncThunk<
+  {isDeleted: boolean},
+  {productId: string}
+>(
+  'productSlice/fetchDeleteProduct',
+  async ({productId}): Promise<{isDeleted: boolean}> => {
+    const URL: string = Config.API_ADMIN_URL + '/product/deleteProduct';
+    const METHOD = 'DELETE';
+    const HEADERS = {
+      'Content-Type': 'application/json',
+    };
+    try {
+      const response = await fetch(URL, {
+        method: METHOD,
+        headers: HEADERS,
+        body: JSON.stringify({productId}),
+      });
+      const res = await response.json();
+      return res;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  },
+);
+
 const fetchAddProductCoverImage = async (
   userId: string,
   product: Product,

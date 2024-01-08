@@ -16,11 +16,13 @@ const InventoryStack: React.FC<InventoryStackNavigationProps> = () => {
         name={SCREEN_NAME.HOME_SCREEN}
         component={HomeScreen}
       />
-      <HomeStackNavigatior.Screen
-        options={screenWithoutTopbarOptions}
-        name={SCREEN_NAME.PRODUCT_DETAILS_SCREEN}
-        component={ProductDetailsScreen}
-      />
+      <HomeStackNavigatior.Group screenOptions={{presentation: 'formSheet'}}>
+        <HomeStackNavigatior.Screen
+          options={screenWithoutTopbarOptions}
+          name={SCREEN_NAME.PRODUCT_DETAILS_SCREEN}
+          component={ProductDetailsScreen}
+        />
+      </HomeStackNavigatior.Group>
     </HomeStackNavigatior.Navigator>
   );
 };

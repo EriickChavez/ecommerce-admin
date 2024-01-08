@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useMemo, useState} from 'react';
+import {Modal, ScrollView, TouchableOpacity, View} from 'react-native';
 import Text from '../../Components/Text/Text';
 import {ProductDetailsScreenNavigationProps} from '../../../@Types/navigation.inventory';
 import ImageView from '../../Components/ImageView/ImageView';
@@ -11,18 +11,29 @@ import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import UploadImage from '../../Components/UploadImage/UploadImage';
 import {Config} from '../../../Config/ENV';
 import SceneView from '../../Components/SceneView/SceneView';
+import {
+  fetchDeleteProduct,
+  fetchUpdateProduct,
+} from '../../../Infrastructure/Store/Actions/ProductAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
   navigation,
 }) => {
   const {item} = route.params;
+  const {user} = useSelector(userSelector);
+  const [isDeleteModalVisible, setDeleteModalVisible] =
+    useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(item.title);
   const [subtitle, setSubtitle] = useState<string>(item.subtitle || '');
   const [price, setPrice] = useState<number>(item.price);
   const [stock, setStock] = useState<number>(item.stock);
   const [album, setAlbum] = useState<string[]>(item?.album || []);
+
+  const dispatch = useDispatch();
 
   const resetProduct = () => {
     setTitle(item.title);
@@ -38,12 +49,55 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     setIsEditing(false);
   };
 
-  const updateProduct = () => {
+  const updateProduct = useCallback(() => {
+    dispatch(
+      // @ts-ignore
+      fetchUpdateProduct({
+        data: {
+          title,
+          subtitle,
+          price,
+          stock,
+          cover: item.cover,
+          album,
+          id: item.id,
+          userId: item.userId,
+        },
+        idProduct: item.id,
+        token: user.token,
+      }),
+    );
     navigation.goBack();
-  };
+  }, [
+    album,
+    dispatch,
+    item.cover,
+    item.id,
+    item.userId,
+    navigation,
+    price,
+    stock,
+    subtitle,
+    title,
+    user.token,
+  ]);
 
-  const onPressRemove = () => {};
-  const onChangeNumber = (text: string, type: string) => {
+  const onOpenModal = useCallback(() => {
+    setDeleteModalVisible(true);
+  }, []);
+
+  const onDeleteProduct = useCallback(() => {
+    dispatch(
+      // @ts-ignore
+      fetchDeleteProduct({
+        productId: item.id,
+      }),
+    );
+    setDeleteModalVisible(false);
+    navigation.goBack();
+  }, [dispatch, item.id, navigation]);
+
+  const onChangeNumber = useCallback((text: string, type: string) => {
     const num = text.split(' ')[1];
 
     if (/^\d+(\.\d{0,2})?$/.test(num)) {
@@ -53,7 +107,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
       type === 'price' && setPrice(0);
       type === 'stock' && setStock(0);
     }
-  };
+  }, []);
   const albumUploaded = useMemo(() => {
     const newArray: string[] = [...album];
     if (isEditing) {
@@ -63,22 +117,17 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
     }
     return newArray.length > 6 ? newArray.slice(0, 6) : newArray;
   }, [album, isEditing]);
-  const stickyArray = useMemo(() => {
-    return isEditing ? [7] : [];
-  }, [isEditing]);
+
   return (
     <View style={styles.container}>
-      <ScrollView
-        stickyHeaderIndices={stickyArray}
-        style={styles.scroll}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <SceneView>
           <View>
             <Text style={styles.title}>{item.title}</Text>
 
             <View style={styles.header}>
               <View>
-                <TouchableOpacity onPress={onPressRemove} style={styles.icon}>
+                <TouchableOpacity onPress={onOpenModal} style={styles.icon}>
                   <Trash />
                 </TouchableOpacity>
               </View>
@@ -172,6 +221,31 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           )}
         </SceneView>
       </ScrollView>
+      {/* Modal de Confirmación de Eliminación */}
+      <Modal
+        visible={isDeleteModalVisible}
+        animationType="fade"
+        transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              ¿Seguro que quieres eliminar este producto?
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                onPress={() => setDeleteModalVisible(false)}
+                style={styles.modalButton}>
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={onDeleteProduct}
+                style={styles.modalButton}>
+                <Text style={styles.modalButtonText}>Eliminar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
