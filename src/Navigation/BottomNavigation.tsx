@@ -10,6 +10,7 @@ import Topbar from '../Presentation/Components/Topbar/Topbar';
 import SettingsStack from './SettingsStack';
 import {Animated, Dimensions, View} from 'react-native';
 import styles from './styles';
+import LocalizationService from '../Utils/LocalizationService';
 
 const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
   const tabOffSetValue = useRef(new Animated.Value(0)).current;
@@ -37,6 +38,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           name={SCREEN_NAME.INVENTORY_STACK}
           component={InventoryStack}
           options={{
+            title: LocalizationService.titleScreen.INVENTORY_STACK,
             tabBarIcon: ({size, focused}) => {
               return (
                 <View style={[styles.tabBar]}>
@@ -66,6 +68,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           component={NewProductStack}
           options={{
             ...bottomBarWithoutTopbarOptions,
+            title: LocalizationService.titleScreen.NEW_PRODUCT_STACK,
             tabBarIcon: ({size, focused}) => {
               return (
                 <View style={[styles.tabBar]}>
@@ -94,6 +97,7 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           component={SettingsStack}
           options={{
             ...bottomBarWithoutTopbarOptions,
+            title: LocalizationService.titleScreen.SETTINGS_STACK,
             tabBarIcon: ({size, focused}) => {
               return (
                 <View style={styles.tabBar}>

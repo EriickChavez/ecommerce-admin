@@ -3,7 +3,7 @@ import {
   SettingsStackNavigatior,
   screenWithTopbarOptions,
 } from '../Config/navigation';
-import {SCREEN_NAME, getScreenTitles} from '../Enum/Screens';
+import {SCREEN_NAME} from '../Enum/Screens';
 import {SettingsStackNavigationProps} from '../@Types/navigation.settings';
 import SettingsScreen from '../Presentation/Screen/Settings/SettingsScreen';
 import Confirmation from '../Presentation/Screen/Confirmation/Confirmation';
@@ -11,6 +11,7 @@ import CategoryStock from '../Presentation/Screen/Stock/CategoryStock';
 import ProductStock from '../Presentation/Screen/Stock/ProductStock';
 import ProfileScreen from '../Presentation/Screen/Profile/ProfileScreen';
 import EditProfile from '../Presentation/Screen/EditProfile/EditProfile';
+import LocalizationService from '../Utils/LocalizationService';
 
 const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
   return (
@@ -19,7 +20,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
       <SettingsStackNavigatior.Screen
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.SETTINGS_SCREEN),
+          title: LocalizationService.titleScreen.SETTINGS_SCREEN,
         }}
         name={SCREEN_NAME.SETTINGS_SCREEN}
         component={SettingsScreen}
@@ -29,7 +30,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         name={SCREEN_NAME.CATEGORY_STOCK_SCREEN}
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.CATEGORY_STOCK_SCREEN),
+          title: LocalizationService.titleScreen.CATEGORY_STOCK_SCREEN,
         }}
       />
       <SettingsStackNavigatior.Screen
@@ -37,7 +38,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         component={ProductStock}
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.PRODUCT_STOCK_SCREEN),
+          title: LocalizationService.titleScreen.PRODUCT_STOCK_SCREEN,
         }}
       />
       <SettingsStackNavigatior.Screen
@@ -45,7 +46,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         component={Confirmation}
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.CONFIRMATION_SCREEN),
+          title: LocalizationService.titleScreen.CONFIRMATION_SCREEN,
         }}
       />
       <SettingsStackNavigatior.Screen
@@ -53,7 +54,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         component={ProfileScreen}
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.PROFILE_SCREEN),
+          title: LocalizationService.titleScreen.PROFILE_SCREEN,
         }}
       />
       <SettingsStackNavigatior.Screen
@@ -61,7 +62,7 @@ const SettingsStack: React.FC<SettingsStackNavigationProps> = () => {
         component={EditProfile}
         options={{
           ...screenWithTopbarOptions,
-          title: getScreenTitles(SCREEN_NAME.EDIT_PROFILE_SCREEN),
+          title: LocalizationService.titleScreen.EDIT_PROFILE_SCREEN,
         }}
       />
     </SettingsStackNavigatior.Navigator>

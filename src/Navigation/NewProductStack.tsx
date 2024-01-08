@@ -12,6 +12,7 @@ import IconHelpScreen from '../Presentation/Screen/IconHelp/IconHelpScreen';
 import NewCategory from '../Presentation/Screen/NewCategory/NewCategory';
 import NewBannerScreen from '../Presentation/Screen/NewBanner/NewBannerScreen';
 import SelectNewItem from '../Presentation/Screen/SelectNew/SelectNewItem';
+import LocalizationService from '../Utils/LocalizationService';
 
 const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
   return (
@@ -19,32 +20,50 @@ const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
       screenOptions={screenWithTopbarOptions}
       initialRouteName={SCREEN_NAME.SELECT_ITEM_SCREEN}>
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.NEW_PRODUCT_STACK,
+        }}
         name={SCREEN_NAME.SELECT_ITEM_SCREEN}
         component={SelectNewItem}
       />
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.ADD_PRODUCT_SCREEN,
+        }}
         name={SCREEN_NAME.ADD_PRODUCT_SCREEN}
         component={AddProductScreen}
       />
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.NEW_CATEGORY_SCREEN,
+        }}
         name={SCREEN_NAME.NEW_CATEGORY_SCREEN}
         component={NewCategory}
       />
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.CONFIRM_DETAILS_SCREEN,
+        }}
         name={SCREEN_NAME.CONFIRM_DETAILS_SCREEN}
         component={ConfirmDetails}
       />
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.CONFIRMATION_SCREEN,
+        }}
         name={SCREEN_NAME.CONFIRMATION_SCREEN}
         component={Confirmation}
       />
       <AddProductStackNavigatior.Screen
-        options={screenWithTopbarOptions}
+        options={{
+          ...screenWithTopbarOptions,
+          title: LocalizationService.titleScreen.NEW_BANNER_SCREEN,
+        }}
         name={SCREEN_NAME.NEW_BANNER_SCREEN}
         component={NewBannerScreen}
       />
@@ -53,7 +72,10 @@ const NewProductStack: React.FC<NewProductStackNavigationProps> = () => {
           presentation: 'modal',
         }}>
         <AddProductStackNavigatior.Screen
-          options={screenWithTopbarOptions}
+          options={{
+            ...screenWithTopbarOptions,
+            title: LocalizationService.titleScreen.ICON_HELP_SCREEN,
+          }}
           name={SCREEN_NAME.ICON_HELP_SCREEN}
           component={IconHelpScreen}
         />

@@ -1,14 +1,14 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import BottomNavigation from './BottomNavigation';
 import AuthStack from './AuthStack';
-import {Theme} from '@react-navigation/native';
 import themes from '../Themes/themes';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../Infrastructure/Store/Slice/UserSlice';
 import SplashScreen from '../Presentation/Screen/Splash/SplashScreen';
+import {ThemeEntry} from '../@Types/theme';
 
 interface NavigationProps {
-  theme: Theme;
+  theme: ThemeEntry;
 }
 
 const Navigation: React.FC<NavigationProps> = ({theme = themes.light}) => {
