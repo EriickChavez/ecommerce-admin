@@ -95,11 +95,12 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
       // @ts-ignore
       fetchDeleteProduct({
         productId: item.id,
+        token: user.token,
       }),
     );
     setDeleteModalVisible(false);
     navigation.goBack();
-  }, [dispatch, item.id, navigation]);
+  }, [dispatch, item.id, navigation, user.token]);
 
   const onChangeNumber = useCallback((text: string, type: string) => {
     const num = text.split(' ')[1];
