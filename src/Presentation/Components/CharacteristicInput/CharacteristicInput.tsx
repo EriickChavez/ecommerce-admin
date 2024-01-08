@@ -20,8 +20,11 @@ import Chips from '../Chips/Chips';
 import {IconsTypes} from '../../../@Types/icon';
 import {RFValue} from 'react-native-responsive-fontsize';
 import LocalizationService from '../../../Utils/LocalizationService';
+import themes from '../../../Themes/themes';
+import {ThemeEntry} from '../../../@Types/theme';
 
 interface CharacteristicInputProps {
+  theme?: ThemeEntry;
   goToHelpIconScreen?: () => void;
   options?: {
     characteristics?: Characteristics[];
@@ -37,6 +40,7 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
     addCharacteristics: () => {},
     onRemoveItem: () => {},
   },
+  theme = themes.light,
 }) => {
   const [isVisible, setVisible] = useState<boolean>(false);
   const [icon, setIcon] = useState<string>('');
@@ -79,20 +83,33 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
 
   return (
     <View>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: theme.colors.background,
+          },
+        ]}>
         <TouchableOpacity onPress={onOpen}>
           <View style={styles.input}>
-            <Add style={[styles.icon]} />
+            <Add
+              style={[styles.icon]}
+              color={theme.dark ? theme.colors.text : theme.colors.primary}
+            />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={onOpen} style={[styles.input, styles.flex1]}>
-          <Text style={[styles.input, styles.flex1]}>
+          <Text
+            style={[styles.input, styles.flex1, {color: theme.colors.text}]}>
             {LocalizationService.input.characteristic.addCharacteristic}
           </Text>
         </TouchableOpacity>
         <View style={styles.input}>
           <TouchableOpacity onPress={goToHelpIconScreen}>
-            <HelpIcon style={[styles.icon]} />
+            <HelpIcon
+              style={[styles.icon]}
+              color={theme.dark ? theme.colors.text : theme.colors.primary}
+            />
           </TouchableOpacity>
         </View>
 
@@ -104,18 +121,32 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
             style={styles.modal}
             transparent>
             <View style={styles.modal}>
-              <View style={styles.modalContent}>
+              <View
+                style={[
+                  styles.modalContent,
+                  {backgroundColor: theme.colors.background},
+                ]}>
                 <View style={styles.modalHeader}>
-                  <Text style={styles.modalHeaderText}>
+                  <Text
+                    style={[
+                      styles.modalHeaderText,
+                      {color: theme.colors.text},
+                    ]}>
                     {LocalizationService.input.characteristic.modalTitle}
                   </Text>
                 </View>
                 <View style={[styles.containerInput, styles.containerIcons]}>
                   <View>
-                    <IconSelected style={[styles.icon]} />
+                    <IconSelected
+                      style={[styles.icon]}
+                      color={
+                        theme.dark ? theme.colors.text : theme.colors.primary
+                      }
+                    />
                   </View>
                   <View style={styles.flex1}>
                     <Input
+                      theme={theme}
                       placeholder={
                         LocalizationService.input.characteristic.icon
                       }
@@ -131,6 +162,7 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
                 </View>
                 <View style={styles.containerInput}>
                   <Input
+                    theme={theme}
                     title={LocalizationService.input.characteristic.title}
                     placeholder={LocalizationService.input.characteristic.title}
                     value={title}
@@ -139,6 +171,7 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
                 </View>
                 <View style={styles.containerInput}>
                   <Input
+                    theme={theme}
                     title={LocalizationService.input.characteristic.description}
                     placeholder={
                       LocalizationService.input.characteristic.description
@@ -173,6 +206,15 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
               options={{
                 fontSize: RFValue(8),
                 onIconRightPress: () => onRemoveItem(item),
+                leftIconColor: theme.dark
+                  ? theme.colors.text
+                  : theme.colors.primary,
+                rightIconColor: theme.dark
+                  ? theme.colors.text
+                  : theme.colors.primary,
+                backgroundColor: theme.colors.background,
+                textColor: theme.colors.text,
+                borderColor: theme.colors.border,
               }}
               rightIcon="MinusCirlce"
             />

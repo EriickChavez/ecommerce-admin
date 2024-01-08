@@ -1,41 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import ImageView from '../ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
 import Text from '../Text/Text';
 import styles from './styles';
-import {bgColor, getBackgroundColor} from '../../../Utils/imageUtils';
 import {Product} from '../../../Domain/Entity';
 import {defaultProduct} from '../../../Constants/defaultValues';
 import {Config} from '../../../Config/ENV';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 interface CardBasicItemProps {
   product: Product;
   onPress: () => void;
+  theme?: ThemeEntry;
 }
 
 const CardBasicItem: React.FC<CardBasicItemProps> = ({
   product = defaultProduct,
   onPress = () => {},
+  theme = themes.light,
 }) => {
-  const [backgroundColor, setBackgroundColor] = useState<string>();
-
-  useEffect(() => {
-    if (product.imageUri) {
-      getBackgroundColor(product.imageUri).catch((data: bgColor) => {
-        setBackgroundColor(data.background);
-      });
-    }
-  }, [product?.imageUri]);
-
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.container, {backgroundColor: theme.colors.card}]}
+      onPress={onPress}>
       <View>
-        <View
-          style={[styles.imageContainer, {backgroundColor: backgroundColor}]}>
+        <View style={[styles.imageContainer]}>
           <ImageView
             imageType={IMAGE_TYPE.PRODUCT}
             imageProps={{
-              resizeMode: 'contain',
+              resizeMode: 'stretch',
               style: styles.image,
               source: {
                 uri: Config.BASE_URI_IMAGE + product.cover,
@@ -48,11 +42,28 @@ const CardBasicItem: React.FC<CardBasicItemProps> = ({
         </View> */}
         <View style={styles.infoContainer}>
           <View>
-            <Text style={[styles.text, styles.titleText]}>{product.title}</Text>
-            <Text style={[styles.text, styles.titleStock]}>
+            <Text
+              style={[
+                styles.text,
+                styles.titleText,
+                {color: theme.colors.text},
+              ]}>
+              {product.title}
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                styles.titleStock,
+                {color: theme.colors.text_secondary},
+              ]}>
               {product.subtitle}
             </Text>
-            <Text style={[styles.text, styles.titlePrice]}>
+            <Text
+              style={[
+                styles.text,
+                styles.titlePrice,
+                {color: theme.colors.text},
+              ]}>
               ${product.price}
             </Text>
           </View>

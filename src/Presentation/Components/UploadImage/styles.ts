@@ -10,6 +10,10 @@ export default StyleSheet.create({
     borderRadius: 10,
     height: RFValue(150),
   },
+  title: {
+    marginBottom: 15,
+    fontSize: RFValue(14),
+  },
   button: {
     borderRadius: 10,
     width: defaultWidth,

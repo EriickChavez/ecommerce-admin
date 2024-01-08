@@ -79,7 +79,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
     borderWidth: 1,
-    backgroundColor: '#8B96A5',
+    borderColor: '#8B96A5',
   },
   dropPickerInput: {
     flex: 1,

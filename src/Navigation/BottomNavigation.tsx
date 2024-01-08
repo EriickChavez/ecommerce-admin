@@ -24,19 +24,27 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
       <BottomTab.Navigator
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarStyle: [styles.bottomBar],
+          tabBarStyle: [
+            styles.bottomBar,
+            {
+              backgroundColor: theme.colors.bottomBar,
+            },
+            !theme.dark && styles.shaddows,
+          ],
           freezeOnBlur: true,
         }}>
         <BottomTab.Screen
           name={SCREEN_NAME.INVENTORY_STACK}
           component={InventoryStack}
           options={{
-            tabBarIcon: ({color, size, focused}) => {
+            tabBarIcon: ({size, focused}) => {
               return (
                 <View style={[styles.tabBar]}>
                   <Category
                     size={size}
-                    color={color}
+                    color={
+                      theme.dark ? theme.colors.text : theme.colors.primary
+                    }
                     variant={focused ? 'Bold' : 'Linear'}
                   />
                 </View>
@@ -58,12 +66,14 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           component={NewProductStack}
           options={{
             ...bottomBarWithoutTopbarOptions,
-            tabBarIcon: ({color, size, focused}) => {
+            tabBarIcon: ({size, focused}) => {
               return (
                 <View style={[styles.tabBar]}>
                   <AddCircle
                     size={size * 1.5}
-                    color={color}
+                    color={
+                      theme.dark ? theme.colors.text : theme.colors.primary
+                    }
                     variant={focused ? 'Bold' : 'Linear'}
                   />
                 </View>
@@ -84,12 +94,14 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
           component={SettingsStack}
           options={{
             ...bottomBarWithoutTopbarOptions,
-            tabBarIcon: ({color, size, focused}) => {
+            tabBarIcon: ({size, focused}) => {
               return (
                 <View style={styles.tabBar}>
                   <Setting2
                     size={size}
-                    color={color}
+                    color={
+                      theme.dark ? theme.colors.text : theme.colors.primary
+                    }
                     variant={focused ? 'Bold' : 'Linear'}
                   />
                 </View>
@@ -109,7 +121,9 @@ const BottomNavigation: React.FC<navigationProps> = ({theme}) => {
       <Animated.View
         style={[
           {
-            backgroundColor: theme.colors.primary,
+            backgroundColor: theme.dark
+              ? theme.colors.text
+              : theme.colors.primary,
             width: getWidth() - 5,
             transform: [{translateX: tabOffSetValue}],
           },

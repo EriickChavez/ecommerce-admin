@@ -3,8 +3,11 @@ import TextInput from '../TextInput/TextInput';
 import {TextOptions} from '../../../@Types/picker';
 import {INPUT_TYPE} from '../../../Enum';
 import {TextInput as RNTextInput} from 'react-native';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 interface TextInputProps {
   isEditable?: boolean;
+  theme?: ThemeEntry;
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
@@ -26,6 +29,7 @@ interface TextInputRef {
 const TxtInput = forwardRef<TextInputRef, TextInputProps>(
   (
     {
+      theme = themes.light,
       isEditable = true,
       onChangeText = () => {},
       placeholder = '',
@@ -71,6 +75,7 @@ const TxtInput = forwardRef<TextInputRef, TextInputProps>(
 
     return (
       <TextInput
+        theme={theme}
         ref={textInputRef}
         TextInputProps={{
           editable: isEditable,

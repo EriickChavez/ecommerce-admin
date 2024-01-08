@@ -1,6 +1,6 @@
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../@Types/theme';
-import {HomeScreenNavigationProps} from '../@Types/navigation';
+import {HomeScreenNavigationProps} from '../@Types/navigation.inventory';
 
 interface HomeHook {
   theme: ThemeEntry;

@@ -16,6 +16,7 @@ export interface ThemeEntry {
     icon: string;
     danger: string;
     success: string;
+    bottomBar: string;
   };
 }
 

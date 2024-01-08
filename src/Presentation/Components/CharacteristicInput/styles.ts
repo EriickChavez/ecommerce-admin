@@ -3,7 +3,6 @@ import {RFValue} from 'react-native-responsive-fontsize';
 const {width: screenWidth} = Dimensions.get('window');
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#8B96A5',

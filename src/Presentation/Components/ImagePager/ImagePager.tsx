@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -10,7 +10,6 @@ import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import {ThemeEntry} from '../../../@Types/theme';
 import ImageView from '../ImageView/ImageView';
-import {bgColor, getBackgroundColor} from '../../../Utils/imageUtils';
 
 interface ImagePagerProps {
   images: string[];
@@ -25,19 +24,6 @@ export interface PagerRef {
 const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [width, setWidth] = useState(0);
-  const [firstBgColor, setFirstBackgroundColor] = useState<{
-    [key: string]: string;
-  }>({});
-
-  useEffect(() => {
-    images.forEach((_, i) => {
-      getBackgroundColor(images[i])
-        .then((color: bgColor) => {
-          setFirstBackgroundColor({[`${i}`]: color.background});
-        })
-        .catch(() => setFirstBackgroundColor({[`${i}`]: '#000000'}));
-    });
-  }, [currentPage, images]);
 
   // const {width} = Dimensions.get('window');
   const pagerRef = React.createRef<ScrollView>();
@@ -68,9 +54,7 @@ const ImagePager: React.FC<ImagePagerProps> = ({images = [], imageStyles}) => {
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handlePageChange}>
         {images.map((image, index) => (
-          <View
-            key={index}
-            style={{backgroundColor: firstBgColor[index] ?? '#FFF'}}>
+          <View key={index} style={styles.imageContainer}>
             <ImageView
               key={index}
               imageProps={{

@@ -1,8 +1,8 @@
-import {Theme} from '@react-navigation/native';
 import {SCREEN_NAME} from '../Enum/Screens';
+import {ThemeEntry} from './theme';
 
 export interface navigationProps {
-  theme: Theme;
+  theme: ThemeEntry;
 }
 export type BottomStackParamList = {
   [SCREEN_NAME.INVENTORY_STACK]: undefined;

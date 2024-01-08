@@ -10,6 +10,7 @@ const lightColors = {
   card: '#FFFFFF',
   danger: '#BF616A',
   succeess: '#A3BE8C',
+  bottomBar: '#F7FAFC',
 };
 
 const darkColors = {
@@ -18,12 +19,13 @@ const darkColors = {
   text: '#ffffff',
   text_secondary: '#8B96A5',
   text_negative: '#000000',
-  border: '#424242',
+  border: '#8B96A5',
   placeholder: '#757575',
   icon: '#ffffff',
   card: '#000000',
   danger: '#BF616A',
   succeess: '#A3BE8C',
+  bottomBar: '#16171A',
 };
 
 export {darkColors, lightColors};

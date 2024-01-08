@@ -9,6 +9,8 @@ import ImageView from '../ImageView/ImageView';
 import {Config} from '../../../Config/ENV';
 import {FastImageProps} from 'react-native-fast-image';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 
 interface UploadImageProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -19,6 +21,7 @@ interface UploadImageProps {
   src?: string;
   onChangeImage?: (data: string) => void;
   resizeMode?: FastImageProps['resizeMode'];
+  theme?: ThemeEntry;
 }
 
 const UploadImage: React.FC<UploadImageProps> = ({
@@ -30,6 +33,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
   onChangeImage,
   src,
   resizeMode = 'cover',
+  theme = themes.light,
 }) => {
   const [source, setSource] = useState<string | undefined>(src || '');
 
@@ -59,12 +63,15 @@ const UploadImage: React.FC<UploadImageProps> = ({
 
   return (
     <View>
-      {title && <Text>{title}</Text>}
+      {title && (
+        <Text style={[styles.title, {color: theme.colors.text}]}>{title}</Text>
+      )}
       {!hasSource ? (
         <TouchableOpacity
           onPress={handleUpload}
           style={[
             styles.containerUpload,
+            {borderColor: theme.colors.border},
             {borderWidth: RFValue(borderWidth)},
             containerStyle,
           ]}>
@@ -74,7 +81,8 @@ const UploadImage: React.FC<UploadImageProps> = ({
               color="#FF8A65"
               variant="Bold"
             />
-            <Text style={[{fontSize: RFValue(fontSize)}]}>
+            <Text
+              style={[{fontSize: RFValue(fontSize), color: theme.colors.text}]}>
               {LocalizationService.input.uploadImage}
             </Text>
           </>
@@ -82,7 +90,11 @@ const UploadImage: React.FC<UploadImageProps> = ({
       ) : (
         <TouchableOpacity
           onPress={handleUpload}
-          style={[styles.button, containerStyle]}>
+          style={[
+            styles.button,
+            {borderColor: theme.colors.border},
+            containerStyle,
+          ]}>
           <ImageView
             imageProps={{
               source: {uri: source},

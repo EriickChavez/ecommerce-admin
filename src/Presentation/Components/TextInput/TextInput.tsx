@@ -102,13 +102,21 @@ const TextInput = forwardRef<TextInputRef, TextInputProps>(
         style={[
           styles.container,
           borderRadius,
+          {backgroundColor: theme.colors.background},
           error && {borderColor: error.borderColor},
         ]}>
         {renderLeftIcon()}
         {isEditable ? (
           <RNTextInput
             ref={textInputRef}
-            style={[styles.input, error && {color: error?.color}]}
+            style={[
+              styles.input,
+              error && {color: error?.color},
+              {
+                backgroundColor: theme.colors.background,
+                color: theme.colors.text,
+              },
+            ]}
             placeholderTextColor={theme.colors.text_secondary}
             {...TextInputProps}
           />

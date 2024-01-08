@@ -14,15 +14,12 @@ export default StyleSheet.create({
     flex: 1,
     paddingTop: '20%',
     paddingHorizontal: '10%',
-    backgroundColor: 'white',
   },
   content: {
     borderRadius: 10,
     borderWidth: 1,
-    backgroundColor: '#F7FAFC',
   },
   topbar: {
-    backgroundColor: '#FFFFFF',
     paddingVertical: 5,
     paddingHorizontal: 15,
     flexDirection: 'row-reverse',
@@ -44,7 +41,7 @@ export default StyleSheet.create({
     height: spicerSize,
   },
   divder: {
-    marginTop: 10,
+    marginVertical: 10,
     width: '100%',
     height: 1,
     backgroundColor: 'red',
@@ -54,6 +51,7 @@ export default StyleSheet.create({
   },
   contentBio: {
     borderWidth: 0,
+    backgroundColor: 'transparent',
   },
   textName: {
     fontSize: RFValue(24),

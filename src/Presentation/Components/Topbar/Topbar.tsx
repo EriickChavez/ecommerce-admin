@@ -17,7 +17,8 @@ const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.imageContainer}>
+      <View
+        style={[styles.imageContainer, {backgroundColor: theme.colors.card}]}>
         <ImageView
           imageProps={{style: styles.imageContainer, resizeMode: 'contain'}}
         />
@@ -38,7 +39,7 @@ const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
           styles.notificationContainer,
           {backgroundColor: theme.colors.placeholder},
         ]}>
-        <Notification color={theme.colors.text_negative} />
+        <Notification color={theme.colors.text} />
       </View>
     </SafeAreaView>
   );

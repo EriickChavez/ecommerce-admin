@@ -8,6 +8,9 @@ export default StyleSheet.create({
     borderRadius: 10,
     width: '100%',
   },
+  imageContainer: {
+    backgroundColor: '#121212',
+  },
   image: {
     width: width,
     height: imageHeight,

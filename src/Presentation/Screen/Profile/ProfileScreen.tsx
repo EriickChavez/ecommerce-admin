@@ -12,10 +12,13 @@ import {useSelector} from 'react-redux';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {Config} from '../../../Config/ENV';
 import SceneView from '../../Components/SceneView/SceneView';
+import {ThemeEntry} from '../../../@Types/theme';
+import {useTheme} from '@react-navigation/native';
 
 const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const {user} = useSelector(userSelector);
 
   const onEdit = () => {
@@ -27,11 +30,19 @@ const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
       <>
         <View style={styles.topbar}>
           <TouchableOpacity style={styles.button} onPress={onEdit}>
-            <Edit />
+            <Edit
+              variant={'Bold'}
+              color={theme.dark ? theme.colors.text : theme.colors.primary}
+            />
           </TouchableOpacity>
         </View>
-        <View style={styles.container}>
-          <View style={[styles.content]}>
+        <View
+          style={[
+            styles.container,
+            {backgroundColor: theme.colors.background},
+          ]}>
+          <View
+            style={[styles.content, {backgroundColor: theme.colors.border}]}>
             <View style={styles.imageContainer}>
               <ImageView
                 imageProps={{
@@ -42,14 +53,25 @@ const ProfileScreen: React.FC<ProfileScreenScreenNavigationProps> = ({
             </View>
             <View style={styles.spacer} />
             <View style={styles.sellerBio}>
-              <Text style={[styles.centerText, styles.textName]}>
+              <Text
+                style={[
+                  styles.centerText,
+                  styles.textName,
+                  {color: theme.colors.text},
+                ]}>
                 {user.username}, {user.age}
               </Text>
-              <Text style={[styles.centerText, styles.textFrom]}>
+              <Text
+                style={[
+                  styles.centerText,
+                  styles.textFrom,
+                  {color: theme.colors.text},
+                ]}>
                 {user.state}, {user.country}
               </Text>
               <View style={styles.divder} />
               <ExpandableText
+                theme={theme}
                 containerStyle={styles.contentBio}
                 textStyle={[styles.bio, styles.centerText]}
                 text={user.bio}

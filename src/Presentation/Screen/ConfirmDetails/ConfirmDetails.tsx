@@ -17,9 +17,12 @@ import Album from '../../Components/Album/Album';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const userState = useSelector(userSelector);
   const productStore = useSelector(productSelector);
   const product: Product = useMemo(
@@ -61,6 +64,7 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       <View style={[styles.characteristicContainer]} key={index}>
         <View style={[styles.flex]}>
           <Characteristic
+            theme={theme}
             icon={cItem.icon}
             description={cItem.description}
             title={cItem.title}
@@ -88,7 +92,7 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       <SafeAreaView style={[styles.flex, styles.banner]}>
         <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
           <View>
-            <Text style={styles.text}>
+            <Text style={[styles.text, {color: theme.colors.text}]}>
               {LocalizationService.addProduct.productCover}
             </Text>
             {productStore?.tmpProduct?.cover && (
@@ -102,9 +106,14 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
               </>
             )}
           </View>
-          <Text style={[styles.text, styles.title]}>{product.title}</Text>
-          <Text style={styles.text}>$ {product.price}</Text>
+          <Text style={[styles.text, styles.title, {color: theme.colors.text}]}>
+            {product.title}
+          </Text>
+          <Text style={[styles.text, {color: theme.colors.text}]}>
+            $ {product.price}
+          </Text>
           <ExpandableText
+            theme={theme}
             text={product.subtitle}
             containerStyle={styles.containerDescription}
             textStyle={styles.text}
@@ -120,7 +129,7 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
               keyExtractor={() => (Math.random() * 100).toString()}
             />
           </View>
-          <Text style={styles.text}>
+          <Text style={[styles.text, {color: theme.colors.text}]}>
             {LocalizationService.addProduct.availableProducts} {product.stock}
           </Text>
 
@@ -128,10 +137,13 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
             return renderItem({index, cItem: value});
           })}
 
-          <Album
-            album={product.album}
-            title={LocalizationService.addProduct.album}
-          />
+          {product.album.length > 0 && (
+            <Album
+              theme={theme}
+              album={product.album}
+              title={LocalizationService.addProduct.album}
+            />
+          )}
         </ScrollView>
         <Button title="Next" onPress={onPress} disabled={isLoadingUpload} />
       </SafeAreaView>

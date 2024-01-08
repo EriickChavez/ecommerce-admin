@@ -8,18 +8,19 @@ import {SettingsButtonList} from '../../../Constants/SettingsList';
 import {RFValue} from 'react-native-responsive-fontsize';
 import ImageView from '../../Components/ImageView/ImageView';
 import {IMAGE_TYPE} from '../../../Enum/Image';
-import {SCREEN_NAME} from '../../../Enum/Screens';
-import UserSlice, {
-  userSelector,
-} from '../../../Infrastructure/Store/Slice/UserSlice';
+
+import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {Config} from '../../../Config/ENV';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {ThemeEntry} from '../../../@Types/theme';
+import {useTheme} from '@react-navigation/native';
 
 const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const {user} = useSelector(userSelector);
   const dispatch = useDispatch();
 
@@ -36,7 +37,9 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
               }}
             />
             <View style={styles.textcontainer}>
-              <Text style={styles.username}>{user.username}</Text>
+              <Text style={[styles.username, {color: theme.colors.text}]}>
+                {user.username}
+              </Text>
             </View>
           </View>
           {SettingsButtonList.map((item, index) => {
@@ -53,39 +56,40 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
             return (
               <TouchableOpacity
                 onPress={() => {
-                  if (item.name === LocalizationService.settings.Categories) {
-                    navigation.navigate(SCREEN_NAME.CATEGORY_STOCK_SCREEN);
-                  } else if (
-                    item.name === LocalizationService.settings.Banner
-                  ) {
-                  } else if (
-                    item.name === LocalizationService.settings.Products
-                  ) {
-                    navigation.navigate(SCREEN_NAME.PRODUCT_STOCK_SCREEN);
-                  } else if (
-                    item.name === LocalizationService.settings.Profile
-                  ) {
-                    navigation.navigate(SCREEN_NAME.PROFILE_SCREEN);
-                  } else if (
-                    item.name === LocalizationService.settings.Logout
-                  ) {
-                    dispatch(UserSlice.actions.resetState());
+                  if (item.name === LocalizationService.settings.Logout) {
+                    // @ts-ignore
+                    item.onPress(dispatch);
+                  } else {
+                    item.onPress(navigation);
                   }
                 }}
-                style={styles.button}
+                style={[styles.button, {borderColor: theme.colors.border}]}
                 key={`${index}`}>
                 <View style={styles.buttonContainer}>
                   {item.leftIcon && (
                     <View style={styles.icon}>
-                      <IconLeftToUse size={RFValue(16)} />
+                      <IconLeftToUse
+                        size={RFValue(16)}
+                        color={
+                          theme.dark ? theme.colors.text : theme.colors.primary
+                        }
+                      />
                     </View>
                   )}
                   <View style={styles.textButtonContainer}>
-                    <Text style={styles.textButton}>{item.name}</Text>
+                    <Text
+                      style={[styles.textButton, {color: theme.colors.text}]}>
+                      {item.name}
+                    </Text>
                   </View>
                   {item.rightIcon && (
                     <View style={styles.icon}>
-                      <IconRightToUse size={RFValue(16)} />
+                      <IconRightToUse
+                        size={RFValue(16)}
+                        color={
+                          theme.dark ? theme.colors.text : theme.colors.primary
+                        }
+                      />
                     </View>
                   )}
                 </View>

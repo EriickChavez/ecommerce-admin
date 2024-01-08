@@ -22,6 +22,7 @@ const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
         <View style={styles.content}>
           <View style={styles.input}>
             <TextInput
+              theme={theme}
               TextInputProps={{
                 placeholder: LocalizationService.input.search,
                 editable: true,
@@ -30,7 +31,7 @@ const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
             />
           </View>
         </View>
-        <ProductList data={products} />
+        <ProductList theme={theme} data={products} />
       </View>
     </SceneView>
   );

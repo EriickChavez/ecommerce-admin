@@ -3,19 +3,31 @@ import {View} from 'react-native';
 import styles from './styles';
 import {Category} from '../../../Domain/Entity';
 import Text from '../Text/Text';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 
 interface CategoryCardProps {
   category: Category;
+  theme: ThemeEntry;
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
   category = {
-    name: 'Sony',
+    name: '',
   },
+  theme = themes.light,
 }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{category.name}</Text>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.border,
+        },
+      ]}>
+      <Text style={[styles.text, {color: theme.colors.text}]}>
+        {category.name}
+      </Text>
     </View>
   );
 };

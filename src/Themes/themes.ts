@@ -17,6 +17,7 @@ const themes: Theme = {
       danger: lightColors.danger,
       success: lightColors.succeess,
       text_negative: lightColors.text_negative,
+      bottomBar: lightColors.bottomBar,
     },
   },
   dark: {
@@ -34,6 +35,7 @@ const themes: Theme = {
       danger: darkColors.danger,
       success: darkColors.succeess,
       text_negative: darkColors.text_negative,
+      bottomBar: darkColors.bottomBar,
     },
   },
 };

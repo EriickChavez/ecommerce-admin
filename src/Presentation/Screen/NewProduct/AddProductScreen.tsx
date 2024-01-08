@@ -21,10 +21,13 @@ import CharacteristicInput from '../../Components/CharacteristicInput/Characteri
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const productState = useSelector(productSelector);
   const categoryState = useSelector(categorySelector);
   const userState = useSelector(userSelector);
@@ -132,6 +135,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <UploadImage
+            theme={theme}
             title={LocalizationService.addProduct.productCover}
             containerStyle={styles.uploadImage}
             src={cover}
@@ -141,6 +145,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           />
           <View style={styles.inputContent}>
             <Input
+              theme={theme}
               title={LocalizationService.input.selectCategory}
               placeholder={LocalizationService.input.selectCategory}
               type={INPUT_TYPE.PICKER}
@@ -159,6 +164,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <Input
+              theme={theme}
               title={LocalizationService.input.productName}
               placeholder={LocalizationService.input.productName}
               type={INPUT_TYPE.TEXT}
@@ -168,6 +174,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <ExpandableTextInput
+              theme={theme}
               text={LocalizationService.input.productDescription}
               placeholder={LocalizationService.input.productDescription}
               containerStyle={styles.expandibleTextInput}
@@ -177,6 +184,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <Input
+              theme={theme}
               title={LocalizationService.input.productBrand}
               placeholder={LocalizationService.input.productBrand}
               type={INPUT_TYPE.TEXT}
@@ -186,6 +194,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.content}>
             <Input
+              theme={theme}
               title={LocalizationService.input.productPrice}
               placeholder={LocalizationService.input.productPrice}
               type={INPUT_TYPE.DROPDOWN}
@@ -195,6 +204,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <Input
+              theme={theme}
               title={LocalizationService.input.productStock}
               placeholder={LocalizationService.input.productStock}
               type={INPUT_TYPE.NUMBER}
@@ -210,6 +220,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <CharacteristicInput
+              theme={theme}
               goToHelpIconScreen={goToHelpIconScreen}
               options={{
                 characteristics,
@@ -220,6 +231,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <UploadAlbum
+              theme={theme}
               onChangeAlbum={data => {
                 setAlbum(data);
               }}

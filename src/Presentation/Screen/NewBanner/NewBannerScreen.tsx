@@ -9,9 +9,12 @@ import Text from '../../Components/Text/Text';
 import {NewBannerScreenNavigationProps} from '../../../@Types/navigation.newProduct';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const [showIn, setShowIn] = useState<string>('');
   const [album, setAlbum] = useState(['', '', '', '', '', '']);
 
@@ -20,12 +23,13 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
       <View style={styles.container}>
         <ScrollView style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>
+            <Text style={[styles.title, {color: theme.colors.text}]}>
               {LocalizationService.addBanner.title}
             </Text>
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               title={LocalizationService.input.bannerTitle}
               placeholder={LocalizationService.input.bannerTitle}
               type={INPUT_TYPE.TEXT}
@@ -33,14 +37,17 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <ExpandableTextInput
+              theme={theme}
               containerStyle={styles.containerInput}
               placeholder={LocalizationService.input.description}
               text={LocalizationService.input.description}
             />
           </View>
           <Input
+            theme={theme}
             title={LocalizationService.input.showIn}
             type={INPUT_TYPE.PICKER}
+            placeholder={LocalizationService.input.showIn}
             pickerOptions={{
               pickerOptions: {
                 multiple: false,
@@ -60,6 +67,7 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
             }}
           />
           <UploadAlbum
+            theme={theme}
             title={LocalizationService.addBanner.bannerImages}
             album={album}
             onChangeAlbum={data => {
@@ -75,7 +83,7 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
                 item: ITEMS.BANNER,
               })
             }>
-            <Text style={styles.buttonText}>
+            <Text style={[styles.buttonText]}>
               {LocalizationService.button.save}
             </Text>
           </TouchableOpacity>

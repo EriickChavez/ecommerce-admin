@@ -8,11 +8,14 @@ import styles from './styles';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
 import {ITEMS} from '../../../Enum';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 
 const Confirmation: React.FC<ConfirmNavigationProps> = ({
   navigation,
   route,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const {item} = route.params;
   const handlePress = () => {
     navigation.reset({
@@ -39,14 +42,19 @@ const Confirmation: React.FC<ConfirmNavigationProps> = ({
         <View style={styles.separator} />
 
         <View>
-          <Text style={[styles.title, styles.text]}>
+          <Text style={[styles.title, styles.text, {color: theme.colors.text}]}>
             {LocalizationService.confirmation.titleCongratulations}
           </Text>
-          <Text style={[styles.subtitle, styles.text]}>{textMessage}</Text>
+          <Text
+            style={[styles.subtitle, styles.text, {color: theme.colors.text}]}>
+            {textMessage}
+          </Text>
         </View>
         <View style={styles.separator} />
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: theme.colors.success}]}
+          onPress={handlePress}>
+          <Text style={[styles.buttonText, {color: theme.colors.text}]}>
             {LocalizationService.button.continue}
           </Text>
         </TouchableOpacity>

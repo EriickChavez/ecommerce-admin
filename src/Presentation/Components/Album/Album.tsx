@@ -10,6 +10,7 @@ import styles from './styles';
 
 import {ThemeEntry} from '../../../@Types/theme';
 import ImageView from '../ImageView/ImageView';
+import themes from '../../../Themes/themes';
 
 interface AlbumProps {
   theme?: ThemeEntry;
@@ -34,6 +35,7 @@ const Album: React.FC<AlbumProps> = ({
     textStyle: undefined,
   },
   title,
+  theme = themes.light,
 }) => {
   const albumUploaded = useMemo(() => {
     const newArray = [
@@ -47,7 +49,11 @@ const Album: React.FC<AlbumProps> = ({
     <View style={styles.container}>
       <View>
         <View style={styles.headerContainer}>
-          {title && <Text style={styles.title}>{title}</Text>}
+          {title && (
+            <Text style={[styles.title, {color: theme.colors.text}]}>
+              {title}
+            </Text>
+          )}
           <View style={styles.albumContainer}>
             {optionsAction && (
               <TouchableOpacity

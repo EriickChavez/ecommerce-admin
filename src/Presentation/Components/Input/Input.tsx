@@ -18,6 +18,8 @@ import PickerInput from './PickerInput';
 import DropDown from './DropDown';
 import {TextInputRef} from '../TextInput/TextInput';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {ThemeEntry} from '../../../@Types/theme';
+import themes from '../../../Themes/themes';
 
 interface InputProps {
   placeholder?: string;
@@ -27,6 +29,7 @@ interface InputProps {
   onChangeText?: (text: string) => void;
   pickerOptions?: PickerOptions;
   textOptions?: TextOptions;
+  theme?: ThemeEntry;
 }
 export interface inputRef {
   focus: () => void;
@@ -37,6 +40,7 @@ export interface inputRef {
 const Input = forwardRef<inputRef, InputProps>(
   (
     {
+      theme = themes.light,
       placeholder,
       type = INPUT_TYPE.TEXT,
       value,
@@ -137,10 +141,12 @@ const Input = forwardRef<inputRef, InputProps>(
         <View key={`key-checkbox-${index}`} style={styles.modalItems}>
           <View style={styles.modalItemCheck}>
             <BouncyCheckbox
+              fillColor={theme.colors.primary}
+              textStyle={{color: theme.colors.text}}
               ref={checkBoxRef.current[index]}
               onPress={() => onCheckboxPress(item)}
               isChecked={isChecked}
-              style={styles.checkbox}
+              style={[styles.checkbox]}
               size={RFValue(15)}
               text={item.label}
             />
@@ -159,9 +165,17 @@ const Input = forwardRef<inputRef, InputProps>(
 
     return (
       <View>
-        {title && <Text>{title}</Text>}
+        {title && (
+          <Text
+            style={{
+              color: theme.colors.text,
+            }}>
+            {title}
+          </Text>
+        )}
         {isEditable && (
           <TextInput
+            theme={theme}
             ref={textInputRef}
             isEditable={isEditable && textOptions.textOptions.editable}
             onChangeText={onChangeText}
@@ -173,6 +187,7 @@ const Input = forwardRef<inputRef, InputProps>(
         )}
         {isPicker && (
           <PickerInput
+            theme={theme}
             onPress={onPress}
             pickerOptions={pickerOptions}
             placeholder={placeholder}
@@ -180,6 +195,7 @@ const Input = forwardRef<inputRef, InputProps>(
         )}
         {isDropDown && (
           <DropDown
+            theme={theme}
             onChangeText={onChangeText}
             onPress={onPress}
             placeholder={placeholder}
@@ -193,12 +209,23 @@ const Input = forwardRef<inputRef, InputProps>(
               animationType="slide"
               transparent={true}
               visible={modalVisible}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <Text style={styles.modalText}>
+              <View style={[styles.centeredView]}>
+                <View
+                  style={[
+                    styles.modalView,
+                    {
+                      backgroundColor: theme.colors.background,
+                      borderColor: theme.colors.border,
+                    },
+                  ]}>
+                  <Text style={[styles.modalText, {color: theme.colors.text}]}>
                     {LocalizationService.input.modal.selectCategoryTitle}
                   </Text>
-                  <ScrollView style={styles.containerModalItems}>
+                  <ScrollView
+                    style={[
+                      styles.containerModalItems,
+                      {borderColor: theme.colors.border},
+                    ]}>
                     {pickerOptions.pickerOptions.data.map((item, index) => {
                       return renderCheckItems({item, index});
                     })}

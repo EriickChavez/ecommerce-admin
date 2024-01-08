@@ -25,10 +25,13 @@ import {UserViewInput} from '../../../Domain/Entity/User/User';
 import {fetchEditUser} from '../../../Infrastructure/Store/Actions/UserAction';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {ThemeEntry} from '../../../@Types/theme';
+import {useTheme} from '@react-navigation/native';
 
 const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const userState = useSelector(userSelector);
   const dispatch = useDispatch();
   const [imageUri, setImageUri] = useState<string>(
@@ -173,6 +176,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
           stickyHeaderIndices={[6]}>
           <View onLayout={e => onLayout(e, 0)} style={styles.input}>
             <UploadImage
+              theme={theme}
               title={LocalizationService.editProfile.profileImage}
               containerStyle={styles.image}
               onChangeImage={(src: string) => setImageUri(src)}
@@ -180,6 +184,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
           </View>
           <View onLayout={e => onLayout(e, 1)} style={styles.input}>
             <Input
+              theme={theme}
               ref={refTxtUsnm}
               title={LocalizationService.editProfile.username}
               placeholder={LocalizationService.editProfile.username}
@@ -190,6 +195,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
           </View>
           <View onLayout={e => onLayout(e, 2)} style={styles.input}>
             <Input
+              theme={theme}
               ref={refTxtCountry}
               title={LocalizationService.editProfile.country}
               placeholder="Mexico"
@@ -200,6 +206,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
           </View>
           <View onLayout={e => onLayout(e, 3)} style={styles.input}>
             <Input
+              theme={theme}
               ref={refTxtState}
               title={LocalizationService.editProfile.state}
               placeholder="Torreón"
@@ -210,6 +217,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
           </View>
           <View onLayout={e => onLayout(e, 4)} style={styles.input}>
             <Input
+              theme={theme}
               ref={refTxtAge}
               title={LocalizationService.editProfile.age}
               placeholder="21"
@@ -223,6 +231,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
             onLayout={e => onLayout(e, 5)}
             style={styles.input}>
             <ExpandableTextInput
+              theme={theme}
               text={LocalizationService.editProfile.bio}
               placeholder={LocalizationService.editProfile.bio}
               value={bio}

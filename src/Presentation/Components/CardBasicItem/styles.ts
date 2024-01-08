@@ -8,6 +8,8 @@ const cardHeight = cardWidth * 0.8;
 export default StyleSheet.create({
   container: {
     width: cardWidth,
+    borderRadius: 5,
+    overflow: 'hidden',
   },
   imageContainer: {
     alignItems: 'center',
@@ -15,7 +17,7 @@ export default StyleSheet.create({
     height: cardHeight - 10,
   },
   image: {
-    width: cardWidth * 0.7,
+    width: cardWidth,
     height: '100%',
   },
   tag: {
@@ -28,7 +30,7 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
   infoContainer: {
-    paddingHorizontal: 5,
+    padding: 10,
   },
   text: {
     paddingVertical: 2,

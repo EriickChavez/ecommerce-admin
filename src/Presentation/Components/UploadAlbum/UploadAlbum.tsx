@@ -12,6 +12,7 @@ import {ThemeEntry} from '../../../@Types/theme';
 import UploadImage from '../UploadImage/UploadImage';
 import {Config} from '../../../Config/ENV';
 import {FastImageProps} from 'react-native-fast-image';
+import themes from '../../../Themes/themes';
 
 interface AlbumProps {
   theme?: ThemeEntry;
@@ -41,6 +42,7 @@ const UploadAlbum: React.FC<AlbumProps> = ({
   },
   disabled = false,
   resizeMode = 'cover',
+  theme = themes.light,
 }) => {
   const onChangeImage = (image: string, index: number) => {
     const newAlbum = [...album];
@@ -51,7 +53,9 @@ const UploadAlbum: React.FC<AlbumProps> = ({
     <View style={styles.container}>
       <View>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={[styles.title, {color: theme.colors.text}]}>
+            {title}
+          </Text>
           <View style={styles.albumContainer}>
             {optionsAction && (
               <TouchableOpacity
@@ -69,6 +73,7 @@ const UploadAlbum: React.FC<AlbumProps> = ({
             return (
               <View style={styles.imageContent} key={`album-photo-${index}`}>
                 <UploadImage
+                  theme={theme}
                   iconSize={25}
                   fontSize={8}
                   borderWidth={1}

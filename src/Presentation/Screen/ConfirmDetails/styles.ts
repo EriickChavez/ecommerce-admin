@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   text: {
     fontSize: RFValue(14),
-    marginBottom: 5,
+    marginBottom: 15,
   },
   title: {
     marginVertical: 10,
@@ -28,6 +28,8 @@ export default StyleSheet.create({
   },
   containerDescription: {
     marginVertical: 10,
+    paddingTop: 10,
+    paddingHorizontal: 10,
     borderWidth: 0,
     padding: 0,
   },

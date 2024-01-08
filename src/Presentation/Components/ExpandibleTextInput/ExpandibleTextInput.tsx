@@ -1,9 +1,10 @@
 import React, {useMemo} from 'react';
-import {View, TextInput, StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {View, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import styles from './styles';
 import {ThemeEntry} from '../../../@Types/theme';
 import themes from '../../../Themes/themes';
 import Text from '../Text/Text';
+import TextInput from '../TextInput/TextInput';
 
 interface ExpandableTextInputProps {
   placeholder?: string;
@@ -33,24 +34,21 @@ const ExpandableTextInput: React.FC<ExpandableTextInputProps> = ({
   const hasText = useMemo(() => text.length > 0, [text]);
   return (
     <>
-      {hasText && <Text style={styles.text}>{text}</Text>}
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: theme.colors.background,
-            borderColor: theme.colors.border,
-          },
-          containerStyle,
-        ]}>
+      {hasText && (
+        <Text style={[styles.text, {color: theme.colors.text}]}>{text}</Text>
+      )}
+      <View>
         <TextInput
-          style={[textColor, textStyle, styles.text]}
-          multiline={expanded}
-          numberOfLines={expanded ? undefined : 1}
-          placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor}
-          value={value}
-          onChangeText={onChangeText}
+          theme={theme}
+          TextInputProps={{
+            style: [textColor, textStyle, styles.text, containerStyle],
+            multiline: expanded,
+            numberOfLines: expanded ? undefined : 1,
+            placeholderTextColor,
+            placeholder,
+            value,
+            onChangeText,
+          }}
         />
       </View>
     </>

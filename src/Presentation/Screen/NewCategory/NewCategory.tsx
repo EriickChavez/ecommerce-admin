@@ -16,10 +16,13 @@ import {SCREEN_NAME} from '../../../Enum/Screens';
 import {ITEMS} from '../../../Enum';
 import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 
 const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const userState = useSelector(userSelector);
   const categoryState = useSelector(categorySelector);
 
@@ -79,13 +82,14 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled">
         <View style={styles.header}>
-          <Text style={styles.title}>
+          <Text style={[styles.title, {color: theme?.colors.text}]}>
             {LocalizationService.addCategory.title}
           </Text>
         </View>
         <View style={styles.content}>
           <View style={styles.input}>
             <UploadImage
+              theme={theme}
               title={LocalizationService.addCategory.cover}
               onChangeImage={setImageCover}
               src={imageCover}
@@ -94,14 +98,18 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               type={INPUT_TYPE.TEXT}
               title={LocalizationService.input.categoryName}
+              placeholder={LocalizationService.input.categoryName}
               value={name}
               onChangeText={text => setName(text)}
             />
           </View>
           <View style={styles.input}>
             <ExpandableTextInput
+              theme={theme}
+              placeholder={LocalizationService.input.description}
               text={LocalizationService.input.description}
               onChangeText={text => setDescription(text)}
               value={description}
@@ -110,7 +118,9 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               type={INPUT_TYPE.PICKER}
+              placeholder={LocalizationService.input.relatedCategories}
               title={LocalizationService.input.relatedCategories}
               pickerOptions={{
                 pickerOptions: {
@@ -127,7 +137,7 @@ const NewCategory: React.FC<NewCategoryScreenNavigationProps> = ({
           </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text style={styles.buttonText}>
+          <Text style={[styles.buttonText, {color: theme?.colors.text}]}>
             {LocalizationService.button.save}
           </Text>
         </TouchableOpacity>

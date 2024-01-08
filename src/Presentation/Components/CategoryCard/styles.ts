@@ -8,7 +8,6 @@ export default StyleSheet.create({
   container: {
     width: cardSize,
     height: cardSize,
-    borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

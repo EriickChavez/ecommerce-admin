@@ -43,6 +43,7 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
         <View style={styles.content}>
           <View style={styles.viewContainer}>
             <TextInput
+              theme={theme}
               TextInputProps={{
                 placeholder: LocalizationService.input.search,
                 editable: true,
@@ -56,6 +57,7 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
           />
         </View>
         <ProductList
+          theme={theme}
           title={LocalizationService.home.productList}
           onPressCard={onPressCard}
           data={productState.products}

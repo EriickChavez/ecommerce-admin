@@ -36,6 +36,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     width: '100%',
+    backgroundColor: '#121212',
     height: RFValue(150),
     borderWidth: 1,
   },
@@ -78,8 +79,9 @@ export default StyleSheet.create({
     width: 300,
   },
   modalText: {
-    fontSize: 16,
+    fontSize: RFValue(14),
     marginBottom: 20,
+    textAlign: 'center',
   },
   modalButtons: {
     flexDirection: 'row',
@@ -99,5 +101,6 @@ export default StyleSheet.create({
   modalButtonText: {
     color: '#fff', // Color del texto del botón
     fontWeight: 'bold',
+    fontSize: RFValue(12),
   },
 });

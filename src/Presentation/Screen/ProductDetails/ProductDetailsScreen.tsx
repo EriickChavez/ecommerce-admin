@@ -18,11 +18,14 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import LocalizationService from '../../../Utils/LocalizationService';
+import {useTheme} from '@react-navigation/native';
+import {ThemeEntry} from '../../../@Types/theme';
 
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
   navigation,
 }) => {
+  const theme = useTheme() as ThemeEntry;
   const {item} = route.params;
   const {user} = useSelector(userSelector);
   const [isDeleteModalVisible, setDeleteModalVisible] =
@@ -124,22 +127,34 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <SceneView>
           <View>
-            <Text style={styles.title}>{item.title}</Text>
+            <Text style={[styles.title, {color: theme.colors.text}]}>
+              {item.title}
+            </Text>
 
             <View style={styles.header}>
               <View>
                 <TouchableOpacity onPress={onOpenModal} style={styles.icon}>
-                  <Trash />
+                  <Trash color={theme.colors.danger} variant={'Bold'} />
                 </TouchableOpacity>
               </View>
               <View style={styles.rightIcon}>
                 {!isEditing ? (
                   <TouchableOpacity onPress={onPressEdit} style={styles.icon}>
-                    <Edit />
+                    <Edit
+                      variant={'Bold'}
+                      color={
+                        theme.dark ? theme.colors.text : theme.colors.primary
+                      }
+                    />
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity onPress={onCancel} style={styles.icon}>
-                    <CloseCircle />
+                    <CloseCircle
+                      variant={'Bold'}
+                      color={
+                        theme.dark ? theme.colors.text : theme.colors.primary
+                      }
+                    />
                   </TouchableOpacity>
                 )}
               </View>
@@ -149,7 +164,12 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
             {!isEditing ? (
               <ImageView
                 imageProps={{
-                  style: styles.image,
+                  style: [
+                    styles.image,
+                    {
+                      borderColor: theme.colors.border,
+                    },
+                  ],
                   resizeMode: 'contain',
                   source: {uri: Config.BASE_URI_IMAGE + item.cover},
                 }}
@@ -160,6 +180,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
                 <UploadImage
                   src={Config.BASE_URI_IMAGE + item.cover}
                   borderWidth={2}
+                  theme={theme}
                   resizeMode={'contain'}
                 />
               </View>
@@ -167,6 +188,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               title={LocalizationService.input.name}
               placeholder={LocalizationService.input.name}
               type={INPUT_TYPE.TEXT}
@@ -177,6 +199,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               title={LocalizationService.input.description}
               placeholder={LocalizationService.input.description}
               type={INPUT_TYPE.TEXT}
@@ -187,6 +210,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               title={LocalizationService.input.price}
               placeholder={LocalizationService.input.price}
               type={INPUT_TYPE.TEXT}
@@ -197,6 +221,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
+              theme={theme}
               title={LocalizationService.input.stock}
               placeholder={LocalizationService.input.stock}
               value={stock.toString()}
@@ -207,6 +232,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <UploadAlbum
+              theme={theme}
               disabled={!isEditing}
               title={LocalizationService.input.album}
               album={albumUploaded}
@@ -230,8 +256,12 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
         animationType="fade"
         transparent={true}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>
+          <View
+            style={[
+              styles.modalContent,
+              {backgroundColor: theme.colors.background},
+            ]}>
+            <Text style={[styles.modalText, {color: theme.colors.text}]}>
               {LocalizationService.productDetails.confirmationDeleteMessage}
             </Text>
             <View style={styles.modalButtons}>

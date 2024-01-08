@@ -19,7 +19,7 @@ const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
   const renderItem = ({index, item}: {index: number; item: Category}) => {
     return (
       <View key={index} style={styles.categoryCard}>
-        <CategoryCard category={item} />
+        <CategoryCard theme={theme} category={item} />
       </View>
     );
   };
@@ -29,6 +29,7 @@ const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
         <View style={styles.content}>
           <View style={styles.input}>
             <TextInput
+              theme={theme}
               TextInputProps={{
                 placeholder: LocalizationService.input.search,
                 editable: true,
