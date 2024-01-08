@@ -14,6 +14,7 @@ import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {Product} from '../../../Domain/Entity';
 import {SCREEN_NAME} from '../../../Enum';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
   const {theme} = useHome(props);
@@ -42,7 +43,10 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
         <View style={styles.content}>
           <View style={styles.viewContainer}>
             <TextInput
-              TextInputProps={{placeholder: 'Search', editable: true}}
+              TextInputProps={{
+                placeholder: LocalizationService.input.search,
+                editable: true,
+              }}
               leftIcon={<SearchNormal color={theme.colors.text} />}
             />
           </View>
@@ -51,7 +55,11 @@ const HomeScreen: React.FC<HomeScreenNavigationProps> = props => {
             images={['https://picsum.photos/200/300']}
           />
         </View>
-        <ProductList onPressCard={onPressCard} data={productState.products} />
+        <ProductList
+          title={LocalizationService.home.productList}
+          onPressCard={onPressCard}
+          data={productState.products}
+        />
       </View>
     </SceneView>
   );

@@ -8,6 +8,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import ImageView from '../ImageView/ImageView';
 import {Config} from '../../../Config/ENV';
 import {FastImageProps} from 'react-native-fast-image';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 interface UploadImageProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -73,7 +74,9 @@ const UploadImage: React.FC<UploadImageProps> = ({
               color="#FF8A65"
               variant="Bold"
             />
-            <Text style={[{fontSize: RFValue(fontSize)}]}>Upload Image</Text>
+            <Text style={[{fontSize: RFValue(fontSize)}]}>
+              {LocalizationService.input.uploadImage}
+            </Text>
           </>
         </TouchableOpacity>
       ) : (

@@ -14,6 +14,7 @@ import ImageView from '../ImageView/ImageView';
 interface AlbumProps {
   theme?: ThemeEntry;
   album?: string[];
+  title?: string;
   onChangeAlbum?: (data: any) => void;
   optionsAction?: {
     action?: (data: any) => void;
@@ -32,6 +33,7 @@ const Album: React.FC<AlbumProps> = ({
     textAction: undefined,
     textStyle: undefined,
   },
+  title,
 }) => {
   const albumUploaded = useMemo(() => {
     const newArray = [
@@ -45,7 +47,7 @@ const Album: React.FC<AlbumProps> = ({
     <View style={styles.container}>
       <View>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Products</Text>
+          {title && <Text style={styles.title}>{title}</Text>}
           <View style={styles.albumContainer}>
             {optionsAction && (
               <TouchableOpacity

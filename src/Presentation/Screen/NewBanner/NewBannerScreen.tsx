@@ -8,31 +8,38 @@ import UploadAlbum from '../../Components/UploadAlbum/UploadAlbum';
 import Text from '../../Components/Text/Text';
 import {NewBannerScreenNavigationProps} from '../../../@Types/navigation.newProduct';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
   navigation,
 }) => {
   const [showIn, setShowIn] = useState<string>('');
+  const [album, setAlbum] = useState(['', '', '', '', '', '']);
 
   return (
     <SceneView>
       <View style={styles.container}>
         <ScrollView style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              {LocalizationService.addBanner.title}
+            </Text>
+          </View>
           <View style={styles.input}>
             <Input
-              title="Banner Title"
-              placeholder="Banner Title"
+              title={LocalizationService.input.bannerTitle}
+              placeholder={LocalizationService.input.bannerTitle}
               type={INPUT_TYPE.TEXT}
             />
           </View>
           <View style={styles.input}>
             <ExpandableTextInput
               containerStyle={styles.containerInput}
-              placeholder="Descripción"
-              text="Descripción"
+              placeholder={LocalizationService.input.description}
+              text={LocalizationService.input.description}
             />
           </View>
           <Input
-            title="Where to show"
+            title={LocalizationService.input.showIn}
             type={INPUT_TYPE.PICKER}
             pickerOptions={{
               pickerOptions: {
@@ -52,7 +59,13 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
               },
             }}
           />
-          <UploadAlbum title="Images" />
+          <UploadAlbum
+            title={LocalizationService.addBanner.bannerImages}
+            album={album}
+            onChangeAlbum={data => {
+              setAlbum(data);
+            }}
+          />
         </ScrollView>
         <View>
           <TouchableOpacity
@@ -62,7 +75,9 @@ const NewBannerScreen: React.FC<NewBannerScreenNavigationProps> = ({
                 item: ITEMS.BANNER,
               })
             }>
-            <Text style={styles.buttonText}>Save</Text>
+            <Text style={styles.buttonText}>
+              {LocalizationService.button.save}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

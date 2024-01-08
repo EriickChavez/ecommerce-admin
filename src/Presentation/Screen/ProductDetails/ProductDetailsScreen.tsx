@@ -17,6 +17,7 @@ import {
 } from '../../../Infrastructure/Store/Actions/ProductAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
   route,
@@ -166,8 +167,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
-              title="Name"
-              placeholder="Name"
+              title={LocalizationService.input.name}
+              placeholder={LocalizationService.input.name}
               type={INPUT_TYPE.TEXT}
               textOptions={{textOptions: {editable: isEditing}}}
               value={title}
@@ -176,8 +177,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
-              title="Description"
-              placeholder="Description"
+              title={LocalizationService.input.description}
+              placeholder={LocalizationService.input.description}
               type={INPUT_TYPE.TEXT}
               value={subtitle}
               onChangeText={setSubtitle}
@@ -186,8 +187,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
-              title="Price"
-              placeholder="Price"
+              title={LocalizationService.input.price}
+              placeholder={LocalizationService.input.price}
               type={INPUT_TYPE.TEXT}
               textOptions={{textOptions: {editable: isEditing}}}
               value={price.toString()}
@@ -196,8 +197,8 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           </View>
           <View style={styles.input}>
             <Input
-              title="Stock"
-              placeholder="Stock"
+              title={LocalizationService.input.stock}
+              placeholder={LocalizationService.input.stock}
               value={stock.toString()}
               onChangeText={text => onChangeNumber(text, 'stock')}
               type={INPUT_TYPE.TEXT}
@@ -207,7 +208,7 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           <View style={styles.input}>
             <UploadAlbum
               disabled={!isEditing}
-              title="Images"
+              title={LocalizationService.input.album}
               album={albumUploaded}
               onChangeAlbum={setAlbum}
             />
@@ -215,7 +216,9 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
           {isEditing && (
             <View style={styles.buttonContainer}>
               <TouchableOpacity onPress={updateProduct} style={styles.button}>
-                <Text style={styles.buttonText}>Save</Text>
+                <Text style={styles.buttonText}>
+                  {LocalizationService.button.save}
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -229,18 +232,22 @@ const ProductDetailsScreen: React.FC<ProductDetailsScreenNavigationProps> = ({
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>
-              ¿Seguro que quieres eliminar este producto?
+              {LocalizationService.productDetails.confirmationDeleteMessage}
             </Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity
                 onPress={() => setDeleteModalVisible(false)}
                 style={styles.modalButton}>
-                <Text style={styles.modalButtonText}>Cancelar</Text>
+                <Text style={styles.modalButtonText}>
+                  {LocalizationService.button.cancel}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={onDeleteProduct}
-                style={styles.modalButton}>
-                <Text style={styles.modalButtonText}>Eliminar</Text>
+                style={[styles.modalButton, styles.deletButton]}>
+                <Text style={styles.modalButtonText}>
+                  {LocalizationService.button.delete}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

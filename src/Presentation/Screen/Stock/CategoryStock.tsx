@@ -11,6 +11,7 @@ import {Category} from '../../../Domain/Entity';
 import {useSelector} from 'react-redux';
 import {categorySelector} from '../../../Infrastructure/Store/Slice/CategorySlice';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
@@ -28,7 +29,10 @@ const CategoryStock: React.FC<CategoryStockScreenNavigationProps> = ({}) => {
         <View style={styles.content}>
           <View style={styles.input}>
             <TextInput
-              TextInputProps={{placeholder: 'Search', editable: true}}
+              TextInputProps={{
+                placeholder: LocalizationService.input.search,
+                editable: true,
+              }}
               leftIcon={<SearchNormal color={theme.colors.text} />}
             />
           </View>

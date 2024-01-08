@@ -8,6 +8,7 @@ import {INPUT_TYPE} from '../../../Enum';
 import {ThemeEntry} from '../../../@Types/theme';
 import themes from '../../../Themes/themes';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 interface IconHelpProps {
   theme?: ThemeEntry;
@@ -52,7 +53,7 @@ const IconHelpScreen: React.FC<IconHelpProps> = ({theme = themes.light}) => {
           <Input
             type={INPUT_TYPE.TEXT}
             onChangeText={onChangeText}
-            placeholder="Buscar"
+            placeholder={LocalizationService.input.search}
             value={search}
           />
         </View>

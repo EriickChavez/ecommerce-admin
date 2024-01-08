@@ -15,6 +15,7 @@ import UserSlice, {
 import {useDispatch, useSelector} from 'react-redux';
 import {Config} from '../../../Config/ENV';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
   navigation,
@@ -52,14 +53,22 @@ const SettingsScreen: React.FC<SettingsScreenNavigationProps> = ({
             return (
               <TouchableOpacity
                 onPress={() => {
-                  if (item.name === 'Categories') {
+                  if (item.name === LocalizationService.settings.Categories) {
                     navigation.navigate(SCREEN_NAME.CATEGORY_STOCK_SCREEN);
-                  } else if (item.name === 'Banner') {
-                  } else if (item.name === 'Products') {
+                  } else if (
+                    item.name === LocalizationService.settings.Banner
+                  ) {
+                  } else if (
+                    item.name === LocalizationService.settings.Products
+                  ) {
                     navigation.navigate(SCREEN_NAME.PRODUCT_STOCK_SCREEN);
-                  } else if (item.name === 'Profile') {
+                  } else if (
+                    item.name === LocalizationService.settings.Profile
+                  ) {
                     navigation.navigate(SCREEN_NAME.PROFILE_SCREEN);
-                  } else if (item.name === 'Logout') {
+                  } else if (
+                    item.name === LocalizationService.settings.Logout
+                  ) {
                     dispatch(UserSlice.actions.resetState());
                   }
                 }}

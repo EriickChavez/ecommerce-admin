@@ -16,6 +16,7 @@ import {INPUT_TYPE} from '../../../Enum';
 import ShakeView from '../../../Animations/ShakeView';
 import {ShakeViewRef} from '../../../@Types/ref';
 import {ERROR_CODE} from '../../../Enum/Error_message';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const LoginScreen: React.FC<LoginNavigationProps> = props => {
   const shakeEmailRef = createRef<ShakeViewRef>();
@@ -46,7 +47,7 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Iniciar sesión</Text>
+          <Text style={styles.title}>{LocalizationService.logIn.title}</Text>
         </View>
         <View style={styles.logoContainer}>
           <View style={styles.logo}>
@@ -57,11 +58,13 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
           <ShakeView Angle={0.5} ref={shakeEmailRef}>
             <Input
               type={INPUT_TYPE.TEXT}
-              placeholder="email"
+              placeholder={LocalizationService.logIn.email}
               onChangeText={onChange.setEmail}
               value={onChange.email}
               textOptions={{
                 textOptions: {
+                  editable: true,
+                  contextMenuHidden: false,
                   error:
                     error === ERROR_CODE.EMAIL_FORMAT ||
                     error === ERROR_CODE.USER_NOT_FOUND,
@@ -74,11 +77,13 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
           <ShakeView Angle={0.5} ref={shakePasswordRef}>
             <Input
               type={INPUT_TYPE.PASSWORD}
-              placeholder="Password"
+              placeholder={LocalizationService.logIn.password}
               onChangeText={onChange.setPassword}
               value={onChange.password}
               textOptions={{
                 textOptions: {
+                  editable: true,
+                  contextMenuHidden: false,
                   error:
                     error === ERROR_CODE.PASSWORD_FORMAT ||
                     error === ERROR_CODE.PASSWORD_INCORRECT,
@@ -88,15 +93,19 @@ const LoginScreen: React.FC<LoginNavigationProps> = props => {
           </ShakeView>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Iniciar sesión</Text>
+          <Text style={styles.buttonText}>
+            {LocalizationService.button.signIn}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleForgotPassword}>
           <Text style={styles.forgotPasswordText}>
-            ¿Olvidaste tu contraseña?
+            {LocalizationService.logIn.forgotPassword}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-          <Text style={styles.signUpText}>Registrarse</Text>
+          <Text style={styles.signUpText}>
+            {LocalizationService.button.signUp}
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -9,6 +9,14 @@ export default StyleSheet.create({
   content: {
     flex: 1,
   },
+  header: {
+    flexDirection: 'row',
+    marginBottom: 5,
+  },
+  title: {
+    fontSize: RFValue(20),
+    fontWeight: 'bold',
+  },
   input: {
     marginVertical: 10,
   },

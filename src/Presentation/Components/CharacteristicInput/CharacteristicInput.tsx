@@ -19,6 +19,7 @@ import HelpIcon from '../../../Assets/svg/Help';
 import Chips from '../Chips/Chips';
 import {IconsTypes} from '../../../@Types/icon';
 import {RFValue} from 'react-native-responsive-fontsize';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 interface CharacteristicInputProps {
   goToHelpIconScreen?: () => void;
@@ -53,7 +54,10 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
   };
   const handleFormSubmit = () => {
     if (!icon || !title || !description) {
-      Alert.alert('Error', 'All fields are required');
+      Alert.alert(
+        LocalizationService.error.error,
+        LocalizationService.error.allFieldsRequired,
+      );
       return;
     } else {
       options.addCharacteristics &&
@@ -82,7 +86,9 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={onOpen} style={[styles.input, styles.flex1]}>
-          <Text style={[styles.input, styles.flex1]}>Add Characteristic</Text>
+          <Text style={[styles.input, styles.flex1]}>
+            {LocalizationService.input.characteristic.addCharacteristic}
+          </Text>
         </TouchableOpacity>
         <View style={styles.input}>
           <TouchableOpacity onPress={goToHelpIconScreen}>
@@ -101,7 +107,7 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
               <View style={styles.modalContent}>
                 <View style={styles.modalHeader}>
                   <Text style={styles.modalHeaderText}>
-                    Formulario de Características
+                    {LocalizationService.input.characteristic.modalTitle}
                   </Text>
                 </View>
                 <View style={[styles.containerInput, styles.containerIcons]}>
@@ -110,9 +116,13 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
                   </View>
                   <View style={styles.flex1}>
                     <Input
-                      placeholder="Icono"
+                      placeholder={
+                        LocalizationService.input.characteristic.icon
+                      }
                       value={icon}
-                      textOptions={{textOptions: {contextMenuHidden: true}}}
+                      textOptions={{
+                        textOptions: {contextMenuHidden: true, editable: true},
+                      }}
                       onChangeText={text =>
                         setIcon(capitalizeFirstLetter(text))
                       }
@@ -121,23 +131,31 @@ const CharacteristicInput: React.FC<CharacteristicInputProps> = ({
                 </View>
                 <View style={styles.containerInput}>
                   <Input
-                    title="Título"
-                    placeholder="Título"
+                    title={LocalizationService.input.characteristic.title}
+                    placeholder={LocalizationService.input.characteristic.title}
                     value={title}
                     onChangeText={text => setTitle(text)}
                   />
                 </View>
                 <View style={styles.containerInput}>
                   <Input
-                    title="Descripción"
-                    placeholder="Descripción"
+                    title={LocalizationService.input.characteristic.description}
+                    placeholder={
+                      LocalizationService.input.characteristic.description
+                    }
                     value={description}
                     onChangeText={text => setDescription(text)}
                   />
                 </View>
 
-                <Button title="Agregar" onPress={handleFormSubmit} />
-                <Button title="Cancelar" onPress={onClose} />
+                <Button
+                  title={LocalizationService.button.add}
+                  onPress={handleFormSubmit}
+                />
+                <Button
+                  title={LocalizationService.button.cancel}
+                  onPress={onClose}
+                />
               </View>
             </View>
           </Modal>

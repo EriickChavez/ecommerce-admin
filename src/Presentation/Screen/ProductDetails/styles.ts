@@ -93,6 +93,9 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     alignItems: 'center',
   },
+  deletButton: {
+    backgroundColor: '#BF616A',
+  },
   modalButtonText: {
     color: '#fff', // Color del texto del botón
     fontWeight: 'bold',

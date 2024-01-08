@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    height: '10%',
+    marginBottom: 5,
   },
   title: {
     fontSize: RFValue(20),

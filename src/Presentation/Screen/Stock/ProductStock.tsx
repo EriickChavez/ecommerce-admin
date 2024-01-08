@@ -10,6 +10,7 @@ import ProductList from '../../Components/ProductList/ProductList';
 import {useSelector} from 'react-redux';
 import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
@@ -21,7 +22,10 @@ const ProductStock: React.FC<ProductStockScreenNavigationProps> = ({}) => {
         <View style={styles.content}>
           <View style={styles.input}>
             <TextInput
-              TextInputProps={{placeholder: 'Search', editable: true}}
+              TextInputProps={{
+                placeholder: LocalizationService.input.search,
+                editable: true,
+              }}
               leftIcon={<SearchNormal color={theme.colors.text} />}
             />
           </View>

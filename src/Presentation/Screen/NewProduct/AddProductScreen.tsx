@@ -20,6 +20,7 @@ import ExpandableTextInput from '../../Components/ExpandibleTextInput/Expandible
 import CharacteristicInput from '../../Components/CharacteristicInput/CharacteristicInput';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const AddProductScreen: React.FC<AddProductNavigationProps> = ({
   navigation,
@@ -33,10 +34,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
     [productState.tmpProduct],
   );
 
-  const [album, setAlbum] = useState(
-    // Array.from({length: 6}, (_, index) => tmpProduct?.album[index] || ''),
-    ['', '', '', '', '', ''],
-  );
+  const [album, setAlbum] = useState(['', '', '', '', '', '']);
   const [cover, setCover] = useState<string>(tmpProduct.cover || '');
   const [title, setTitle] = useState<string>(tmpProduct.title);
   const [description, setDescription] = useState<string>(tmpProduct.title);
@@ -62,7 +60,10 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
 
   const onAddCharacteristic = (data: Characteristics) => {
     if (characteristics.includes(data)) {
-      Alert.alert('Error', 'Characteristic already exists');
+      Alert.alert(
+        LocalizationService.error.error,
+        LocalizationService.error.characteristicExists,
+      );
     } else {
       setCharacteristics([...characteristics, data]);
     }
@@ -131,7 +132,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
       <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <UploadImage
-            title="Product Cover"
+            title={LocalizationService.addProduct.productCover}
             containerStyle={styles.uploadImage}
             src={cover}
             onChangeImage={data => {
@@ -140,8 +141,8 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           />
           <View style={styles.inputContent}>
             <Input
-              title="Select Product Categories"
-              placeholder="Select Categories"
+              title={LocalizationService.input.selectCategory}
+              placeholder={LocalizationService.input.selectCategory}
               type={INPUT_TYPE.PICKER}
               pickerOptions={{
                 pickerOptions: {
@@ -158,17 +159,17 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <Input
-              title="Product Name"
+              title={LocalizationService.input.productName}
+              placeholder={LocalizationService.input.productName}
               type={INPUT_TYPE.TEXT}
-              placeholder="Product Name"
               value={title}
               onChangeText={text => setTitle(text)}
             />
           </View>
           <View style={styles.inputContent}>
             <ExpandableTextInput
-              text="Product Description"
-              placeholder="Product Description"
+              text={LocalizationService.input.productDescription}
+              placeholder={LocalizationService.input.productDescription}
               containerStyle={styles.expandibleTextInput}
               value={description}
               onChangeText={text => setDescription(text)}
@@ -176,27 +177,27 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
           <View style={styles.inputContent}>
             <Input
-              title="Product Brand"
+              title={LocalizationService.input.productBrand}
+              placeholder={LocalizationService.input.productBrand}
               type={INPUT_TYPE.TEXT}
-              placeholder="Product Brand"
               value={subtitle}
               onChangeText={text => setSubtitle(text)}
             />
           </View>
           <View style={styles.content}>
             <Input
-              title="Price"
+              title={LocalizationService.input.productPrice}
+              placeholder={LocalizationService.input.productPrice}
               type={INPUT_TYPE.DROPDOWN}
-              placeholder="Input Product Price"
               value={`$ ${price}`}
               onChangeText={onChangePrice}
             />
           </View>
           <View style={styles.inputContent}>
             <Input
-              title="Product Stock"
+              title={LocalizationService.input.productStock}
+              placeholder={LocalizationService.input.productStock}
               type={INPUT_TYPE.NUMBER}
-              placeholder="Product Stock"
               value={`${quantity}`}
               onChangeText={text => {
                 if (Number(text)) {
@@ -227,7 +228,7 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
           </View>
         </ScrollView>
         <Button
-          title="Next"
+          title={LocalizationService.button.next}
           onPress={() => {
             onPress();
           }}

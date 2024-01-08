@@ -21,8 +21,10 @@ interface loginHook {
 
 const useLogin = ({navigation}: LoginNavigationProps): loginHook => {
   const userState = useSelector(userSelector);
-  const [email, setEmail] = useState('erick@ch.com');
-  const [password, setPassword] = useState('A1234567.');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('erick@ch.com');
+  // const [password, setPassword] = useState('A1234567.');
   const [error, setError] = useState<string | null | undefined>(undefined);
 
   const dispatch = useDispatch();

@@ -14,6 +14,7 @@ import styles from './styles';
 import {Logo} from '../../Components/LogoComponent';
 import useSignup from '../../../Hook/useSignup';
 import {SignupNavigationProps} from '../../../@Types/navigation.auth';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const SignUpScreen: React.FC<SignupNavigationProps> = props => {
   const {handleLogin, handleSignup, onChange} = useSignup(props);
@@ -25,7 +26,7 @@ const SignUpScreen: React.FC<SignupNavigationProps> = props => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Registrarse</Text>
+          <Text style={styles.title}>{LocalizationService.signUp.title}</Text>
         </View>
         <View style={styles.logoContainer}>
           <View style={styles.logo}>
@@ -36,20 +37,20 @@ const SignUpScreen: React.FC<SignupNavigationProps> = props => {
           style={styles.input}
           value={onChange.username}
           onChangeText={onChange.setUsername}
-          placeholder="Nombre de usuario"
+          placeholder={LocalizationService.signUp.username}
         />
         <TextInput
           style={styles.input}
           value={onChange.email}
           onChangeText={onChange.setEmail}
-          placeholder="Correo electrónico"
+          placeholder={LocalizationService.signUp.email}
           keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
           value={onChange.password}
           onChangeText={onChange.setPassword}
-          placeholder="Contraseña"
+          placeholder={LocalizationService.signUp.password}
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleSignup}>
@@ -57,7 +58,7 @@ const SignUpScreen: React.FC<SignupNavigationProps> = props => {
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogin}>
           <Text style={styles.loginRedirectText}>
-            ¿Ya tienes una cuenta? Inicia sesión
+            {LocalizationService.signUp.alreadyHaveAccount}
           </Text>
         </TouchableOpacity>
       </ScrollView>

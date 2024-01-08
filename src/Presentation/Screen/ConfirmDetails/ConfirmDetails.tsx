@@ -16,6 +16,7 @@ import ImageView from '../../Components/ImageView/ImageView';
 import Album from '../../Components/Album/Album';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   navigation,
 }) => {
@@ -87,8 +88,9 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       <SafeAreaView style={[styles.flex, styles.banner]}>
         <ScrollView bounces={false} style={[styles.scrollView, styles.flex]}>
           <View>
-            <Text style={styles.text}>Product Cover</Text>
-            <Text style={styles.text}>{productStore.tmpProduct.userId}</Text>
+            <Text style={styles.text}>
+              {LocalizationService.addProduct.productCover}
+            </Text>
             {productStore?.tmpProduct?.cover && (
               <>
                 <ImageView
@@ -118,13 +120,18 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
               keyExtractor={() => (Math.random() * 100).toString()}
             />
           </View>
-          <Text style={styles.text}>Available {product.stock}</Text>
+          <Text style={styles.text}>
+            {LocalizationService.addProduct.availableProducts} {product.stock}
+          </Text>
 
           {product.characteristics.map((value, index) => {
             return renderItem({index, cItem: value});
           })}
 
-          <Album album={product.album} />
+          <Album
+            album={product.album}
+            title={LocalizationService.addProduct.album}
+          />
         </ScrollView>
         <Button title="Next" onPress={onPress} disabled={isLoadingUpload} />
       </SafeAreaView>

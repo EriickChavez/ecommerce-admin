@@ -1,4 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 const {width} = Dimensions.get('window');
 const horizontalSpace = width * 0.1;
 const modalWidth = width - horizontalSpace;
@@ -60,7 +61,7 @@ export default StyleSheet.create({
   },
   modalItemText: {},
   modalText: {
-    borderWidth: 1,
+    fontSize: RFValue(16),
     textAlign: 'center',
   },
   buttonContainer: {

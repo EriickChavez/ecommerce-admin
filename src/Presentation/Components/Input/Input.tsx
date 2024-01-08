@@ -17,6 +17,7 @@ import Text from '../Text/Text';
 import PickerInput from './PickerInput';
 import DropDown from './DropDown';
 import {TextInputRef} from '../TextInput/TextInput';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 interface InputProps {
   placeholder?: string;
@@ -194,7 +195,9 @@ const Input = forwardRef<inputRef, InputProps>(
               visible={modalVisible}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <Text style={styles.modalText}>Hello World!</Text>
+                  <Text style={styles.modalText}>
+                    {LocalizationService.input.modal.selectCategoryTitle}
+                  </Text>
                   <ScrollView style={styles.containerModalItems}>
                     {pickerOptions.pickerOptions.data.map((item, index) => {
                       return renderCheckItems({item, index});
@@ -204,12 +207,16 @@ const Input = forwardRef<inputRef, InputProps>(
                     <Pressable
                       style={[styles.button, styles.buttonCancel]}
                       onPress={onPressCancel}>
-                      <Text style={styles.textStyle}>Cancel</Text>
+                      <Text style={styles.textStyle}>
+                        {LocalizationService.button.cancel}
+                      </Text>
                     </Pressable>
                     <Pressable
                       style={[styles.button, styles.buttonConfirm]}
                       onPress={onPressOk}>
-                      <Text style={styles.textStyle}>Confirm</Text>
+                      <Text style={styles.textStyle}>
+                        {LocalizationService.button.confirm}
+                      </Text>
                     </Pressable>
                   </View>
                 </View>

@@ -9,6 +9,7 @@ import {ThemeEntry} from '../../../@Types/theme';
 import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
+import LocalizationService from '../../../Utils/LocalizationService';
 
 const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
   const theme = useTheme() as ThemeEntry;
@@ -24,7 +25,7 @@ const Topbar: React.FC<BottomTabHeaderProps> = ({}) => {
 
       <View style={styles.userContainer}>
         <Text style={[styles.greetings, {color: theme.colors.text_secondary}]}>
-          Welcome Back,
+          {LocalizationService.topbar.greetings},
         </Text>
         <Text style={[styles.username, {color: theme.colors.text}]}>
           {user.username}

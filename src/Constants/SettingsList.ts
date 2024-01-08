@@ -1,26 +1,28 @@
+import LocalizationService from '../Utils/LocalizationService';
+
 const SettingsButtonList = [
   {
-    name: 'Profile',
+    name: LocalizationService.settings.Profile,
     leftIcon: 'Profile',
     rightIcon: null,
   },
   {
-    name: 'Categories',
+    name: LocalizationService.settings.Categories,
     leftIcon: 'Category',
     rightIcon: null,
   },
   {
-    name: 'Products',
+    name: LocalizationService.settings.Products,
     leftIcon: 'Category',
     rightIcon: null,
   },
   {
-    name: 'Banner',
+    name: LocalizationService.settings.Banner,
     leftIcon: 'AddCircle',
     rightIcon: null,
   },
   {
-    name: 'Logout',
+    name: LocalizationService.settings.Logout,
     leftIcon: 'Logout',
     rightIcon: null,
   },

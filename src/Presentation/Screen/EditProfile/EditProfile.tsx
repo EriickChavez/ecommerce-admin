@@ -24,8 +24,11 @@ import {userSelector} from '../../../Infrastructure/Store/Slice/UserSlice';
 import {UserViewInput} from '../../../Domain/Entity/User/User';
 import {fetchEditUser} from '../../../Infrastructure/Store/Actions/UserAction';
 import SceneView from '../../Components/SceneView/SceneView';
+import LocalizationService from '../../../Utils/LocalizationService';
 
-const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
+const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({
+  navigation,
+}) => {
   const userState = useSelector(userSelector);
   const dispatch = useDispatch();
   const [imageUri, setImageUri] = useState<string>(
@@ -67,14 +70,14 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
   useEffect(() => {
     if (isKeyboardVisible) {
       const timeout = setTimeout(() => {
-        let isFocused = 'Username';
+        let isFocused = LocalizationService.editProfile.username;
         if (refTxtUsnm.current?.isFocused()) {
         } else if (refTxtCountry.current?.isFocused()) {
-          isFocused = 'Country';
+          isFocused = LocalizationService.editProfile.country;
         } else if (refTxtState.current?.isFocused()) {
-          isFocused = 'State';
+          isFocused = LocalizationService.editProfile.state;
         } else if (refTxtAge.current?.isFocused()) {
-          isFocused = 'Age';
+          isFocused = LocalizationService.editProfile.age;
         }
 
         const layoutFoucsed = layoutArray[isFocused];
@@ -115,14 +118,14 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
       const newLayoutArr = layoutArray;
       const name =
         index === 1
-          ? 'Username'
+          ? LocalizationService.editProfile.username
           : index === 2
-          ? 'Country'
+          ? LocalizationService.editProfile.country
           : index === 3
-          ? 'State'
+          ? LocalizationService.editProfile.state
           : index === 4
-          ? 'Age'
-          : 'Bio';
+          ? LocalizationService.editProfile.age
+          : LocalizationService.editProfile.bio;
       newLayoutArr[name] = event.nativeEvent.layout;
       setLayoutArray(newLayoutArr);
     }
@@ -140,7 +143,9 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
     };
     // @ts-ignore
     dispatch(fetchEditUser({token: userState.user.token, user: editUser}));
+    navigation.goBack();
   }, [
+    navigation,
     username,
     country,
     state,
@@ -168,7 +173,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           stickyHeaderIndices={[6]}>
           <View onLayout={e => onLayout(e, 0)} style={styles.input}>
             <UploadImage
-              title="Profile Image"
+              title={LocalizationService.editProfile.profileImage}
               containerStyle={styles.image}
               onChangeImage={(src: string) => setImageUri(src)}
             />
@@ -176,8 +181,8 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           <View onLayout={e => onLayout(e, 1)} style={styles.input}>
             <Input
               ref={refTxtUsnm}
-              title="Username"
-              placeholder="Username"
+              title={LocalizationService.editProfile.username}
+              placeholder={LocalizationService.editProfile.username}
               value={username}
               onChangeText={(text: string) => setUsername(text)}
               type={INPUT_TYPE.TEXT}
@@ -186,7 +191,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           <View onLayout={e => onLayout(e, 2)} style={styles.input}>
             <Input
               ref={refTxtCountry}
-              title="Country"
+              title={LocalizationService.editProfile.country}
               placeholder="Mexico"
               value={country}
               onChangeText={(text: string) => setCountry(text)}
@@ -196,7 +201,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           <View onLayout={e => onLayout(e, 3)} style={styles.input}>
             <Input
               ref={refTxtState}
-              title="State"
+              title={LocalizationService.editProfile.state}
               placeholder="Torreón"
               value={state}
               onChangeText={(text: string) => setState(text)}
@@ -206,7 +211,7 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
           <View onLayout={e => onLayout(e, 4)} style={styles.input}>
             <Input
               ref={refTxtAge}
-              title="Age"
+              title={LocalizationService.editProfile.age}
               placeholder="21"
               type={INPUT_TYPE.NUMBER}
               value={age}
@@ -218,8 +223,8 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
             onLayout={e => onLayout(e, 5)}
             style={styles.input}>
             <ExpandableTextInput
-              text="Bio"
-              placeholder="Bio"
+              text={LocalizationService.editProfile.bio}
+              placeholder={LocalizationService.editProfile.bio}
               value={bio}
               onChangeText={(text: string) => setBio(text)}
               containerStyle={styles.inputExpandible}
@@ -247,7 +252,9 @@ const EditProfile: React.FC<EditProfileScreenScreenNavigationProps> = ({}) => {
                   size={'small'}
                 />
               </View>
-              <Text style={styles.buttonText}>Save</Text>
+              <Text style={styles.buttonText}>
+                {LocalizationService.button.save}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
