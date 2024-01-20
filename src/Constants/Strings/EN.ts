@@ -2,6 +2,12 @@ export default {
   topbar: {
     greetings: 'Wellcome Back',
   },
+  workshop: {
+    uploadImage: 'Upload Workshop Logo',
+    name: 'Workshop Name',
+    description: 'Workshop Description',
+    createWorkshop: 'Create Workshop',
+  },
   input: {
     search: 'Search',
     name: 'Name',
@@ -57,6 +63,7 @@ export default {
   },
   settings: {
     title: 'Settings',
+    Workspace: 'Store',
     Profile: 'Profile',
     Categories: 'Categories',
     Products: 'Products',

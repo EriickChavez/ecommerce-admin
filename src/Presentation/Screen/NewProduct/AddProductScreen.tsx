@@ -54,7 +54,6 @@ const AddProductScreen: React.FC<AddProductNavigationProps> = ({
     () => categoryState.data,
     [categoryState],
   );
-
   const [productCategories, setProductCategories] = useState<Category[]>(
     getCategoriesByIds(tmpProduct?.categoryId, Categories),
   );

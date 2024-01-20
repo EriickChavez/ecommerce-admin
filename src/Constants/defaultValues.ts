@@ -1,5 +1,6 @@
 import {Product} from '../Domain/Entity';
 import {UserView} from '../Domain/Entity/User/User';
+import {Workshop} from '../Domain/Workshop/Workshop';
 
 const defaultUser: UserView = {
   createdAt: Date.now().toString(),
@@ -23,6 +24,7 @@ const defaultProduct: Product = {
   stock: 0,
   sellerId: '',
   discount: undefined,
+  workshopId: '',
 };
 
 const defaultImage: {
@@ -32,4 +34,14 @@ const defaultImage: {
   filename: '',
   uri: '',
 };
-export {defaultUser, defaultProduct, defaultImage};
+
+const defaultWorkshop: Workshop = {
+  id: '',
+  name: 'store',
+  description: 'create an store',
+  imageUri: '',
+  adminId: '',
+  createdAt: Date.now().toString(),
+};
+
+export {defaultUser, defaultProduct, defaultImage, defaultWorkshop};

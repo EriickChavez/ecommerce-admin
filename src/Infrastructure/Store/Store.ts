@@ -3,22 +3,14 @@ import {
   // compose,
   configureStore,
 } from '@reduxjs/toolkit';
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-  persistReducer,
-  persistStore,
-} from 'redux-persist';
+import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
 import {reduxStorage} from '../../Config/storageConfig';
 import ExampleSlice from './Slice/ExampleSlice';
 import userSlice from './Slice/UserSlice';
 import productSlice from './Slice/ProductSlice';
 import CategorySlice from './Slice/CategorySlice';
+import WorkshopSlice from './Slice/WorkshopSlice';
 
 const persistConfig = {
   key: 'root',
@@ -30,11 +22,10 @@ const rootReducer = combineReducers({
   user: userSlice.reducer,
   product: productSlice.reducer,
   category: CategorySlice.reducer,
+  workshop: WorkshopSlice.reducer,
 });
 
 const middlewares = [thunk];
-
-// let composeEnhancers = compose;
 
 if (__DEV__) {
   const createDebugger = require('redux-flipper').default;
@@ -48,14 +39,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: true, // Habilita DevTools en todas las situaciones
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(),
-  // enhancer: composeEnhancers(applyMiddleware(thunk)),
+  devTools: __DEV__, // Habilita DevTools en todas las situaciones
+  middleware: middlewares,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

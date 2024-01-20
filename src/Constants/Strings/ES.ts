@@ -2,6 +2,12 @@ export default {
   topbar: {
     greetings: 'Bienvenido de nuevo',
   },
+  workshop: {
+    uploadImage: 'Subir Logo del Workshop',
+    name: 'Nombre',
+    description: 'Descripción',
+    createWorkshop: 'Crear Workshop',
+  },
   input: {
     search: 'Buscar',
     name: 'Nombre',
@@ -56,6 +62,7 @@ export default {
     confirmationCategory: 'Su Categoría ha sido agregada exitosamente',
   },
   settings: {
+    Workspace: 'Store',
     title: 'Configuración',
     Profile: 'Perfil',
     Categories: 'Categorías',

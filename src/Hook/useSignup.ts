@@ -18,12 +18,12 @@ interface signupHook {
 }
 
 const useSignup = ({navigation}: SignupNavigationProps): signupHook => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  // const [email, setEmail] = useState('erick@ch.com');
-  // const [password, setPassword] = useState('A1234567.');
-  // const [username, setUsername] = useState('Erick Chavez');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('erick@ch.com');
+  const [password, setPassword] = useState('A1234567.');
+  const [username, setUsername] = useState('Erick Chavez');
 
   const dispatch = useDispatch();
   const handleLoginRedirect = useCallback(() => {

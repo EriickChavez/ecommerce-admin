@@ -6,6 +6,7 @@ import styles from './styles';
 import {Product} from '../../../Domain/Entity';
 import {ThemeEntry} from '../../../@Types/theme';
 import themes from '../../../Themes/themes';
+import EmptyList from '../EmptyList/EmptyList';
 
 interface ProductListProps {
   title?: string;
@@ -40,6 +41,14 @@ const ProductList: React.FC<ProductListProps> = ({
     );
   };
 
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.empty}>
+        <EmptyList />
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -59,6 +68,7 @@ const ProductList: React.FC<ProductListProps> = ({
         data={data}
         columnWrapperStyle={styles.flatListColumnWrapper}
         renderItem={renderItem}
+        ListEmptyComponent={ListEmptyComponent}
       />
     </View>
   );

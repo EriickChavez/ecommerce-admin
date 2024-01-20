@@ -6,6 +6,8 @@ const resetError = (dispatch: any) => {
   dispatch(UserSlice.actions.resetError());
   dispatch(ProductSlice.actions.resetError());
   dispatch(CategorySlice.actions.resetError());
+
+  dispatch(ProductSlice.actions.resetTmpProduct());
 };
 
 export {resetError};

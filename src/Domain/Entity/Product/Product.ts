@@ -14,6 +14,7 @@ export interface Product {
   stock: number;
   cover?: string;
   discount?: Discount | undefined;
+  workshopId: string;
 }
 
 export interface Discount {
@@ -42,4 +43,5 @@ export interface ProductInput {
   stock?: number;
   cover?: string;
   discount?: Discount | undefined;
+  workshopId: string;
 }

@@ -40,7 +40,11 @@ const productSlice = createSlice({
     resetError: state => {
       state.error = initialState.error;
     },
+    resetTmpProduct: state => {
+      state.tmpProduct = initialState.tmpProduct;
+    },
     setTmpProduct: (state, action: PayloadAction<{data: Product}>) => {
+      console.log('aaa->', action.payload);
       const {data} = action.payload;
       state.tmpProduct = {...data};
     },
@@ -56,9 +60,7 @@ const productSlice = createSlice({
       .addCase(fetchPictureAlbum.rejected, state => {
         state.uploadProduct.loading = false;
         state.uploadProduct.error = 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchProductsByUserId.pending, state => {
         state.loading = true;
       })
@@ -73,9 +75,7 @@ const productSlice = createSlice({
       .addCase(fetchProductsByUserId.rejected, state => {
         state.loading = false;
         state.error = 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchNewProducts.pending, state => {
         state.loading = true;
       })
@@ -84,7 +84,6 @@ const productSlice = createSlice({
         (state, action: PayloadAction<{data: Product}>) => {
           const {data} = action.payload;
           const newProduct: Product = {
-            ...defaultProduct,
             ...data,
           };
           state.products = [...state.products, newProduct];
@@ -95,9 +94,7 @@ const productSlice = createSlice({
       .addCase(fetchNewProducts.rejected, state => {
         state.loading = false;
         state.error = 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchUpdateProduct.pending, state => {
         state.uploadProduct.loading = true;
       })
@@ -129,9 +126,7 @@ const productSlice = createSlice({
       .addCase(fetchUpdateProduct.rejected, state => {
         state.uploadProduct.loading = false;
         state.uploadProduct.error = 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchDeleteProduct.pending, state => {
         state.uploadProduct.loading = true;
       })

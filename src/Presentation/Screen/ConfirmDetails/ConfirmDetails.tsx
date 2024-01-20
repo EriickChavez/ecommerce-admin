@@ -9,7 +9,9 @@ import {SCREEN_NAME} from '../../../Enum/Screens';
 import {ITEMS} from '../../../Enum';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchNewProducts} from '../../../Infrastructure/Store/Actions/ProductAction';
-import {productSelector} from '../../../Infrastructure/Store/Slice/ProductSlice';
+import ProductSlice, {
+  productSelector,
+} from '../../../Infrastructure/Store/Slice/ProductSlice';
 import ExpandableText from '../../Components/ExpandibleText/ExpandibleText';
 import Chips from '../../Components/Chips/Chips';
 import ImageView from '../../Components/ImageView/ImageView';
@@ -19,11 +21,13 @@ import SceneView from '../../Components/SceneView/SceneView';
 import LocalizationService from '../../../Utils/LocalizationService';
 import {useTheme} from '@react-navigation/native';
 import {ThemeEntry} from '../../../@Types/theme';
+import {workshopSelector} from '../../../Infrastructure/Store/Slice/WorkshopSlice';
 const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
   navigation,
 }) => {
   const theme = useTheme() as ThemeEntry;
   const userState = useSelector(userSelector);
+  const workshopState = useSelector(workshopSelector);
   const productStore = useSelector(productSelector);
   const product: Product = useMemo(
     () => productStore.tmpProduct,
@@ -35,11 +39,15 @@ const ConfirmDetails: React.FC<ConfirmDetailsNavigationProps> = ({
       dispatch(
         // @ts-ignore
         fetchNewProducts({
-          newProduct: productStore.tmpProduct,
+          newProduct: {
+            ...productStore.tmpProduct,
+            workshopId: workshopState.workshop.id,
+          },
           type: 'cover',
           token: userState.user.token,
         }),
       );
+      dispatch(ProductSlice.actions.resetTmpProduct());
       navigation.navigate(SCREEN_NAME.CONFIRMATION_SCREEN, {
         item: ITEMS.PRODUCT,
       });

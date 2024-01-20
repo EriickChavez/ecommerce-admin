@@ -47,9 +47,7 @@ const userSlice = createSlice({
       .addCase(fetchSignup.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchLogin.pending, state => {
         state.loading = true;
         state.error = null;
@@ -64,9 +62,7 @@ const userSlice = createSlice({
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'An error occurred';
-      });
-
-    builder
+      })
       .addCase(fetchEditUser.pending, state => {
         state.loading = true;
         state.error = null;
